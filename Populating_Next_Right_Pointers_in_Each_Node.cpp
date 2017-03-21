@@ -1,7 +1,9 @@
-/*116. Populating Next Right Pointers in Each Node  QuestionEditorial Solution  My Submissions
-Total Accepted: 98896
-Total Submissions: 269537
+/*116. Populating Next Right Pointers in Each Node Add to List
+Description  Submission  Solutions
+Total Accepted: 121101
+Total Submissions: 328195
 Difficulty: Medium
+Contributors: Admin
 Given a binary tree
 
     struct TreeLinkNode {
@@ -30,7 +32,10 @@ After calling your function, the tree should look like:
       2 -> 3 -> NULL
      / \  / \
     4->5->6->7 -> NULL
-Subscribe to see which companies asked this question*/
+Hide Company Tags Microsoft
+Hide Tags Tree Depth-first Search
+Hide Similar Problems (M) Populating Next Right Pointers in Each Node II (M) Binary Tree Right Side View
+*/
 
 
 
@@ -70,7 +75,14 @@ public:
 
 
 
-
+/*
+DFS (0 ms/ 14 test)
+search the pre.left
+while it exist, find pre.next pointer
+from left to right, get the cur->next
+if cur->next exist, cur->right->next = cur->next->left
+if not exist, jump out the while(cur->next) loop
+then search the next layer of the tree*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java

@@ -42,12 +42,12 @@ public:
         if(root == NULL){
             return vector<vector<int> >();
         }
-        
+
         vector<vector<int> > ret;
         queue<TreeNode*> q;
         q.push(root);
         bool leftToRight = true;
-        
+
         while(!q.empty()){
            int size = q.size();
         //   cout << size;
@@ -55,10 +55,10 @@ public:
            for(int i = 0; i < size; i++){
                TreeNode* node = q.front();
                q.pop();
-               
+
                //find the position to fill node's value
                int index = (leftToRight) ? i : (size-1-i);
-               
+
                row[index] = node->val;
                if(node->left){
                    q.push(node->left);
@@ -77,8 +77,13 @@ public:
 
 
 
-/*recursively using function to get the root value
-through level%2 to decide the order of node*/
+/*
+BFS
+recursively using function to get the root value
+through level%2 to decide the order of node
+if level%2 == 0, add(root.val)
+else add(0, root.val) to push back the node
+first traversal root.left, then root.right*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
@@ -97,22 +102,22 @@ public class Solution {
         travel(ret, root, 0);
         return ret;
     }
-    
+
     public void travel(List<List<Integer> > ret, TreeNode root, int level){
         if(root == null){
             return;
         }
-        
+
         if(ret.size() <= level){
             ret.add(new LinkedList<>());
         }
-        
+
         if(level % 2 == 0){
             ret.get(level).add(root.val);
         } else {
             ret.get(level).add(0, root.val); //through add 0, push this node back
         }
-        
+
         travel(ret, root.left, level+1);
         travel(ret, root.right, level+1);
     }

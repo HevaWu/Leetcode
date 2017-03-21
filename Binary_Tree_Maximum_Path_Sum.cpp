@@ -1,10 +1,12 @@
-/*124. Binary Tree Maximum Path Sum  QuestionEditorial Solution  My Submissions
-Total Accepted: 72211
-Total Submissions: 299805
+/*124. Binary Tree Maximum Path Sum Add to List
+Description  Submission  Solutions
+Total Accepted: 88554
+Total Submissions: 349937
 Difficulty: Hard
+Contributors: Admin
 Given a binary tree, find the maximum path sum.
 
-For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path does not need to go through the root.
+For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.
 
 For example:
 Given the below binary tree,
@@ -14,11 +16,15 @@ Given the below binary tree,
      2   3
 Return 6.
 
-Subscribe to see which companies asked this question*/
+Hide Company Tags Microsoft Baidu
+Hide Tags Tree Depth-first Search
+Hide Similar Problems (E) Path Sum (M) Sum Root to Leaf Numbers
+*/
 
 
 
-/*A recursive method maxPath(TreeNode node) (1) computes the maximum path sum with highest node is the input node, update maximum if necessary (2) returns the maximum sum of the path that can be extended to input node's parent.*/
+/*A recursive method maxPath(TreeNode node)
+(1) computes the maximum path sum with highest node is the input node, update maximum if necessary (2) returns the maximum sum of the path that can be extended to input node's parent.*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //C++
@@ -40,7 +46,7 @@ public:
         maxPath(root);
         return maxValue;
     }
-    
+
     int maxPath(TreeNode* root){
         if(!root) return 0;
         int left = max(0, maxPath(root->left));
@@ -53,6 +59,8 @@ public:
 
 
 
+/*A recursive method maxPath(TreeNode node)
+(1) computes the maximum path sum with highest node is the input node, update maximum if necessary (2) returns the maximum sum of the path that can be extended to input node's parent.*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
@@ -67,13 +75,13 @@ public:
  */
 public class Solution {
     private int maxValue;
-    
+
     public int maxPathSum(TreeNode root) {
         maxValue = Integer.MIN_VALUE;
         maxPath(root);
         return maxValue;
     }
-    
+
     public int maxPath(TreeNode root){
         if(root == null) return 0;
         int left = Math.max(0, maxPath(root.left));

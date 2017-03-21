@@ -1,8 +1,13 @@
-/*
+/*107. Binary Tree Level Order Traversal II Add to List
+Description  Submission  Solutions
+Total Accepted: 116599
+Total Submissions: 303160
+Difficulty: Easy
+Contributors: Admin
 Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
 
 For example:
-Given binary tree {3,9,20,#,#,15,7},
+Given binary tree [3,9,20,null,null,15,7],
     3
    / \
   9  20
@@ -14,8 +19,12 @@ return its bottom-up level order traversal as:
   [9,20],
   [3]
 ]
-confused what "{1,#,2,3}" means? > read more on how binary tree is serialized on OJ.
+Hide Tags Tree Breadth-first Search
+Hide Similar Problems (M) Binary Tree Level Order Traversal
 */
+
+
+
 
 /*BFS*/
 /*Method 1*/
@@ -46,7 +55,7 @@ public:
         reverse(levelTraversal.begin(), levelTraversal.end());
         return levelTraversal;
     }
-    
+
     void OrderTraversal(TreeNode* root, int level)
     {
         if(!root) return;
@@ -60,6 +69,14 @@ public:
 
 
 
+/*BFS*/
+/*Method 1*/
+/*recursively push the node,  pre-order traversal the tree
+first push the root, then pusht the left child, then the right child
+finally reverse the vector, and return it*/
+/*Method 2
+first push the left child, and right child
+then push the root, remember ret.get(ret.size()-level-1).add(root.val)*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
@@ -78,7 +95,7 @@ public class Solution {
         OrderTraversal(ret, root, 0);
         return ret;
     }
-    
+
     public void OrderTraversal(List<List<Integer>> ret, TreeNode root, int level){
         if(root == null){
             return;
@@ -86,10 +103,10 @@ public class Solution {
         if(ret.size() == level){
             ret.add(0, new LinkedList<Integer>());
         }
-        
+
         if(root.left != null) OrderTraversal(ret, root.left, level+1);
         if(root.right != null) OrderTraversal(ret, root.right, level+1);
-        
+
         ret.get(ret.size()-level-1).add(root.val);
     }
 }

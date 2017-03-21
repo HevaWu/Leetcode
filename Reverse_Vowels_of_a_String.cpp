@@ -36,33 +36,35 @@ public:
             start++;
             end--;
         }
-        
+
         return s;
     }
 };
 
 
 
+/*use two pointers, one point start, one point end
+once find vowels at start and end, swap them*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
 public class Solution {
     public String reverseVowels(String s) {
-        if(s==null || s.length()==0) return s;
-        String vowels = "aeiouAEIOU";
+        if(s==null || s.length() == 0) return s;
+        String vowel = "aeiouAEIOU";
         int start = 0;
         int end = s.length()-1;
         char[] c = s.toCharArray();
-        while(start<end){
-            //+"" to convert char to String(charSequence
-            while(start<end && !vowels.contains(c[start]+"")) start++;
-            while(start<end && !vowels.contains(c[end]+"")) end--;
+        while(start < end){
+            // +""  to transfer char to String
+            while(start < end && !vowel.contains(c[start]+"")) start++;
+            while(start < end && !vowel.contains(c[end]+"")) end--;
             char temp = c[start];
-            c[start] = c[end];
-            c[end] = temp;
-            start++;
-            end--;
+            c[start++] = c[end];
+            c[end--] = temp;
         }
+        //use new String(c) to convert char[] to String
+        //String.valueOf(c)
         return new String(c);
     }
 }

@@ -1,15 +1,34 @@
-/*146. LRU Cache  QuestionEditorial Solution  My Submissions
-Total Accepted: 83156
-Total Submissions: 524972
+/*146. LRU Cache Add to List
+Description  Submission  Solutions
+Total Accepted: 113887
+Total Submissions: 689747
 Difficulty: Hard
-Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and set.
+Contributors: Admin
+Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.
 
 get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
-set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
+put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
 
-Subscribe to see which companies asked this question
+Follow up:
+Could you do both operations in O(1) time complexity?
+
+Example:
+
+LRUCache cache = new LRUCache( 2 -- capacity  );
+
+cache.put(1, 1);
+cache.put(2, 2);
+cache.get(1);       // returns 1
+cache.put(3, 3);    // evicts key 2
+cache.get(2);       // returns -1 (not found)
+cache.put(4, 4);    // evicts key 1
+cache.get(1);       // returns -1 (not found)
+cache.get(3);       // returns 3
+cache.get(4);       // returns 4
 Hide Company Tags Google Uber Facebook Twitter Zenefits Amazon Microsoft Snapchat Yahoo Bloomberg Palantir
 Hide Tags Design
+Hide Similar Problems (H) LFU Cache
+
 */
 
 
@@ -77,12 +96,14 @@ public:
 
 
 /*
+LinkedNode --- key, value, pre, post
+
 cache  ---  HashMap<Integer, LinkedNode>
 head --- LinkedNode, the head node of this linkedlist
 tail --- linkedNode, the tail node of this linkedlist
-LinkedNode --- key, value, pre, post
 count --- count the current of node in the linkedlist and cache, for prevent larger than capacity
 capacity --- start from initialize the cache
+
 LRUCache(capacity) --- initialize this cache
     count, capacity, head, tail
 moveToHead --- move certain node to head,
@@ -94,7 +115,7 @@ popTail() --- pop the current tail node in the linkedlist
     removeNode(tail.pre)
 
 get(key) --- cache.get(key), then move this node to the head, return node
-set(key, value) --- cache.get(key),
+put(key, value) --- cache.get(key),
     if the node is null,
         create a newNode for this key,
         and push it in cache,
@@ -110,17 +131,18 @@ set(key, value) --- cache.get(key),
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
 public class LRUCache {
-    public class LinkedNode {
+    public class LinkedNode{
         int key;
         int value;
         LinkedNode pre;
         LinkedNode post;
     }
 
-    private HashMap<Integer, LinkedNode> cache = new HashMap<Integer, LinkedNode>();
     private int count;
     private int capacity;
-    private LinkedNode head, tail;
+    private Map<Integer, LinkedNode> cache = new HashMap<>();
+    private LinkedNode head;
+    private LinkedNode tail;
 
     public LRUCache(int capacity) {
         this.count = 0;
@@ -136,70 +158,77 @@ public class LRUCache {
         tail.pre = head;
     }
 
-    private void moveToHead(LinkedNode node) { //move certain node in between to the head
+    public int get(int key) {
+        //get the value of current key
+        LinkedNode node = this.cache.get(key);
+        if(node==null) return -1;
+
+        //remember move this node to the head, since it been visited
+        this.moveToHead(node);
+        return node.value;
+    }
+
+    public void moveToHead(LinkedNode node){
+        //move one node to the head of the list
         this.removeNode(node);
         this.addNode(node);
     }
 
-    private void removeNode(LinkedNode node) { //remove an existing node from the linkedlist
-        LinkedNode pre = node.pre;
-        LinkedNode post = node. post;
-
-        pre.post = post;
-        post.pre = pre;
+    public void removeNode(LinkedNode node){
+        //remove one node in the list
+        node.pre.post = node.post;
+        node.post.pre = node.pre;
     }
 
-    private void addNode(LinkedNode node) { //always add the new node right after head
-        node.pre = head;
+    public void addNode(LinkedNode node){
+        //add a node in the list
         node.post = head.post;
-
+        node.pre = head;
         head.post.pre = node;
         head.post = node;
     }
 
-
-
-
-    private LinkedNode popTail() { //pop the current tail
-        LinkedNode ret = tail.pre;
-        this.removeNode(ret);
-        return ret;
-    }
-
-
-
-    public int get(int key) {
+    public void put(int key, int value) {
+        //if this key in the map update it value
+        //if not, create a new node for this key value
         LinkedNode node = this.cache.get(key);
-        if (node == null) {
-            return -1; //should raise exception here
-        }
-
-        this.moveToHead(node); //,pve the accessed node to the head
-
-        return node.value;
-    }
-
-    public void set(int key, int value) {
-        LinkedNode node = this.cache.get(key);
-
-        if (node == null) {
+        if(node==null){
+            //this node is not the map and list
+            //create a new node
             LinkedNode newNode = new LinkedNode();
             newNode.key = key;
             newNode.value = value;
 
+            //insert newNode to current cache
             this.cache.put(key, newNode);
             this.addNode(newNode);
 
+            //check current count
             ++count;
-
-            if (count > capacity) {
-                LinkedNode curtail = this.popTail(); //pop the tail
-                this.cache.remove(curtail.key); //remove curtail.key
+            if(count > capacity){
+                //if out of the capacity
+                //invalid the tail element in the list
+                LinkedNode curtail = this.popTail();
+                this.cache.remove(curtail.key);
                 --count;
             }
         } else {
-            node.value = value; //update the value
+            node.value = value;
             this.moveToHead(node);
         }
     }
+
+    public void popTail(){
+        //pop current tail element in the list
+        LinkedList curtail = tail.pre;
+        this.removeNode(curtail);
+        return curtail;
+    }
 }
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */

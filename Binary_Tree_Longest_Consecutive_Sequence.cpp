@@ -16,9 +16,9 @@ Longest consecutive sequence path is 3-4-5, so return 3.
    2
     \
      3
-    / 
-   2    
-  / 
+    /
+   2
+  /
  1
 Longest consecutive sequence path is 2-3,not3-2-1, so return 2.
 Hide Company Tags Google
@@ -49,17 +49,21 @@ public:
     int longestConsecutive(TreeNode* root) {
         return nodeLength(root, nullptr, 0);
     }
-    
+
     int nodeLength(TreeNode* root, TreeNode* parent, int len){
         if(!root) return len;
         len = (parent && root->val==parent->val+1) ? len+1 : 1;
-        return max(len, 
+        return max(len,
             max(nodeLength(root->left,root,len),nodeLength(root->right,root,len)));
     }
 };
 
 
 
+/*DFS
+for each node, check if it current val is its parent val+1,
+if it is, len should be len+1, else len should be 1
+then, check the len of its left node and right node*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
@@ -76,10 +80,10 @@ public class Solution {
     public int longestConsecutive(TreeNode root) {
         return nodeLength(root, null, 0);
     }
-    
+
     public int nodeLength(TreeNode root, TreeNode parent, int len){
         if(root==null) return len;
-        len = (parent!=null && root.val==parent.val+1) ? len+1 : 1;
+        len = (parent!=null && root.val==parent.val+1) ? len+1 : 1; //remember set 1
         return Math.max(len,
             Math.max(nodeLength(root.left,root,len),nodeLength(root.right,root,len) ));
     }

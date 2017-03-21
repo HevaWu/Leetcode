@@ -1,7 +1,9 @@
-/*144. Binary Tree Preorder Traversal  QuestionEditorial Solution  My Submissions
-Total Accepted: 137858
-Total Submissions: 332406
+/*144. Binary Tree Preorder Traversal Add to List
+Description  Submission  Solutions
+Total Accepted: 166222
+Total Submissions: 381001
 Difficulty: Medium
+Contributors: Admin
 Given a binary tree, return the preorder traversal of its nodes' values.
 
 For example:
@@ -15,12 +17,14 @@ return [1,2,3].
 
 Note: Recursive solution is trivial, could you do it iteratively?
 
-Subscribe to see which companies asked this question*/
+Hide Tags Tree Stack
+Hide Similar Problems (M) Binary Tree Inorder Traversal (M) Verify Preorder Sequence in Binary Search Tree
+*/
 
 
 
 /*Similar to the postorder traversal
-Use Stack to store the node 
+Use Stack to store the node
 first, we push the root
 then the right, left
 and pop them one by one*/
@@ -57,6 +61,11 @@ public:
 
 
 
+/*Similar to the postorder traversal
+Use Stack to store the node
+first, we push the root
+then the right, left
+and pop them one by one*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
@@ -78,7 +87,7 @@ public class Solution {
         while(!nodeS.isEmpty()){
             TreeNode temp = nodeS.pop();
             ret.add(temp.val);
-            if(temp.right!=null) nodeS.push(temp.right);
+            if(temp.right!=null) nodeS.push(temp.right); //first push right, then push left
             if(temp.left!=null) nodeS.push(temp.left);
         }
         return ret;

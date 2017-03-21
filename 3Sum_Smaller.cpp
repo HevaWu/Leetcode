@@ -57,26 +57,37 @@ public:
 
 
 
+/*O(n^2) time
+1. sort the array
+2. i start from 0 to len-2
+    j start from i+1
+    k start from len-1
+    while(j<k){
+        add i j k, if < target, count += k-j, j++
+        else k--
+    }
+*/
+
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
 public class Solution {
     public int threeSumSmaller(int[] nums, int target) {
-        if(nums.length < 3) return 0;
+        if(nums==null || nums.length==0) return 0;
+        int count = 0;
         Arrays.sort(nums);
-        int ret = 0;
-        int n = nums.length;
-        for(int i = 0; i < n-2; ++i){
-            int j = i + 1;
-            int k = n - 1;
-            while(j < k){
-                if(nums[i]+nums[j]+nums[k] < target){
-                    ret += k - j;
-                    j++;
+        for(int i = 0; i < nums.length-2; ++i){
+            int low = i + 1;
+            int high = nums.length-1;
+            while(low < high){
+                int sum = nums[i] + nums[low] + nums[high];
+                if(sum < target){
+                    count += high-low;
+                    low++;
                 } else {
-                    k--;
+                    high--;
                 }
             }
         }
-        return ret;
+        return count;
     }
 }

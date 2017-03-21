@@ -21,7 +21,7 @@ Hide Similar Problems (M) 3Sum (M) 4Sum (M) Two Sum II - Input array is sorted (
 
 /*
 use hashmap to store the value in array, and their correspond index
-for search, check if target-curvalue is exist in map, 
+for search, check if target-curvalue is exist in map,
 if it is, return their index*/
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ public:
             //if numberToFind is found in map, return them
 		if (hash.find(numberToFind) != hash.end()) {
 			result.push_back(hash[numberToFind] );
-			result.push_back(i);			
+			result.push_back(i);
 			return result;
 		}
 
@@ -52,6 +52,13 @@ public:
 
 
 
+/*
+use HashMap to store the nums
+key is the nums[i], value is the index i
+since each input would have exactly one solution,
+at first,we check if target-nums[i] is in the map, if not, put this nums into map
+for this, we could avoid the same input position value been count
+ */
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
 public class Solution {

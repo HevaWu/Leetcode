@@ -38,20 +38,20 @@ public:
         int down = 0;
         int left = matrix[0].size()-1;
         int up = matrix.size()-1;
-        
+
         while(down<=up && right<=left){
             //traverse right;
             for(int i = right; i <= left; ++i){
                 ret.push_back(matrix[down][i]);
             }
             down++;
-            
+
             //traverse down
             for(int i = down; i <= up; ++i){
                 ret.push_back(matrix[i][left]);
             }
             left--;
-            
+
             if(down<=up){
                 //traverse left
                 for(int i = left; i >= right; --i){
@@ -59,7 +59,7 @@ public:
                 }
             }
             up--;
-            
+
             if(right<=left){
                 //traverse up
                 for(int i = up; i >= down; --i){
@@ -75,6 +75,15 @@ public:
 
 
 
+/*
+(3 ms/ 22 test)
+traverse right and increment right
+then traverse down and decrement down
+then traverse left and decrement left
+then traverse up and increment up
+
+when traverse left or up, need to check whether the row or col still exists to prevent duplicates*/
+
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
 public class Solution {
@@ -85,20 +94,20 @@ public class Solution {
         int down = 0;
         int left = matrix[0].length-1;
         int up = matrix.length-1;
-        
+
         while(right<=left && down<=up){
             //traverse right
             for(int i = right; i <= left; ++i){
                 ret.add(matrix[down][i]);
             }
             down++;
-            
+
             //traverse down
             for(int i = down; i <= up; ++i){
                 ret.add(matrix[i][left]);
             }
             left--;
-            
+
             //traverse left
             if(down<=up){//check down and up
                 for(int i = left; i >= right; --i){
@@ -106,7 +115,7 @@ public class Solution {
                 }
             }
             up--;
-            
+
             //traverse up
             if(right<=left){//check right and left
                 for(int i = up; i >= down; --i){

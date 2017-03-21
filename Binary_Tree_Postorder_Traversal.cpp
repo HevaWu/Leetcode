@@ -1,7 +1,9 @@
-/*145. Binary Tree Postorder Traversal  QuestionEditorial Solution  My Submissions
-Total Accepted: 109426
-Total Submissions: 296779
+/*145. Binary Tree Postorder Traversal Add to List
+Description  Submission  Solutions
+Total Accepted: 131188
+Total Submissions: 337057
 Difficulty: Hard
+Contributors: Admin
 Given a binary tree, return the postorder traversal of its nodes' values.
 
 For example:
@@ -15,7 +17,9 @@ return [3,2,1].
 
 Note: Recursive solution is trivial, could you do it iteratively?
 
-Subscribe to see which companies asked this question*/
+Hide Tags Tree Stack
+Hide Similar Problems (M) Binary Tree Inorder Traversal
+*/
 
 
 
@@ -42,7 +46,7 @@ public:
     vector<int> postorderTraversal(TreeNode* root) {
         stack<TreeNode*> nodeS;
         vector<int> ret;
-        
+
         if(!root) return ret;
         nodeS.push(root);
         while(!nodeS.empty()){
@@ -60,6 +64,12 @@ public:
 
 
 
+/*Use Stack to store the node
+push the node according to the order root-right-left, then reverse it
+postorder: left-right-root
+first, we push the root node
+then, push the left node, then the right node
+at the last, reverse the output*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java

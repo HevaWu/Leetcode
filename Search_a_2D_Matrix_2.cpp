@@ -30,7 +30,7 @@ Hide Similar Problems (M) Search a 2D Matrix
  rule out one row or one column each time
 start from the top right corner,
 if the target is greater than the value in current position, it cannot be in this row, row++
-if the target is less than the value in current position, 
+if the target is less than the value in current position,
 	the target cannot in the entire column, col--*/
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -39,9 +39,9 @@ class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         if(matrix.size()==0 || matrix[0].size()==0) return false;
-        
+
         int row = 0;
-        int col = matrix[0].size()-1; 
+        int col = matrix[0].size()-1;
         while(col>=0 && row<matrix.size()){
             if(target==matrix[row][col]){
                 return true;
@@ -57,13 +57,19 @@ public:
 
 
 
+/*O(m+n) time
+ rule out one row or one column each time
+start from the top right corner,
+if the target is greater than the value in current position, it cannot be in this row, row++
+if the target is less than the value in current position,
+    the target cannot in the entire column, col--*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         if(matrix==null || matrix.length==0 || matrix[0].length<1) return false;
-        
+
         //start from the top right of the matrix
         int row = 0;
         int col = matrix[0].length-1;

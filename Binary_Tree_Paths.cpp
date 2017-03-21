@@ -1,4 +1,9 @@
-/*
+/*257. Binary Tree Paths Add to List
+Description  Submission  Solutions
+Total Accepted: 95444
+Total Submissions: 264509
+Difficulty: Easy
+Contributors: Admin
 Given a binary tree, return all root-to-leaf paths.
 
 For example, given the following binary tree:
@@ -11,6 +16,12 @@ For example, given the following binary tree:
 All root-to-leaf paths are:
 
 ["1->2->5", "1->3"]
+Credits:
+Special thanks to @jianchao.li.fighter for adding this problem and creating all test cases.
+
+Hide Company Tags Google Apple Facebook
+Hide Tags Tree Depth-first Search
+Hide Similar Problems (M) Path Sum II
 */
 
 
@@ -34,11 +45,11 @@ public:
     vector<string> binaryTreePaths(TreeNode* root) {
         vector<string> rootToLeaf;
         if(!root) return rootToLeaf;
-        
+
         RootToLeafPaths(root, rootToLeaf, to_string(root->val));   //using to_string to transfer integer
         return rootToLeaf;
     }
-    
+
     void RootToLeafPaths(TreeNode *root, vector<string>& rootToLeaf, string path1)  //do not forget "&"
     {
         if(!root->left && !root->right)
@@ -46,7 +57,7 @@ public:
             rootToLeaf.push_back(path1);  //using push_back
             return;
         }
-        
+
         if(root->left) RootToLeafPaths(root->left, rootToLeaf, path1+"->"+to_string(root->left->val));
         if(root->right) RootToLeafPaths(root->right, rootToLeaf, path1+"->"+to_string(root->right->val));
     }
@@ -57,6 +68,11 @@ public:
 
 
 
+/*
+recursive
+DFS --- stack
+BFS --- queue
+*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 //Java
@@ -75,10 +91,10 @@ public class Solution {
         if(root != null){
             rootToString(ret, root, "");
         }
-        
+
         return ret;
     }
-    
+
     public void rootToString(List<String> ret, TreeNode root, String path){
         if(root.left == null && root.right == null){
             ret.add(path + root.val);
