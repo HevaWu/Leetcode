@@ -1,5 +1,5 @@
 # Leetcode
 
-Program in Leetcode
+Leetcode Exercises
 
-Each of them might contain the (C++/Java)solution for one problem
+Each of them might contain the (Swift/Java/C++)solution for one problem
