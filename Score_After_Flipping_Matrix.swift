@@ -32,6 +32,10 @@ import UIKit
  1. check each row's 1st number, if it is 0, toggle this row, the toggled binary array number must larger than the original one
  2. check current dictionary's column sum, if col sum is less than row/2, toggle column
  3. calculate current dictionary's decimal number
+
+ m rows
+ n cols
+ O(mn)
  */
 
 class Solution {
@@ -45,7 +49,7 @@ class Solution {
         for index in 0..<A.count {
             if A[index][0] == 0 {
                 // toggled binary number must larger than the original one
-                toggledA = toggle(A, isToggleRow: true, index: index)
+                toggledA = toggle(toggledA, isToggleRow: true, index: index)
             }
             colSum = sumArr(colSum, toggledA[index])
         }
@@ -96,7 +100,7 @@ class Solution {
     func numInArr(_ arr: [Int]) -> Int {
         var result: Int = 0
         for index in 0..<arr.count {
-            result = result + arr[index] * Int(truncating: NSDecimalNumber(decimal: pow(2, arr.count - index - 1)))
+            result = result + arr[index] * Int(pow(2, Double(arr.count - index - 1)))
         }
         return result
     }
@@ -110,15 +114,3 @@ class Solution {
         return result
     }
 }
-
-let sol = Solution()
-sol.matrixScore([[0,0,1,1],[1,0,1,0],[1,1,0,0]])
-sol.toggle([[1,1,1], [0,0,0]], isToggleRow: false, index: 1)
-
-var arr1 = [0,0,0]
-let arr2 = [1,0,1]
-arr1 = sol.sumArr(arr1, arr2)
-
-sol.numInArr([1, 1, 0])
-sol.numInDic([[0,0,1],[1,1,0]])
-
