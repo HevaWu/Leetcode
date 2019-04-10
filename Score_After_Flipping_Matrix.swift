@@ -25,10 +25,11 @@ import UIKit
  1 <= A.length <= 20
  1 <= A[0].length <= 20
  A[i][j] is 0 or 1.
+ */
 
- ---------------------------------------------------------------------------
-
- Idea:
+/*
+---------------------------------------------------------------------------
+ Idea1:
  1. check each row's 1st number, if it is 0, toggle this row, the toggled binary array number must larger than the original one
  2. check current dictionary's column sum, if col sum is less than row/2, toggle column
  3. calculate current dictionary's decimal number
@@ -36,9 +37,8 @@ import UIKit
  m rows
  n cols
  O(mn)
- */
-
-class Solution {
+*/
+class Solution1 {
     func matrixScore(_ A: [[Int]]) -> Int {
         var toggledA = A
 
@@ -110,6 +110,41 @@ class Solution {
         var result: Int = 0
         for index in 0..<dic.count {
             result += numInArr(dic[index])
+        }
+        return result
+    }
+}
+
+
+/*
+---------------------------------------------------------------------------
+Idea2: greedy
+1.
+2. toggle the column by using XOR operator ^
+ ex: 101 ^ 111 -> 010
+ result += A ^ B means we taggle this column
+
+ O(mn)
+*/
+
+class Solution2 {
+    func matrixScore(_ A: [[Int]]) -> Int {
+        var result: Int = 0
+
+        let rows: Int = A.count
+        let cols: Int = A[0].count
+
+        for col in 0..<cols {
+            var colSum = 0
+            for row in 0..<rows {
+                // col 100 -> 2 -> Max -> 2
+                // first column, will always been 0, then use max, will toggle first column
+                // for the next columns, by XOR to the first column value, it is kind of toggle this row
+                colSum += A[row][col] ^ A[row][0]
+            }
+            // plus current column binary number
+            result += max(colSum, rows - colSum) * (1 << (cols - col - 1))
+            print("\(result)")
         }
         return result
     }
