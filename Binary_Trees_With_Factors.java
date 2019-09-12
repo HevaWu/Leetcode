@@ -25,3 +25,39 @@ Note:
 1 <= A.length <= 1000.
 2 <= A[i] <= 10 ^ 9.
 */
+
+/*
+idea: DP(Dynamic Programming)
+dp[i] = sum(dp[j]*dp[i/j])
+sum(dp[i])
+when i,j,i/j in the list
+
+Sort the array first,
+then check if current node has leaf node,
+if it has, check its (leaf node res) * (another leaf)
+if it not, count 1
+ */
+
+class Solution {
+    public int numFactoredBinaryTrees(int[] A) {
+        if (A.length == 0) { return 0; }
+
+        long res = 0L;
+        long mod = (long)1e9 + 7;
+
+        Arrays.sort(A);
+        HashMap<Integer, Long> dp = new HashMap<>();
+
+        for (int i = 0; i < A.length; ++i) {
+            dp.put(A[i], 1L);
+            for (int j = 0; j < i; ++j) {
+                if (A[i] % A[j] == 0) {
+                    dp.put(A[i], (dp.get(A[i]) + dp.get(A[j]) * dp.getOrDefault(A[i] / A[j], 0L)) % mod);
+                }
+            }
+            res = (res + dp.get(A[i])) % mod;
+        }
+
+        return (int)res;
+    }
+}
