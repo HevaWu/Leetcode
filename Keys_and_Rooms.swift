@@ -81,14 +81,12 @@ class Solution2 {
 
     func visitRoom(_ index: Int, rooms: [[Int]], allRoom: [Int]) -> [Int] {
         var _allRoom = allRoom
-        if _allRoom[index] == 1 {
             for j in rooms[index] {
                 if _allRoom[j] == 0 {
                     _allRoom[j] = 1
                     _allRoom = visitRoom(j, rooms: rooms, allRoom: _allRoom)
                 }
             }
-        }
         return _allRoom
     }
 }

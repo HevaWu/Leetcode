@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.tt": "html",
+        "iosfwd": "cpp",
+        "vector": "cpp"
+    }
+}
