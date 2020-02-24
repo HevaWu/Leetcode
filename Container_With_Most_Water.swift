@@ -36,7 +36,7 @@ class Solution {
         while leftNode < rightNode {
             area = max(area, (rightNode - leftNode) * min(height[leftNode], height[rightNode]))
             
-            // update leftNode & rightNode
+            // update leftNode & rightNode, update the shorter one since the next might larger than it
             if height[leftNode] < height[rightNode] {
                 leftNode += 1
             } else {
