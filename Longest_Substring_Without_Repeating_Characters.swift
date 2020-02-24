@@ -99,22 +99,23 @@ class Solution {
     func lengthOfLongestSubstring(_ s: String) -> Int {
         guard !s.isEmpty else { return 0 }
         guard s.count > 1 else { return 1 }
-
+        
         var s = Array(s)
-        var dic = [Character: Int]()
         var left = 0
         var right = 0
-        var len = 0
-
+        var dic = [Character: Int]()
+        var dis = 0
+        
         while left < s.count, right < s.count {
-            if let finded = dic[s[right]] {
-                left = max(finded, left)
+            if let index = dic[s[right]] {
+                // contains, update left with larger one
+                left = max(left, index)
             }
-            len = max(len, right - left + 1)
-            dic[s[right]] = right + 1
+            // +1 for countind distance
+            dis = max(dis, right-left+1)
+            dic[s[right]] = right+1
             right += 1
         }
-
-        return len
+        return dis
     }
 }
