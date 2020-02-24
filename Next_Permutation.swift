@@ -23,35 +23,31 @@
 // Time complexity : O(n). In worst case, only two scans of the whole array are needed.
 // Space complexity : O(1). No extra space is used. In place replacements are done.
 class Solution {
-    func nextPermutation(_ nums: inout [Int]) {        
-        // check the first ascending element a[first]
-        var i = nums.count - 2
-        var first: Int?
-        while i >= 0 {
-           if nums[i] < nums[i+1] {
-               	first = i
-            	break
-           }
-            i -= 1
+    func nextPermutation(_ nums: inout [Int]) {
+        // find last ascending index
+        var last = nums.count - 2
+        while last >= 0 {
+            if nums[last] < nums[last+1] {
+                break
+            }
+            last -= 1
         }
         
-        // check if this element exist, if not, reverse the array should be okay
-        guard let firstIndex = first else {
-            nums.reverse() 
+        // nums are in descending order, reverse it to ascending one 
+        if last == -1 {
+            nums.reverse()
             return 
         }
         
-        // find next element a[second] close larger than a[first], swap a[first] & a[second]
-        var secondIndex = firstIndex + 1
-        for j in firstIndex+1..<nums.count {
-            if nums[j] > nums[i], j > secondIndex {
-                secondIndex = j
+        // find next close larger than last, swap element & reverse remain
+        var next = last + 1
+        for index in next..<nums.count {
+            if nums[index] > nums[last], index > next {
+                next = index
             }
         }
-        nums.swapAt(firstIndex, secondIndex)
         
-        // reverse array from i+1 to the end
-        nums[(firstIndex+1)...].reverse()
+        nums.swapAt(last, next)
+        nums[(last+1)...].reverse()
     }
 }
-
