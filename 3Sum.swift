@@ -30,6 +30,7 @@ class Solution {
         var nums = nums
         nums.sort()        
         for i in 0..<nums.count {
+            // skip same temp
             if i > 0, nums[i] == nums[i - 1] { continue }
             
             // two sum
@@ -41,7 +42,7 @@ class Solution {
                 case tempSum:
                     sums.append([nums[i], nums[leftNode], nums[rightNode]])
                     
-                    // update leftNode & rightNode
+                    // update leftNode & rightNode, skip same val
                     while leftNode < rightNode, nums[leftNode] == nums[leftNode + 1] {
                         leftNode += 1
                     }
