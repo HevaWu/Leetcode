@@ -35,20 +35,19 @@ class Solution {
         
         var left = 0
         var right = 0
+
+        // key is char, value is the index of string
         var dic = [Character: Int]()
         
         while right < s.count {
-            let char = s[right]
-            if dic.keys.count < 3 {
-                // update char
-                dic[char] = right
-                right += 1
-            }
+            // update dic for right char
+            dic[s[right]] = right
+            right += 1
             
             if dic.keys.count == 3 {
                 // remove the smallest index char
                 let smallestValue = dic.values.min()!
-                dic.removeValue(forKey: s[smallestValue])
+                dic.removeValue(forKey: s[smallestValue]) // dic[s[smallest]] = nil
                 left = smallestValue + 1
             }
             dis = max(dis, right - left)
