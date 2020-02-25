@@ -79,9 +79,11 @@ class Solution {
         
         let n = matrix.count
         for i in 0..<n/2 {
+            // set n/2+n%2 for the odd n, ex: 3*3 matrix, check 0,0 to 1,0
             for j in 0..<(n/2 + n%2) {
                 // rotate 4 rectangle
                 let temp = matrix[i][j]
+                // check the corresponding index 
                 matrix[i][j] = matrix[n-j-1][i]
                 matrix[n-j-1][i] = matrix[n-i-1][n-j-1]
                 matrix[n-i-1][n-j-1] = matrix[j][n-i-1]
