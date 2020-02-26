@@ -77,6 +77,66 @@ class Solution {
 // After the first pairing, \text{k}k lists are merged into k/2k/2 lists with average 2N/k2N/k length, then k/4k/4, k/8k/8 and so on.
 // Repeat this procedure until we get the final sorted linked list.
 // Thus, we'll traverse almost NN nodes per pairing and merging, and repeat this procedure about \log_{2}{k}log2k times.
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.next = nil
+ *     }
+ * }
+ */
+class Solution {
+    func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
+        guard !lists.isEmpty else { return nil }
+        
+        var lists = lists
+        var n = lists.count
+        var interval = 1
+        
+        var head = ListNode(0)
+        while interval < n {
+            for i in stride(from: 0, to: n - interval, by: interval) {
+                lists[i] = merge2List(lists[i], lists[i+interval])
+            }
+            interval *= 2 
+        }
+        return lists[0] 
+    }
+    
+    func merge2List(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
+        guard list1 != nil else { return list2 }
+        guard list2 != nil else { return list1 }
+        
+        var list1 = list1
+        var list2 = list2
+        var node = ListNode(0)
+        var head = node
+        
+        while list1 != nil, list2 != nil {
+            if list1!.val > list2!.val {
+                node.next = list2
+                list2 = list2!.next
+            } else {
+                node.next = list1
+                list1 = list1!.next
+            }
+            node = node.next!
+        }
+        
+        if list1 == nil {
+            node.next = list2
+        }
+        
+        if list2 == nil {
+            node.next = list1
+        }
+        
+        return head.next
+    }
+}
 
 // Solution 3: Brute Force
 // Put all of node in an array first, then sort them
