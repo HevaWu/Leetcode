@@ -56,7 +56,7 @@ class Solution {
                 
             } else if brackets == 0 {
                 // check if this is number
-                if let temp = Int(char), brackets >= 0 {
+                if let temp = Int(char) {
                     count = count * 10 + temp
                 } else {
                     // this is a str
