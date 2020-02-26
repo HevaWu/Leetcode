@@ -56,25 +56,19 @@ class Solution {
         let pivot = sorted[pivotIndex]
         
         // move pivot to the end
-        swap(end, pivotIndex)
+        sorted.swapAt(pivotIndex, end)
         
         var tempIndex = start
         for index in start...end {
             if sorted[index] < pivot {
-                swap(index, tempIndex)
+                sorted.swapAt(tempIndex, index)
                 tempIndex += 1
             }
         }
 
         // put pivot into correct place
-        swap(tempIndex, end)
+        sorted.swapAt(tempIndex, end)
 
         return tempIndex
-    }
-    
-    func swap(_ first: Int, _ second: Int) {
-        let temp = sorted[first]
-        sorted[first] = sorted[second]
-        sorted[second] = temp
     }
 }
