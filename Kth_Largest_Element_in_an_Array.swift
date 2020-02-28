@@ -29,6 +29,9 @@ class Solution {
 
 // Solution 3: QuickSort
 // By setting a pivot, all of the elements in the left side are smaller than pivot, and in the right side if larger than pivot.
+// 
+// Time complexity : \mathcal{O}(N)O(N) in the average case, \mathcal{O}(N^2)in the worst case.
+// Space complexity : \mathcal{O}(1)O(1).
 class Solution {
     var sorted = [Int]()
     

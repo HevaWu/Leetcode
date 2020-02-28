@@ -71,6 +71,8 @@ class Solution {
 // Solution 2
 // Quick Sort
 // 
+// Time Complexity: O(N)O(N) in average case complexity, where NN is the length of points.
+// Space Complexity: O(N)O(N).
 class Solution {
     // memo the sorted array
     var sorted = [[Int]]()
