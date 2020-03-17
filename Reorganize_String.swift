@@ -52,7 +52,6 @@ class Solution {
                 return String() 
             }
             for i in 0..<count {
-                print(indexArr)
                 if indexArr >= n { indexArr = 1 }
                 charArr[indexArr] = char
                 indexArr += 2
