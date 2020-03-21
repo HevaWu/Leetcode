@@ -55,7 +55,7 @@ class Solution {
         var left = minimum
         var right = sum
         while left < right {
-            var mid = (left+right+1)/2
+            var mid = (left+right)/2
             
             var cuts = 0
             var curr = 0
@@ -72,13 +72,13 @@ class Solution {
             
             if cuts > K {
                 // set left to mid to make mid larger
-                left = mid
+                left = mid+1
             } else {
                 // move right to make mid smaller
-                right = mid-1
+                right = mid
             }
         }
         
-        return left
+        return left-1
     }
 }

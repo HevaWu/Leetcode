@@ -75,6 +75,8 @@ class Solution {
                 debt[i] = debt[i]+debt[start]
                 transfer = min(transfer, 1+check(start+1))
                 debt[i] = debt[i]-debt[start]
+
+                if debt[start] + debt[i] == 0 { break }
             }
         }
         return transfer == Int.max ? 0 : transfer

@@ -123,17 +123,19 @@ class Solution {
             if countMap[num]! == 0 {
                 continue
             } else if tailMap[num, default: 0] > 0 {
+                // can append to a chain
+                countMap[num]! -= 1
                 tailMap[num]! -= 1
                 tailMap[num+1, default: 0] += 1
             } else if countMap[num+1, default: 0] > 0, countMap[num+2, default: 0] > 0 {
+                // append to the new chain
+                countMap[num]! -= 1
                 countMap[num+1]! -= 1
                 countMap[num+2]! -= 1
                 tailMap[num+3, default: 0] += 1
             } else {
                 return false
             }
-            
-            countMap[num]! -= 1
         }
         return true
     }

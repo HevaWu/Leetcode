@@ -64,13 +64,15 @@ class Solution {
     }
     
     func backtrack(_ num: Int, _ rotateNum: Int, _ digit: Int, _ count: inout Int) {
-        if num <= N, num != rotateNum {
+        // <= N
+        if num <= N, num != rotateNum { 
             count += 1
         }
         for i in key {
             if num*10 + i > N {
                 return
             } else {
+                // map[i] * digit + rotateNum
                 backtrack(num*10+i, map[i]!*digit+rotateNum, digit*10, &count)
             }
         }

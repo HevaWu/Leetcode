@@ -58,6 +58,8 @@ class Solution {
         }
         node!.left = deleteNode(node!.left, shouldDelete, to_delete, &list)
         node!.right = deleteNode(node!.right, shouldDelete, to_delete, &list)
+
+        // return nil to delete this node
         return shouldDelete ? nil : node
     }
 }
