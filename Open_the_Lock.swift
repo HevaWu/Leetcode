@@ -93,9 +93,9 @@ class Solution {
 // Time complexity : O ()
 class Solution {
     func openLock(_ deadends: [String], _ target: String) -> Int {
+        var deadends = Set(deadends)
         guard !deadends.contains("0000") else { return -1 }
         
-        var deadends = Set(deadends)
         var begin = Set(["0000"])
         var end = Set([target])
         var temp = Set<String>()
@@ -118,10 +118,12 @@ class Solution {
                 
                 for i in s.indices {
                     for j in [-1, 1] {
+                        // + 10 to avoid -1 value
                         var num = (s[i].wholeNumberValue! + j + 10) % 10
                         var next = s
                         next.remove(at: i)
                         next.insert(String(num).first!, at: i)
+                        
                         if !deadends.contains(next) {
                             temp.insert(next)
                         }

@@ -38,15 +38,14 @@ class Solution {
         }
         var key = map.keys.sorted()
         
-        var index = 0
-        for i in key {
-            if map[i]! > 0 {
-                for j in stride(from: W-1, through: 1, by: -1) {
-                    map[i+j, default: 0] -= map[i]!
-                    if map[i+j]! < 0 {
-                        return false
-                    }
+        for key in keys where map[key]! > 0{
+            var j = key+W-1
+            while j >= key {
+                map[j, default: 0] -= map[key]!
+                if map[j]! < 0 {
+                    return false
                 }
+                j -= 1
             }
         }
         return true

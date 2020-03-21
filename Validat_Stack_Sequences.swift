@@ -46,6 +46,6 @@ class Solution {
                 pushIndex += 1
             }
         }
-        return popIndex == popped.count ? true : false
+        return true
     }
 }
