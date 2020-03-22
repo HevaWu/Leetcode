@@ -35,11 +35,13 @@ class Solution {
     func findNum(_ char: inout [Character], _ left: Int, _ right: Int) {
         if left > right {
             let str = String(char)
+
             if (str.count == low.count && str < low) 
             || (str.count == high.count && str > high) {
                 // out of range
                 return
             } 
+            
             count += 1
             return 
         }

@@ -93,6 +93,7 @@ class Solution {
             var node = -1
             var tempDist = Int.max
             for i in 1...N {
+                // pick smallest dist
                 if !visited[i] && dist[i]! < tempDist {
                     tempDist = dist[i]!
                     node = i
@@ -102,6 +103,7 @@ class Solution {
             if node < 0 { break }
             
             visited[node] = true
+            // update dist list
             if let list = map[node] {
                 for l in list {
                     dist[l.0] = min(dist[l.0]!, dist[node]! + l.1)
@@ -112,7 +114,50 @@ class Solution {
         var time = 0
         for i in dist.values {
             if i == Int.max { return -1 }
+            // pick the max one
             time = max(time, i)
+        }
+        return time
+    }
+}
+
+class Solution {
+    func networkDelayTime(_ times: [[Int]], _ N: Int, _ K: Int) -> Int {
+        var map = [Int: [(target: Int, time: Int)]]()
+        for time in times {
+            map[time[0], default: [(Int, Int)]()].append((time[1], time[2]))
+        }
+        
+        var dist = Array(repeating: Int.max, count: N+1)
+        dist[0] = 0 // will always not have 0 node
+        dist[K] = 0
+        
+        var visited = Array(repeating: false, count: N+1)
+        
+        while true {
+            var node = -1
+            var tempDist = Int.max
+            for i in 0..<dist.count {
+                if !visited[i], dist[i] < tempDist {
+                    tempDist = dist[i]
+                    node = i
+                }
+            }
+            
+            if node == -1 { break }
+            
+            visited[node] = true
+            if let list = map[node] {
+                for pair in list {
+                    dist[pair.target] = min(dist[pair.target], tempDist + pair.time)
+                }
+            }
+        }
+        
+        var time = 0
+        for d in dist {
+            if d == Int.max { return -1 }
+            time = max(time, d)
         }
         return time
     }

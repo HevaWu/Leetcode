@@ -54,3 +54,26 @@ class Solution {
         return len
     }
 }
+
+class Solution {
+    func longestStrChain(_ words: [String]) -> Int {
+        var words = words.sorted(by: { first, second -> Bool in
+            return first.count < second.count
+        })
+        
+        var dp = [String: Int]()
+        var maxLen = 0
+        for word in words {
+            for i in word.indices {
+                var temp = word
+                temp.remove(at: i)
+                if dp[temp] != nil {
+                    dp[word] = max(dp[word, default: 1], dp[temp]! + 1)   
+                }
+            }
+            if dp[word] == nil { dp[word] = 1 }
+            maxLen = max(maxLen, dp[word]!)
+        }
+        return maxLen
+    }
+}

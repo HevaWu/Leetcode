@@ -89,6 +89,7 @@ class Solution {
                 let x1 = points[j][0]
                 let y1 = points[j][1]
                 
+                // diagonal, make sure x0 != x1, y0 != y1
                 if x0 != x1, y0 != y1, 
                 set.contains(x0*40001 + y1), set.contains(x1*40001 + y0) {
                     // x0,y0, x1,y1 & x0,y1 & x1,y0
