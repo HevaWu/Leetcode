@@ -97,6 +97,8 @@ class Solution {
 // We can precompute (for each i and letter), next[i][letter]: the index of the first occurrence of letter in S[i:], or -1 if it is not found.
 // Then, we'll maintain a set of minimum windows for T[:j] as j increases. At the end, we'll take the best minimum window.
 // 
+// Time Complexity: O(ST)O(ST), where S, TS,T are the lengths of S, T, and assuming a fixed-sized alphabet. The precomputation of nxt is O(S)O(S), and the other work happens in two for-loops.
+// Space Complexity: O(S)O(S), the size of windows.
 class Solution {
     func minWindow(_ S: String, _ T: String) -> String {
         guard S.count >= T.count else { return String() }

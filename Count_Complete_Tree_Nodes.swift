@@ -1,4 +1,4 @@
-// Given a complete binary tree, count the number of nodes.
+v// Given a complete binary tree, count the number of nodes.
 
 // Note:
 
@@ -75,6 +75,7 @@ class Solution {
         var count = 1
         var left = root!.left
         var right = root!.left
+        
         while right != nil {
             left = left!.left
             right = right!.right

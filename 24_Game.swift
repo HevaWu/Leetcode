@@ -25,11 +25,13 @@ class Solution {
         for num in nums {
             arr.append(Double(num))
         }
-        return solve(arr)
+        return solve(arr) 
+        // return solve(nums.map{ Double($0) })
     }
     
     func solve(_ arr: [Double]) -> Bool {
         if arr.isEmpty { return false }
+        // 1e-6 for processing floating point issue
         if arr.count == 1 { return abs(arr.first! - 24) < 1e-6 }
         
         for i in 0..<arr.count {
@@ -43,7 +45,9 @@ class Solution {
                     }
                     
                     for k in 0..<4 {
+                        // only run the half for + * would be enough
                         if k < 2 && j > i { continue }
+
                         if k == 0 { temp.append(arr[i] + arr[j]) }
                         if k == 1 { temp.append(arr[i] * arr[j]) }
                         if k == 2 { temp.append(arr[i] - arr[j]) }

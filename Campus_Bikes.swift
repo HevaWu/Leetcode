@@ -62,3 +62,33 @@ class Solution {
         return assigned
     }
 }
+
+class Solution {
+    func assignBikes(_ workers: [[Int]], _ bikes: [[Int]]) -> [Int] {
+        guard !workers.isEmpty else { return [Int]() }
+        
+        var buckets = Array(repeating: [(worker: Int, bike: Int)](), count: 2000)
+        for i in 0..<workers.count {
+            let worker = workers[i]
+            for j in 0..<bikes.count {
+                let bike = bikes[j]
+                let dis = abs(worker[0] - bike[0]) + abs(worker[1] - bike[1])
+                buckets[dis].append((i, j))
+            }
+        }
+        
+        var visited = Array(repeating: false, count: bikes.count)
+        var assigned = Array(repeating: -1, count: workers.count)
+        
+        for list in buckets {
+            if list.isEmpty { continue }
+            for pair in list {
+                if assigned[pair.worker] != -1 || visited[pair.bike] { continue }
+                visited[pair.bike] = true
+                assigned[pair.worker] = pair.bike
+            }
+        }
+        
+        return assigned
+    }
+}

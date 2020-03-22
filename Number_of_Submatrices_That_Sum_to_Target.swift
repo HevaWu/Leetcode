@@ -48,10 +48,13 @@ class Solution {
         var count = 0
         for y1 in 0..<m {
             for y2 in y1..<m {
+                // init map [0: 1] which means y1==y2
                 var map: [Int: Int] = [0: 1]
                 var temp = 0
                 for x in 0..<n {
                     temp += matrix[x][y2] - (y1>0 ? matrix[x][y1-1] : 0)
+                    // add count first, then check map
+                    // use `temp - target`
                     count += map[temp - target, default: 0]
                     map[temp, default: 0] += 1
                 }

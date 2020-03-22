@@ -50,26 +50,28 @@ class Solution {
         
         var counts = Array(repeating: 0, count: nums.count)  
         var root: TreeNode? = nil
+
+        // scan from end of array
         for i in nums.indices.reversed() {
             insert(&root, nums[i], i, &counts, 0)
         }
         return counts
     }
     
-    private func insert(_ node: inout TreeNode?, _ val: Int, _ index: Int, _ counts: inout [Int], _ preSmallCount: Int) -> TreeNode? {
+    private func insert(_ node: inout TreeNode?, _ val: Int, _ index: Int, _ counts: inout [Int], _ preSmallCount: Int) {
         if node == nil {
             node = TreeNode(val: val)
             counts[index] = preSmallCount
         } else if node!.val == val {
             node!.count += 1
+            // Note: add node smaller count 
             counts[index] = preSmallCount + node!.smallCount
         } else if node!.val < val {
-            node!.right = insert(&node!.right, val, index, &counts, preSmallCount+node!.smallCount+node!.count)
+            insert(&node!.right, val, index, &counts, preSmallCount+node!.smallCount+node!.count)
         } else {
             node!.smallCount += 1
-            node!.left = insert(&node!.left, val, index, &counts, preSmallCount)
+            insert(&node!.left, val, index, &counts, preSmallCount)
         }
-        return node
     }
 }
 

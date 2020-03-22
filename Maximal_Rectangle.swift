@@ -35,7 +35,6 @@ class Solution {
         let n = matrix.count
         let m = matrix[0].count
         
-        var maxWidth = 0
         var maxArea = 0
         
         // count the width for the row
@@ -146,37 +145,37 @@ class Solution {
         
         var height = Array(repeating: 0, count: m)
         var left = Array(repeating: 0, count: m)    // init left as the leftmost boundary
-        var right = Array(repeating: m, count: m)   // init right as the rightmost boundary
+        var right = Array(repeating: m, count: m)   // init right as the rightmost boundary -> m
         
         var maxArea = 0
         
         for i in 0..<n {
-            var curLeft = 0
-            var curRight = m
-            
             // update height
             for j in 0..<m {
                 height[j] = matrix[i][j] == "1" ? height[j] + 1 : 0
             }
             
             // update left
+            var curLeft = 0
             for j in 0..<m {
                 if matrix[i][j] == "1" {
                     left[j] = max(left[j], curLeft)
                 } else {
+                    // reset left to 0
                     left[j] = 0
                     curLeft = j+1
                 }
             }
             
             // update right, start from right side
+            var curRight = m
             var j = m-1
             while j >= 0 {
                 if matrix[i][j] == "1" {
                     right[j] = min(right[j], curRight)
                 } else {
-                    right[j] = m
-                    curRight = j
+                    right[j] = m // reset right to m
+                    curRight = j // reset curRight to `j` not j-1
                 }
                 j -= 1
             }

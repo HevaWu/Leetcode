@@ -41,10 +41,12 @@ class Solution {
             var preSwap = Int.max
             
             if A[i-1] < A[i], B[i-1] < B[i] {
+                // swap all 2 index, or not swap in these two
                 preNatural = min(preNatural, natural)
                 preSwap = min(preSwap, swap+1)
             }
             if A[i-1] < B[i], B[i-1] < A[i] {
+                // swap 1 columns
                 preNatural = min(preNatural, swap)
                 preSwap = min(preSwap, natural+1)
             }

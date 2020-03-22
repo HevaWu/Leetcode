@@ -136,3 +136,31 @@ class Solution {
         return abs(from/6 - to/6) + abs(from%6 - to%6)
     }
 }
+
+class Solution {
+    func minimumDistance(_ word: String) -> Int {
+        var dp: [Int: Int] = [0: 0]
+        var maxDis = 0
+        var sumDis = 0
+        
+        var word = Array(word)
+        for i in 0..<word.count-1 {
+            let b = Int(word[i].asciiValue!) + 1
+            let c = Int(word[i+1].asciiValue!) + 1
+            
+            for a in dp.keys {
+                dp[b] = max(dp[b, default: 0], getDis(from: b, to: c) + dp[a]! - getDis(from: a, to: c))
+            }
+            
+            if dp[b]! > maxDis {
+                maxDis = dp[b]!
+            }
+            sumDis += getDis(from: b, to: c)
+        }
+        return sumDis - maxDis
+    }
+    
+    func getDis(from: Int, to: Int) -> Int {
+        return from == 0 ? 0 : abs(from/6 - to/6) + abs(from%6 - to%6)
+    }
+}

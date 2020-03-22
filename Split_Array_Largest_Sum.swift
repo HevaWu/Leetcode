@@ -70,29 +70,28 @@ class Solution {
             }
         }
         
-        var sum = right
-        while left <= right {
-            let mid = (left+right) / 2
+        while left < right {
+            var mid = (left+right)/2
             
             // check if mid return true
             var temp = 0
             var count = 1
             for i in 0..<n {
-                if temp + nums[i] > mid {
+                temp += nums[i]
+                if temp > mid {
                     count += 1
                     temp = nums[i]
-                } else {
-                    temp += nums[i]
+                    
+                    if count > m { break }
                 }
             }
             
             if count <= m {
-                sum = min(sum, mid)
-                right = mid - 1
+                right = mid
             } else {
                 left = mid + 1
             }
         }
-        return sum
+        return left
     }
 }
