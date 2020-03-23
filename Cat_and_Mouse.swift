@@ -70,8 +70,8 @@ class Solution {
         // degree[node]: number of neutral children of this node
         for m in 0..<n {
             for c in 0..<n {
-                degree[m][c][1] = graph[m].count
-                degree[m][c][2] = graph[c].count
+                degree[m][c][1] = graph[m].count // 1 means this step is mouse
+                degree[m][c][2] = graph[c].count // 2 means this step is cat
                 for x in graph[c] where x == 0 {
                     // find a hole
                     degree[m][c][2] -= 1

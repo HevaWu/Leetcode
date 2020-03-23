@@ -90,7 +90,6 @@ class Solution {
 // Space Complexity: O(N)O(N).
 class Solution {
     func removeStones(_ stones: [[Int]]) -> Int {
-        let n = stones.count
         var dsu = DSU(20000)
         
         for stone in stones {
@@ -102,18 +101,20 @@ class Solution {
             set.insert(dsu.find(stone[0]))
         }
         
-        return n-set.count
+        return stones.count - set.count
     }
 }
 
 class DSU {
     var parent: [Int]
     init(_ len: Int) {
+        // start from 0
         parent = Array(0..<len)
     }
     
     func find(_ x: Int) -> Int {
         if x != parent[x] {
+            // Note: find(parent[x]) not find(x)
             parent[x] = find(parent[x])
         }
         return parent[x]
@@ -134,13 +135,13 @@ class Solution {
     func removeStones(_ stones: [[Int]]) -> Int {
         guard !stones.isEmpty else { return 0 }
         
-        let n = stones.count
+        // use Set which later could remove quickly
         var xy = [Int: Set<Int>]()
         var yx = [Int: Set<Int>]()
         
-        for (i, ivalue) in stones.enumerated() {
-            xy[ivalue[0], default: Set<Int>()].insert(ivalue[1])
-            yx[ivalue[1], default: Set<Int>()].insert(ivalue[0])
+        for stone in stones {
+            xy[stone[0], default: Set<Int>()].insert(stone[1])
+            yx[stone[1], default: Set<Int>()].insert(stone[0])
         }
         
         var num = 0
@@ -154,6 +155,7 @@ class Solution {
         xy[x]?.remove(y)
         yx[y]?.remove(x)
         
+        // use ?? to avoid force wrapping
         while (xy[x]?.count ?? 0) > 0 {
             num += 1
             dfs(x, xy[x]!.first!, &num, &xy, &yx)

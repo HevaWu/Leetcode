@@ -66,6 +66,7 @@ class Solution {
         while left < right {
             var mid = (left+right)/2
             
+            // init day to 1 for get the least weight capacity 
             var day = 1
             var cur = 0
             for weight in weights {

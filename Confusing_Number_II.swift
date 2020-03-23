@@ -78,3 +78,27 @@ class Solution {
         }
     }
 }
+
+class Solution {
+    var list = [(0, 0), (1, 1), (6, 9), (8, 8), (9, 6)]
+    var count = 0
+    var N = 0
+    
+    func confusingNumberII(_ N: Int) -> Int {
+        self.N = N
+        backtrack(1, 1, 10)
+        backtrack(6, 9, 10)
+        backtrack(8, 8, 10)
+        backtrack(9, 6, 10)
+        return count
+    }
+    
+    func backtrack(_ cur: Int, _ rotate: Int, _ digit: Int) {
+        if cur > N { return }
+        if cur <= N, cur != rotate { count += 1 }
+        
+        for pair in list {
+            backtrack(cur*10 + pair.0, pair.1*digit + rotate, digit*10)   
+        }
+    }
+}
