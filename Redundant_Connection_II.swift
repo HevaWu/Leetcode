@@ -52,6 +52,7 @@ class Solution {
                 if !circle.isEmpty { return twoParents.first! }
             }
             
+            // current is not circle, add this edge, cause circle
             if circle.isEmpty, !findRoot(edge[0]) {
                 circle = edge
                 if !twoParents.isEmpty { return twoParents.first! }

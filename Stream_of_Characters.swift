@@ -61,6 +61,7 @@ class Trie {
     
     func insert(_ word: String) {
         var node = root
+        // save in the reverse order
         for i in word.indices.reversed() {
             if !node.children.keys.contains(word[i]) {
                 node.children[word[i]] = TrieNode()

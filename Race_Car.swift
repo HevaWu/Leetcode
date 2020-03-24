@@ -54,13 +54,16 @@ class Solution {
                 continue
             }
             
+            // ex: dp[4]
+            // j = 0 -> dp[1]+4 -> A
             for j in 0..<k-1 {
                 dp[t] = min(dp[t], dp[t - (1<<(k-1)) + (1<<j)] + k-1 + j + 2)
             }
             
-            if (1<<k) - 1 - t < t {
-                dp[t] = min(dp[t], dp[(1<<k) - 1 - t] + k + 1)
-            }
+            // ex: 
+            // dp[4]: dp[(1<<k) - 1 - t] + k + 1) = dp[2]+4
+            // dp[2] + AARR -> AARRAARR
+            dp[t] = min(dp[t], dp[(1<<k) - 1 - t] + k + 1)
         }
         return dp[target]
     }

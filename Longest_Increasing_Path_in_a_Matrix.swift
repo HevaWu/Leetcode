@@ -100,6 +100,48 @@ class Solution {
     }
 }
 
+class Solution {
+    
+    var dir = [0, 1, 0, -1, 0]
+    var n = 0
+    var m = 0
+    
+    var visited = [[Int]]()
+    var matrix = [[Int]]()
+    
+    func longestIncreasingPath(_ matrix: [[Int]]) -> Int {
+        guard !matrix.isEmpty else { return 0 }
+        self.matrix = matrix
+        n = matrix.count
+        m = matrix[0].count
+        
+        visited = Array(repeating: Array(repeating: 0, count: m), count: n)
+        var path = 0
+        for i in 0..<n {
+            for j in 0..<m {
+                path = max(path, dfs(i, j, 1))
+            }
+        }
+        return path
+    }
+    
+    func dfs(_ i: Int, _ j: Int, _ count: Int) -> Int {
+        if visited[i][j] > 0 { return visited[i][j] }
+        visited[i][j] = 1
+        var temp = 1
+        for d in 0..<dir.count-1 {
+            let x = i + dir[d]
+            let y = j + dir[d+1]
+            if x < 0 || x >= n || y < 0 || y >= m { continue }
+            if matrix[x][y] > matrix[i][j] { 
+                temp = max(temp, dfs(x, y, count+1)+1)
+            }
+        }
+        visited[i][j] = temp
+        return temp
+    }
+}
+
 // Solution 3: Dynamic programming
 // We have to perform the topological sort explicitly as a preprocess. After that, we can solve the problem dynamically using our transition function following the stored topological order.
 // Time complexity : O(mn)O(mn). The the topological sort is O(V+E) = O(mn)O(V+E)=O(mn). Here, VV is the total number of vertices and EE is the total number of edges. In our problem, O(V) = O(mn)O(V)=O(mn), O(E) = O(4V) = O(mn)O(E)=O(4V)=O(mn).

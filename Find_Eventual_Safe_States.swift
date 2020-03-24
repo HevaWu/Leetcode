@@ -46,12 +46,13 @@ class Solution {
         return list
     }
     
+    // black:2 means eventually safe
     func dfs(_ index: Int, _ color: inout [Int], _ graph: [[Int]]) -> Bool {
         if color[index] > 0 {
             return color[index] == 2
         }
         
-        // mark this node as visited
+        // mark this node as visited: gray
         color[index] = 1
         for next in graph[index] {
             if color[next] == 2 {

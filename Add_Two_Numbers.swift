@@ -107,3 +107,40 @@ class Solution {
         return head.next
     }
 }
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.next = nil
+ *     }
+ * }
+ */
+class Solution {
+    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
+        var head = ListNode(0)
+        
+        var l1 = l1
+        var l2 = l2
+        var temp = 0
+        var node = head
+        while l1 != nil || l2 != nil {
+            temp = (l1?.val ?? 0) + (l2?.val ?? 0) + temp
+            node.next = ListNode(temp%10)
+            temp = temp/10
+            
+            if l1 != nil { l1 = l1!.next }
+            if l2 != nil { l2 = l2!.next }
+            node = node.next!
+        }
+        
+        if temp != 0 { 
+            node.next = ListNode(temp)
+        }
+        
+        return head.next
+    }
+}

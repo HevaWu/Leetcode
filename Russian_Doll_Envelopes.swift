@@ -35,12 +35,13 @@ class Solution {
         return LIS(hightDim)
     }
     
+    // longest increasing subsequence problem
     func LIS(_ nums: [Int]) -> Int {
+        // dp[i] is the smallest element that ends an increasing subsequence of length i+1 
         var dp = Array(repeating: 0, count: nums.count)
         var len = 0
         for i in 0..<nums.count {
             var temp = binarySearch(dp, 0, len, nums[i])
-            if temp < 0 { temp = 0 }
             dp[temp] = nums[i]
             if temp == len {
                 len += 1

@@ -43,6 +43,7 @@ class Solution {
     func pickIndex() -> Int {
         var target = Int.random(in: 0..<total)
     
+        // binary search random total
         var left = 0
         var right = sumArr.count - 1
         while left != right {
