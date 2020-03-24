@@ -33,7 +33,7 @@
 // Solution 1: DP
 // Now say we have some target 2**(k-1) <= t < 2**k and we want to know the cost to go there, if we know all the other costs dp[u] (for u < t).
 // If t == 2**k - 1, the cost is just k: we use the command A^k, and clearly we can't do better.
-// Otherwise, we might drive without crossing the target for a position change of 2^{k-1} - 2**j, by the command A^{k-1} R A^{j} R, for a total cost of k - 1 + j + 2k−1+j+2.
+// Otherwise, we might drive without crossing the target for a position change of 2^{k-1} - 2**j, by the command A^{k-1} R A^{j} R, for a total cost of k - 1 + j + 2.
 // Finally, we might drive 2^k - 1 which crosses the target, by the command A^k R, for a total cost of k + 1k+1.
 // 
 // Time Complexity: O(T \log T)O(TlogT). Each node i does \log ilogi work.

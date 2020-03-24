@@ -102,3 +102,33 @@ class Solution {
         return area < Int.max ? area : 0
     }
 }
+
+class Solution {
+    func minAreaRect(_ points: [[Int]]) -> Int {
+        guard !points.isEmpty else { return 0 }
+        
+        var set = Set<Int>()
+        for point in points {
+            set.insert(point[0]*40000 + point[1])
+        }
+        
+        var minArea = Int.max
+        for i in 0..<points.count {
+            let x0 = points[i][0]
+            let y0 = points[i][1]
+            
+            var j = i+1
+            while j < points.count {
+                let x1 = points[j][0]
+                let y1 = points[j][1]
+                
+                if x0 != x1, y0 != y1, set.contains(x0*40000+y1), set.contains(x1*40000+y0) {
+                    minArea = min(minArea, abs(x0-x1)*abs(y0-y1))
+                }
+                
+                j += 1
+            }
+        }
+        return minArea == Int.max ? 0 : minArea
+    }
+}
