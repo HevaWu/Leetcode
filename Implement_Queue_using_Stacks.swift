@@ -40,32 +40,41 @@ All the calls to pop and peek are valid.
 */
 
 
+
 class MyQueue {
-    var queue: [Int]
+    var sinput: [Int]
+    var soutput: [Int]
 
     /** Initialize your data structure here. */
     init() {
-        queue = [Int]()
+        sinput = [Int]()
+        soutput = [Int]()
     }
     
     /** Push element x to the back of queue. */
     func push(_ x: Int) {
-        queue.append(x)
+        sinput.append(x)        
     }
     
     /** Removes the element from in front of queue and returns that element. */
     func pop() -> Int {
-        return queue.remove(at: 0)
+        peek()
+        return soutput.removeLast()
     }
     
     /** Get the front element. */
     func peek() -> Int {
-        return queue.first ?? -1
+        if soutput.isEmpty {
+            while !sinput.isEmpty {
+                soutput.append(sinput.removeLast())
+            }
+        }
+        return soutput.last ?? -1
     }
     
     /** Returns whether the queue is empty. */
     func empty() -> Bool {
-        return queue.isEmpty
+        return sinput.isEmpty && soutput.isEmpty
     }
 }
 
