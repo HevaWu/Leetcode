@@ -32,6 +32,41 @@ Note:
 The number of keys in all rooms combined is at most 3000.
 */
 
+/*
+Solution 1:
+BFS
+
+use visited to hold room number we already visited
+
+Time Complexity: O(n + e) -> at most O(2n)
+- n is the number of rooms
+- e is total number of keys
+
+Space Complexity: O(e)
+*/
+class Solution {
+    func canVisitAllRooms(_ rooms: [[Int]]) -> Bool {
+        guard !rooms.isEmpty else { return true }
+        let n = rooms.count
+        
+        // store all visited room
+        var visited = Set<Int>()
+        
+        // do bfs
+        var queue = rooms[0]
+        visited.insert(0)
+        
+        while !queue.isEmpty {
+            let cur = queue.removeFirst()
+            if visited.contains(cur) { continue }
+            visited.insert(cur)
+            queue.append(contentsOf: rooms[cur])
+        }
+
+        return visited.count == n
+    }
+}
+
 
 class Solution1 {
     func canVisitAllRooms(_ rooms: [[Int]]) -> Bool {

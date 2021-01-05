@@ -20,6 +20,7 @@ stride(from: 3, through: 0, by: -1) // 3,2,1,0, same as (0...3).reversed()
 var arr = [0,1,2,3,4,5]
 arr.replaceSubrange(1...2, with: 4...5) // [0, 4, 5, 3, 4, 5] replace sub array
 arr.insert(0, at: 0) // [0,0,4,5,3,4,5]
+arr.append(contentsOf:)
 digits.swapAt(i, j)  // swap
 arr[..<4] + arr[4...].sorted() // subarray
 arr.reduce(into: 0) { res, next in //  reduce
