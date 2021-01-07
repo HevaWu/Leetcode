@@ -67,5 +67,19 @@ var _a = 0
 test(a: &_a)
 
 // ===== math =====
-abs(-1) // 1
-Double(25).squareRoot() // 5
+
+abs(-1) // abs: 1
+
+Double(25).squareRoot() // sqrt: 5
+Double(5.5).rounded() // round: 6
+Double(5.2).rounded() // round: 5
+Double(-3).sign // sign: minus
+Double(3).sign // sign: plus
+-4.signum // -1 signum: -1 negative, 1 positive, 0 
+
+import Darwin
+pow(Double(2), Double(3)) // pow: 8
+sqrt(4) // sqrt: 2
+floor(1.1) // floor: 1
+floor(1.9) // floor: 1
+ceil(0.1) // ceil: 1
