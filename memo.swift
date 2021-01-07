@@ -23,6 +23,7 @@ arr.insert(0, at: 0) // [0,0,4,5,3,4,5]
 arr.append(contentsOf:)
 digits.swapAt(i, j)  // swap
 arr.reverse() // reverse array
+arr.indices // get indices
 arr[..<4] + arr[4...].sorted() // subarray
 arr.reduce(into: 0) { res, next in //  reduce
     res += next
