@@ -40,8 +40,8 @@
 // The list of words we get from all_combo_dict are all the words which have a common intermediate state with the current_word. These new set of words will be the adjacent nodes/words to current_word and hence added to the queue.
 // Hence, for each word in this list of intermediate words, append (word, level + 1) into the queue where level is the level for the current_word.
 // 
-// iTme Complexity: O(M \times N)O(M×N), where MM is the length of words and NN is the total number of words in the input word list. Finding out all the transformations takes MM iterations for each of the NN words. Also, breadth first search in the worst case might go to each of the NN words.
-// Space Complexity: O(M \times N)O(M×N), to store all MM transformations for each of the NN words, in the all_combo_dict dictionary. Visited dictionary is of NN size. Queue for BFS in worst case would need space for all NN words.
+// iTme Complexity: O(M×N), where M is the length of words and N is the total number of words in the input word list. Finding out all the transformations takes MM iterations for each of the NN words. Also, breadth first search in the worst case might go to each of the N words.
+// Space Complexity: O(M×N), to store all MM transformations for each of the NN words, in the all_combo_dict dictionary. Visited dictionary is of NN size. Queue for BFS in worst case would need space for all NN words.
 class Solution {
     // key is one character replaced by * pattern
     // value is string match this pattern
@@ -54,6 +54,7 @@ class Solution {
             matchMap(word)
         }
     
+        // first level is 1
         var queue = [(beginWord, 1)]
         
         // visited pattern in map
@@ -154,11 +155,11 @@ class Solution {
             
             guard map[temp] != nil else { continue }
             for next in map[temp]! {
-                if secondVisited.keys.contains(next) {
-                    return level + secondVisited[next]!
+                if let val = secondVisited[next] {
+                    return level + val
                 }
                 
-                if !firstVisited.keys.contains(next) {
+                if firstVisited[next] == nil {
                     firstVisited[next] = level + 1
                     queue.insert((next, level + 1), at: 0)
                 }
