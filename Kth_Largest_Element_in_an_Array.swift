@@ -30,8 +30,8 @@ class Solution {
 // Solution 3: QuickSort
 // By setting a pivot, all of the elements in the left side are smaller than pivot, and in the right side if larger than pivot.
 // 
-// Time complexity : \mathcal{O}(N)O(N) in the average case, \mathcal{O}(N^2)in the worst case.
-// Space complexity : \mathcal{O}(1)O(1).
+// Time complexity : O(N) in the average case, O(N^2)in the worst case.
+// Space complexity : O(n).
 class Solution {
     var sorted = [Int]()
     
@@ -73,5 +73,52 @@ class Solution {
         sorted.swapAt(tempIndex, end)
 
         return tempIndex
+    }
+}
+
+/*
+Solution 4: 
+quick sort
+optimize solution 3 by use one help function to do it
+
+// Time complexity : O(N) in the average case, O(N^2)in the worst case.
+// Space complexity : O(n).
+*/
+class Solution {
+    func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
+        var nums = nums
+        // sort by >, 9,8,7, ... 
+        // then we need to find nums[k-1]
+        return quickSort(&nums, k-1, 0, nums.count-1)
+    }
+    
+    func quickSort(_ nums: inout [Int], _ k: Int, _ start: Int, _ end: Int) -> Int {        
+        if start == end { return nums[start] }
+        
+        let pivot = nums[end]
+        var i = start
+        var j = end-1
+        while i < end, i <= j {
+            if nums[i] < pivot {
+                nums.swapAt(i, j)
+                j -= 1
+            } else {
+                i += 1
+            }
+        }
+        
+        nums.swapAt(i, end)
+        // print(pivot, nums)
+        
+        if i == k {
+            // find num
+            return nums[i]
+        } else if i < k {
+            // search right side
+            return quickSort(&nums, k, i+1, end)
+        } else {
+            // search left side
+            return quickSort(&nums, k, start, i-1)
+        }
     }
 }
