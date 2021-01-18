@@ -30,8 +30,43 @@ Follow up: Could you implement a solution with logarithmic complexity?
 */
 
 /*
+Solution 2:
+binary search 
+
+use left+1 < right
+- right = mid
+- left = mid
+- return nums[left] > nums[right] ? left : right
+
+Time Complexity: O(log n)
+Space Complexity: O(1)
+*/
+class Solution {
+    func findPeakElement(_ nums: [Int]) -> Int {
+        if nums.count <= 1 { return 0 }
+        var left = 0
+        var right = nums.count - 1
+        while left+1 < right {
+            let mid = left + (right-left)/2
+            if nums[mid] > nums[mid+1] {
+                right = mid
+            } else {
+                left = mid
+            }
+        }
+        
+        return nums[left] > nums[right] ? left : right
+    }
+}
+
+/*
 Solution 1: 
 Binary search
+
+use left < right
+- right = mid
+- left = mid+1
+- return left
 
 Time Complexity: O(log n)
 Space Complexity: O(1)
