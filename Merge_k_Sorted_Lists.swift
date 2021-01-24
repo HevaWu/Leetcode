@@ -98,7 +98,7 @@ class Solution {
         
         var head = ListNode(0)
         while interval < n {
-            for i in stride(from: 0, to: n - interval, by: interval) {
+            for i in stride(from: 0, to: n - interval, by: interval+1) {
                 lists[i] = merge2List(lists[i], lists[i+interval])
             }
             interval *= 2 
@@ -135,6 +135,33 @@ class Solution {
         }
         
         return head.next
+    }
+
+// Another merge2Lists solution 
+    func merge2Lists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
+        guard list1 != nil else { return list2 }
+        guard list2 != nil else { return list1 }
+        
+        var head: ListNode
+        var another: ListNode?
+        if list1!.val < list2!.val {
+            head = list1!
+            another = list2
+        } else {
+            head = list2!
+            another = list1
+        }
+        
+        var cur: ListNode = head
+        while another != nil {
+            if cur.next == nil || cur.next!.val > another!.val {
+                let temp = cur.next
+                cur.next = another!
+                another = temp
+            }
+            cur = cur.next!
+        }
+        return head
     }
 }
 
@@ -181,5 +208,106 @@ class Solution {
             node = node.next!
         }
         return head.next
+    }
+}
+
+/*
+Solution 4:
+recursive
+
+Time Limit Exceeded
+*/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init() { self.val = 0; self.next = nil; }
+ *     public init(_ val: Int) { self.val = val; self.next = nil; }
+ *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ * }
+ */
+class Solution {
+    func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
+        guard !lists.isEmpty else { return nil }
+        
+        var node: ListNode? = nil
+        var cur = 0
+
+        for i in 0..<lists.count {
+            if node == nil || (lists[i] != nil && lists[i]!.val < node!.val) {
+                node = lists[i]
+                cur = i
+            }
+        }
+        
+        if node == nil {
+            return nil
+        }
+                
+        var temp = lists
+        if lists[cur]?.next == nil {
+            temp.remove(at: cur)
+        } else {
+            temp[cur] = lists[cur]?.next
+        }
+        node?.next = mergeKLists(temp)
+        return node
+    }
+}
+
+/*
+Solution 5:
+Passed
+
+Divide and conquer
+recursive merge2Lists(lists[..<n/2], lists[n/2..<n])
+*/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init() { self.val = 0; self.next = nil; }
+ *     public init(_ val: Int) { self.val = val; self.next = nil; }
+ *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ * }
+ */
+class Solution {
+    func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
+        guard !lists.isEmpty else { return nil }
+        if lists.count == 1 { return lists[0] }
+        if lists.count == 2 { return merge2Lists(lists[0], lists[1]) }
+        
+        return merge2Lists(
+            mergeKLists(Array(lists[..<(lists.count/2)])),
+            mergeKLists(Array(lists[(lists.count/2)..<lists.count]))
+        )
+    }
+    
+    func merge2Lists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
+        guard list1 != nil else { return list2 }
+        guard list2 != nil else { return list1 }
+        
+        var head: ListNode
+        var another: ListNode?
+        if list1!.val < list2!.val {
+            head = list1!
+            another = list2
+        } else {
+            head = list2!
+            another = list1
+        }
+        
+        var cur: ListNode = head
+        while another != nil {
+            if cur.next == nil || cur.next!.val > another!.val {
+                let temp = cur.next
+                cur.next = another!
+                another = temp
+            }
+            cur = cur.next!
+        }
+        return head
     }
 }
