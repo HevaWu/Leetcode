@@ -17,6 +17,8 @@ String(3, radix: 2) // "11" transfer decimal to binary
 // ===== int =====
 0^1 // xor 1
 1^1  // xor return 0
+Int(4).leadingZeroBitCount // leading zero bit count 61
+Int(4).bitWidth // 64
 
 // ===== Array =====
 Array(repeating: Array(repeating: 0, count: n+1), count: n+1) // [[Int]] Array init
