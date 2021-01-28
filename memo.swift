@@ -6,13 +6,16 @@ String(charArr) // char array to string
 var str: String = "ab c"
 Array(str) // change to [Character]() array
 str.lowercased() // lower case string
-Character("a").asciiValue! // ascii value
+let a = Character("a").asciiValue! // ascii value
+Character(UnicodeScalar(a+1)) // asciiValue to char
 Character("a").isLetter // check if char is letter
 Character("1").wholeNumberValue
 var sub = str.split(separator: " ") // split
 a.joined(separator: " ") // join
 str.remove(at: index) // remove char at index
 String(3, radix: 2) // "11" transfer decimal to binary
+var i = str.indices.last! // string indices
+i = str.index(before: i) // index before/after
 
 // ===== int =====
 0^1 // xor 1
