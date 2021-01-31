@@ -26,10 +26,7 @@ class Solution {
     func nextPermutation(_ nums: inout [Int]) {
         // find last ascending index
         var last = nums.count - 2
-        while last >= 0 {
-            if nums[last] < nums[last+1] {
-                break
-            }
+        while last >= 0 , , nums[right] >= nums[right+1]{
             last -= 1
         }
         
@@ -41,10 +38,9 @@ class Solution {
         
         // find next close larger than last, swap element & reverse remain
         var next = last + 1
-        for index in next..<nums.count {
-            if nums[index] > nums[last], index > next {
-                next = index
-            }
+        //  use nums[index] > nums[last] to help finding next close larger element
+        for index in next..<nums.count where nums[index] > nums[right] {
+            next = index
         }
         
         nums.swapAt(last, next)
