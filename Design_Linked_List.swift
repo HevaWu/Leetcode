@@ -38,7 +38,131 @@ Please do not use the built-in LinkedList library.
 At most 2000 calls will be made to get, addAtHead, addAtTail,  addAtIndex and deleteAtIndex.
 */
 
+/*
+Solution 2:
+Doubly linked list
+*/
 
+class MyLinkedList {
+    var head: ListNode?
+    var tail: ListNode?
+    
+    /** Initialize your data structure here. */
+    init() {
+        head = nil
+        tail = nil
+    }
+    
+    /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
+    func get(_ index: Int) -> Int {
+        var cur = head
+        for i in 0..<index {
+            // if cur == nil { return -1 }
+            cur = cur?.next
+        }
+        return cur == nil ? -1 : cur!.val
+    }
+    
+    /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
+    func addAtHead(_ val: Int) {
+        var cur = ListNode(val)
+        if head == nil {
+            head = cur
+            tail = head
+        } else {
+            cur.next = head
+            head?.prev = cur
+            head = cur
+        }
+    }
+    
+    /** Append a node of value val to the last element of the linked list. */
+    func addAtTail(_ val: Int) {
+        var cur = ListNode(val)
+        if tail == nil {
+            head = cur
+            tail = head
+        } else {
+            tail?.next = cur
+            cur.prev = tail
+            tail = cur
+        }
+    }
+    
+    /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
+    func addAtIndex(_ index: Int, _ val: Int) {
+        if index == 0 {
+            addAtHead(val)
+            return 
+        }
+        
+        var cur = head
+        for i in 0..<index {
+            if cur == nil { return }
+            cur = cur!.next
+        }
+        
+        // index greater than length
+        if cur == nil { 
+            addAtTail(val)
+            return 
+        }
+        
+        var newNode = ListNode(val)
+        newNode.next = cur
+        newNode.prev = cur!.prev
+        cur!.prev?.next = newNode
+        cur!.prev = newNode
+    }
+    
+    /** Delete the index-th node in the linked list, if the index is valid. */
+    func deleteAtIndex(_ index: Int) {
+        if index == 0 {
+            head = head?.next
+            return
+        }
+        
+        var cur = head
+        for i in 0..<index {
+            if cur == nil { return }
+            cur = cur!.next
+        }
+        
+        if cur == nil { return }
+        if cur!.next == nil {
+            // cur is tail
+            cur!.prev?.next = nil
+            tail = cur!.prev
+            return
+        }
+        cur!.prev?.next = cur!.next
+        cur!.next?.prev = cur!.prev
+    }
+}
+
+class ListNode {
+    var val: Int
+    var next: ListNode?
+    var prev: ListNode?
+    init(_ val: Int) {
+        self.val = val
+    }
+}
+
+/**
+ * Your MyLinkedList object will be instantiated and called as such:
+ * let obj = MyLinkedList()
+ * let ret_1: Int = obj.get(index)
+ * obj.addAtHead(val)
+ * obj.addAtTail(val)
+ * obj.addAtIndex(index, val)
+ * obj.deleteAtIndex(index)
+ */
+
+/*
+Solution 1:
+Singly linked list
+*/
 class MyLinkedList {
     var head: ListNode?
     
