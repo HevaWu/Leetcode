@@ -31,6 +31,30 @@ Constraints:
 */
 
 /*
+Solution 2:
+seperate logic
+use 2 while
+*/
+class Solution {
+    func validMountainArray(_ arr: [Int]) -> Bool {
+        let n = arr.count
+        var index = 0
+        while index < n-1, arr[index] < arr[index+1] {
+            index += 1
+        }
+        
+        if index == 0 || index == n-1 { return false }
+
+        // find mountain top
+        while index < n-1, arr[index] > arr[index+1] {
+            index += 1
+        }
+        
+        return index == n-1
+    }
+}
+
+/*
 Solution 1: 
 check arr by order
 
