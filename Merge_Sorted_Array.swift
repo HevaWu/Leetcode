@@ -48,6 +48,7 @@ class Solution {
         var index = n+m-1
         
         while j >= 0 {
+            // add i>=0 check to avoid index out of range
             if i >= 0, nums1[i] >= nums2[j] {
                 nums1[index] = nums1[i]
                 i -= 1
