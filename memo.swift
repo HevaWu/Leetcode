@@ -28,7 +28,8 @@ Array(repeating: Array(repeating: 0, count: n+1), count: n+1) // [[Int]] Array i
 stride(from: 3, through: 0, by: -1) // 3,2,1,0, same as (0...3).reversed()
 var arr = [0,1,2,3,4,5]
 arr.replaceSubrange(1...2, with: 4...5) // [0, 4, 5, 3, 4, 5] replace sub array
-arr.insert(0, at: 0) // [0,0,4,5,3,4,5]
+arr.insert(0, at: 0) // insert [0,0,4,5,3,4,5]
+arr.removeLast(3) // remove last 3 element
 arr.append(contentsOf:)
 digits.swapAt(i, j)  // swap
 arr.reverse() // reverse array
