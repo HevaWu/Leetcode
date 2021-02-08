@@ -47,6 +47,8 @@ for (i,v) in arr.enumerated() { // enumerate, iterate
     print(i, v)
     // 0,1 1,2 2,3
 }
+var i = arr.makeIterator() // iterator
+i.next()
 
 // ===== Set =====
 set.insert(3) // insert
