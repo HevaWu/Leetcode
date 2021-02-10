@@ -85,6 +85,8 @@ class Solution {
         copy = node
         while copy != nil {
             if copy!.random != nil {
+                // it will be copy.random.next
+                // make sure it point to copy!.next?.random's copy node
                 copy!.next?.random = copy!.random!.next
             }
             copy = copy!.next?.next
