@@ -38,6 +38,38 @@ Follow up: Can you solve it using O(1) (i.e. constant) memory?
 */
 
 /*
+Solution 2
+optimize 
+
+using === 
+*/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.next = nil
+ *     }
+ * }
+ */
+
+class Solution {
+    func hasCycle(_ head: ListNode?) -> Bool {
+        var slow = head
+        var fast = head
+        
+        while fast != nil {
+            slow = slow?.next
+            fast = fast?.next?.next
+            if slow != nil, fast != nil, slow === fast { return true }
+        }
+        return false
+    }
+}
+
+/*
 Solution 1:
 Floyd’s cycle-finding algorithm
 
