@@ -34,6 +34,8 @@ arr.removeLast(3) // remove last 3 element
 arr.append(contentsOf:)
 digits.swapAt(i, j)  // swap
 arr.reverse() // reverse array
+arr.shuffled() // shuffle array
+Int.random(in: 1...2) // random element
 arr.indices // get indices
 arr[..<4] + arr[4...].sorted() // subarray
 arr.reduce(into: 0) { res, next in //  reduce
