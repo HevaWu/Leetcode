@@ -52,6 +52,11 @@ for (i,v) in arr.enumerated() { // enumerate, iterate
 }
 var i = arr.makeIterator() // iterator
 i.next()
+arr.enumerated().sorted { (first, second) -> Bool in // enumerate, sort
+    return first.element == second.element
+        ? first.offset < second.offset
+        : first.element < second.element
+}.map { $0.offset }
 
 // ===== Set =====
 set.insert(3) // insert
