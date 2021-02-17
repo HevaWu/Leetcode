@@ -42,6 +42,7 @@ class Solution {
         var first = Int.max
         var second = Int.max
         for n in nums {
+            // use <= to avoid duplicate num
             if n <= first {
                 first = n
             } else if n <= second {
