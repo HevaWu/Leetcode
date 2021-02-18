@@ -114,3 +114,49 @@ class Solution {
         }
     }
 }
+
+/*
+optimize solution 2
+use dir
+*/
+class Solution {
+    func numIslands(_ grid: [[Character]]) -> Int {
+        guard !grid.isEmpty else { return 0 }
+        
+        var grid = grid
+        let m = grid.count
+        let n = grid[0].count
+        
+        var island = 0
+        
+        for i in 0..<m {
+            for j in 0..<n where grid[i][j] == "1" {
+                island += 1
+                bfs(&grid, i, j, m, n)
+            }
+        }
+        return island
+    }
+    
+    private func bfs(_ grid: inout [[Character]], _ i: Int, _ j: Int, _ m: Int, _ n: Int) {    
+        var dir = [0,-1,0,1,0]
+        grid[i][j] = "0"
+        
+        // create bfs queue for connected 1 of i,j
+        var queue = [(Int, Int)]()
+        queue.insert((i, j), at: 0)
+        while !queue.isEmpty {
+            let (x,y) = queue.removeLast()
+            
+            for d in 0..<4 {
+                let nx = x + dir[d]
+                let ny = y + dir[d+1]
+                
+                if nx >= 0, nx < m, ny >= 0, ny < n, grid[nx][ny] == "1" {
+                    queue.insert((nx,ny), at: 0)
+                    grid[nx][ny] = "0"
+                }
+            }
+        }
+    }
+}
