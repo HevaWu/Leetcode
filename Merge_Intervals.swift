@@ -10,7 +10,37 @@
 // Input: [[1,4],[4,5]]
 // Output: [[1,5]]
 // Explanation: Intervals [1,4] and [4,5] are considered overlapping.
-// NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.a
+// NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
+
+/*
+Solution 2
+optimize solution 1 at sort
+*/
+class Solution {
+    func merge(_ intervals: [[Int]]) -> [[Int]] {
+        guard !intervals.isEmpty else { return [[Int]]() }
+        
+        var intervals = intervals.sorted(by: { first, second -> Bool in
+            return first[0] < second[0]
+        })
+        
+        var res = [[Int]]()
+        var start = intervals[0][0]
+        var end = intervals[0][1]
+        for interval in intervals {
+            if interval[0] <= end {
+                end = max(end, interval[1])
+            } else {
+                res.append([start, end])
+                start = interval[0]
+                end = interval[1]
+            }
+        }
+    
+        res.append([start, end])
+        return res
+    }
+}
 
 // Solution 1: 
 // sort the array by start point first, then merge them by the end 
