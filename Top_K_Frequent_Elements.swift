@@ -18,6 +18,23 @@ You can return the answer in any order.
 */
 
 /*
+Solution 4
+optimize solution 3
+*/
+class Solution {
+    func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
+        var dictNum = [Int: Int]()
+    
+        for num in nums {
+            dictNum[num, default: 0] += 1
+        }
+        
+        let sortedDict = Array(dictNum.sorted { $0.value > $1.value })        
+        return sortedDict[..<k].map { $0.key }
+    }
+}
+
+/*
 Solution 3:
 optimization of Solution 1
 */
