@@ -52,6 +52,37 @@ It is guaranteed that s is a valid roman numeral in the range [1, 3999].
 */
 
 /*
+Solution 3
+optimize solution 2
+*/
+class Solution {
+    func romanToInt(_ s: String) -> Int {
+        var map: [Character: Int] = [
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+        ]
+        
+        var preVal = 1001
+        var res = 0
+        for c in s {
+            if let cVal = map[c] {
+                res += cVal
+                if preVal < cVal {
+                    res -= 2*preVal
+                }
+                preVal = cVal
+            }
+        }
+        return res
+    }
+}
+
+/*
 Solution 2
 optimize solution 1
 */
