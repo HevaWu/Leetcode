@@ -30,6 +30,55 @@ nums is a non-decreasing array.
 */
 
 /*
+Solution 3
+another binary search
+
+use left < right
+if (isLeft && nums[mid] < target) || (!isLeft && nums[mid] <= target) {
+    left = mid+1
+} else {
+    right = mid
+}
+return nums[left] == target 
+        ? left 
+        : (left > 0 && nums[left-1] == target 
+           ? left-1 
+           : -1)
+*/
+class Solution {
+    func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
+        if nums.isEmpty { return [-1, -1] }
+        
+        let lp = findTarget(isLeft: true, nums, target)
+        if lp == -1 {
+            return [-1, -1]
+        }
+        
+        let rp = findTarget(isLeft: false, nums, target)
+        return [lp, rp]
+    }
+    
+    func findTarget(isLeft: Bool, _ nums: [Int], _ target: Int) -> Int {
+        var left = 0
+        var right = nums.count-1
+        while left < right {
+            let mid = left + (right-left)/2
+            if (isLeft && nums[mid] < target) || (!isLeft && nums[mid] <= target) {
+                left = mid+1
+            } else {
+                right = mid
+            }
+        }
+        // print(nums[left], left)
+        return nums[left] == target 
+        ? left 
+        : (left > 0 && nums[left-1] == target 
+           ? left-1 
+           : -1)
+    }
+}
+
+/*
 Solution 1:
 Binary search
 
