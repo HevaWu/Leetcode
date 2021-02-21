@@ -81,32 +81,33 @@ class Solution {
 class Solution {
     func lengthOfLIS(_ nums: [Int]) -> Int {
         guard !nums.isEmpty else { return 0 }
-        var dp = Array(repeating: 0, count: nums.count)
-        var len = 0 
-        for i in 0..<nums.count {
-            var temp = binarySearch(dp, 0, len, nums[i])
+        let n = nums.count
+        
+        // binary search to store strictly increased sub array
+        var dp = Array(repeating: 0, count: n)
+        var len = 0
+        for i in 0..<n {
+            let temp = binarySearch(dp, 0, len, nums[i])
             dp[temp] = nums[i]
             if temp == len {
                 len += 1
             }
         }
+        
         return len
     }
     
-    func binarySearch(_ arr: [Int], _ start: Int, _ end: Int, _ target: Int) -> Int {
-        var start = start
-        var end = end
-        while start < end {
-            var mid = (start + end) / 2
-            if arr[mid] == target {
-                return mid
-            }
+    func binarySearch(_ arr: [Int], _ left: Int, _ right: Int, _ target: Int) -> Int {
+        var left = left
+        var right = right
+        while left < right {
+            let mid = left + (right-left)/2
             if arr[mid] < target {
-                start = mid + 1
+                left = mid+1
             } else {
-                end = mid
+                right = mid
             }
         }
-        return start
+        return left
     }
 }
