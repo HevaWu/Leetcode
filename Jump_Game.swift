@@ -134,12 +134,12 @@ class Solution {
 // Space complexity : O(1). We are not using any extra memory.
 class Solution {
     func canJump(_ nums: [Int]) -> Bool {
-        guard !nums.isEmpty else { return true }
-        var finalPos = nums.count - 1
-        for i in (0..<nums.count).reversed() {
-            if i+nums[i] >= finalPos {
+        let n = nums.count
+        var finalPos = n-1
+        for i in stride(from: n-2, through: 0, by: -1) {
+            if nums[i]+i >= finalPos {
                 finalPos = i
-            }
+            }            
         }
         return finalPos == 0
     }
