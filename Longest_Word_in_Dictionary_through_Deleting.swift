@@ -91,8 +91,8 @@ class Solution {
 
 // Solution 3: without sorting
 // 
-// Time complexity : O(n \cdot x)O(n⋅x). One iteration over all strings is required. Here nn refers to the number of strings in list dd and xx refers to average string length.
-// Space complexity : O(x)O(x). max\_strmax_str variable is used.
+// Time complexity : O(n⋅x). One iteration over all strings is required. Here n refers to the number of strings in list d and x refers to average string length.
+// Space complexity : O(x). max_str variable is used.
 class Solution {
     func findLongestWord(_ s: String, _ d: [String]) -> String {
         var longest = String()
@@ -116,5 +116,41 @@ class Solution {
             xindex = x.index(after: xindex)
         }
         return yindex == y.endIndex
+    }
+}
+
+/*
+Solution 4
+code inspired by solution 3 by using array
+*/
+class Solution {
+    func findLongestWord(_ s: String, _ d: [String]) -> String {
+        guard !s.isEmpty, !d.isEmpty else { return "" }
+        
+        var res = ""
+        var s = Array(s)
+        let n = s.count
+        for str in d {
+            if isSubsequence(s, n, Array(str)), 
+            res.count < str.count || (res.count == str.count && str < res)  {
+                res = str
+            }
+        }
+        return res
+    }
+    
+    // check if str in subsequence of s
+    func isSubsequence(_ s: [Character], _ n: Int, _ str: [Character]) -> Bool {
+        let nstr = str.count
+        if nstr > n { return false }
+        var indexS = 0
+        var indexStr = 0
+        while indexS < n, indexStr < nstr {
+            if s[indexS] == str[indexStr] {
+                indexStr += 1
+            }
+            indexS += 1
+        }
+        return indexStr == nstr
     }
 }
