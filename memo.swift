@@ -9,7 +9,7 @@ str.lowercased() // lower case string
 let a = Character("a").asciiValue! // ascii value
 Character(UnicodeScalar(a+1)) // asciiValue to char
 Character("a").isLetter // check if char is letter
-Character("1").wholeNumberValue
+Character("1").wholeNumberValue // number value
 var sub = str.split(separator: " ") // split
 a.joined(separator: " ") // join
 str.remove(at: index) // remove char at index
