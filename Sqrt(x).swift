@@ -34,6 +34,8 @@ Space Complexity: O(1)
 class Solution {
     func mySqrt(_ x: Int) -> Int {
         if x == 0 { return 0 }
+        if x <= 3 { return 1 }
+        
         var r = x/2
         while r*r > x {
             r = (r + x/r)/2
