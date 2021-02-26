@@ -71,6 +71,8 @@ class Solution {
                 }
             } 
             
+            // need to check both r1, r2 and c1, c2 at here
+            // in case add duplicate row/col elements
             if r1 < r2, c1 < c2 {
                 for c in stride(from: c2-1, through: c1, by: -1) {
                     res.append(matrix[r2][c])
