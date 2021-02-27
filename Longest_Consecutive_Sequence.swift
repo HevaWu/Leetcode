@@ -33,6 +33,7 @@ class Solution {
                 map[num] = temp
                 count = max(count, map[num]!)
                 
+                // update left & right bound
                 map[num-left] = temp
                 map[num+right] = temp
             }
