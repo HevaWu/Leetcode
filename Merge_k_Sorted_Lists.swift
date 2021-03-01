@@ -96,8 +96,8 @@ class Solution {
         var n = lists.count
         var interval = 1
         
-        var head = ListNode(0)
         while interval < n {
+            // use interval*2 at here, in case check duplicated
             for i in stride(from: 0, to: n - interval, by: interval+1) {
                 lists[i] = merge2List(lists[i], lists[i+interval])
             }
