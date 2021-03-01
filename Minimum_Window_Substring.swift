@@ -138,6 +138,7 @@ class Solution {
                 // update windowDic value
                 windowDic[c]! -= 1
                 if windowDic[c]! < tdic[c]! {
+                    // update finded value, break finded while
                     finded -= 1
                 }
                 left += 1
