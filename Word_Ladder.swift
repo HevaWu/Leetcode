@@ -106,8 +106,8 @@ class Solution {
 // Termination condition for bidirectional search is finding a word which is already been seen by the parallel search.
 // The shortest transformation sequence is the sum of levels of the meet point node from both the ends. Thus, for every visited node we save its level as value in the visited dictionary.
 // 
-// Time Complexity: O(M \times N)O(M×N), where MM is the length of words and NN is the total number of words in the input word list. Similar to one directional, bidirectional also takes M*NM∗N for finding out all the transformations. But the search time reduces to half, since the two parallel searches meet somewhere in the middle.
-// Space Complexity: O(M \times N)O(M×N), to store all MM transformations for each of the NN words, in the all_combo_dict dictionary, same as one directional. But bidirectional reduces the search space. It narrows down because of meeting in the middle.
+// Time Complexity: O(M×N), where MM is the length of words and NN is the total number of words in the input word list. Similar to one directional, bidirectional also takes M*NM∗N for finding out all the transformations. But the search time reduces to half, since the two parallel searches meet somewhere in the middle.
+// Space Complexity: O(M×N), to store all MM transformations for each of the NN words, in the all_combo_dict dictionary, same as one directional. But bidirectional reduces the search space. It narrows down because of meeting in the middle.
 class Solution {
     // pattern map, key is pattern, value is string which match this pattern
     var map = [String: Set<String>]()
@@ -144,9 +144,7 @@ class Solution {
     }
     
     func check(_ queue: inout [(String, Int)], _ firstVisited: inout [String: Int], _ secondVisited: inout [String: Int]) -> Int? {
-        let node = queue.removeLast()
-        let word = node.0
-        var level = node.1
+        let (word, level) = queue.removeLast()
         
         for i in word.indices {
             var temp = word
@@ -161,6 +159,7 @@ class Solution {
                 
                 if firstVisited[next] == nil {
                     firstVisited[next] = level + 1
+                    // queue, FIFO, removeLast(), insert(at: 0)
                     queue.insert((next, level + 1), at: 0)
                 }
             }
