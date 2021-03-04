@@ -119,13 +119,13 @@ class Solution {
         var path = 0
         for i in 0..<n {
             for j in 0..<m {
-                path = max(path, dfs(i, j, 1))
+                path = max(path, dfs(i, j))
             }
         }
         return path
     }
     
-    func dfs(_ i: Int, _ j: Int, _ count: Int) -> Int {
+    func dfs(_ i: Int, _ j: Int) -> Int {
         if visited[i][j] > 0 { return visited[i][j] }
         visited[i][j] = 1
         var temp = 1
@@ -134,7 +134,7 @@ class Solution {
             let y = j + dir[d+1]
             if x < 0 || x >= n || y < 0 || y >= m { continue }
             if matrix[x][y] > matrix[i][j] { 
-                temp = max(temp, dfs(x, y, count+1)+1)
+                temp = max(temp, dfs(x, y)+1)
             }
         }
         visited[i][j] = temp
