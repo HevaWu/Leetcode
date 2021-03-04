@@ -94,7 +94,42 @@ class Solution {
     }
 }
 
-
+// optimize up code
+class Solution {
+    func findOrder(_ numCourses: Int, _ prerequisites: [[Int]]) -> [Int] {
+        var courses = Array(repeating: 0, count: numCourses)
+        var graph = [Int: [Int]]()
+        
+        for list in prerequisites {
+            graph[list[1], default: [Int]()].append(list[0])
+            courses[list[0]] += 1
+        }
+        
+        var order = [Int]()
+        var queue = [Int]()
+        for i in 0..<numCourses {
+            if courses[i] == 0 {
+                queue.append(i)
+            }
+        }
+        
+        while !queue.isEmpty {
+            let cur = queue.removeFirst()
+            order.append(cur)
+            
+            if let list = graph[cur] {
+                for next in list {
+                    courses[next] -= 1
+                    if courses[next] == 0 {
+                        queue.append(next)
+                    }
+                }
+            }
+        }
+        
+        return order.count == numCourses ? order : [Int]()
+    }
+}
 
 class Solution {
     func findOrder(_ numCourses: Int, _ prerequisites: [[Int]]) -> [Int] {
