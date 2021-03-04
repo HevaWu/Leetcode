@@ -10,6 +10,85 @@
 // To the right of 6 there is 1 smaller element (1).
 // To the right of 1 there is 0 smaller element.
 
+/*
+Solution 3:
+merge sort
+
+1. use indexArr to help sorting nums to correct ascending array
+ex: 5,2,6,1 with indexArr: 0,1,2,3
+after sorting -> 1,2,5,6 => indexArr: 3,1,0,2 
+2. update counts when processing sort
+
+Time Complexity: O(nlogn)
+Space Complexity: O(n)
+*/
+class Solution {
+    func countSmaller(_ nums: [Int]) -> [Int] {
+        let n = nums.count
+        if n == 1 { return [0] }
+        
+        var counts = Array(repeating: 0, count: n)
+        var indexArr = Array(0..<n)
+        mergeSort(nums, &indexArr, &counts, 0, n-1)
+        return counts
+    }
+    
+    func mergeSort(_ nums: [Int], 
+                   _ indexArr: inout [Int], _ counts: inout [Int],
+                   _ start: Int, _ end: Int) {
+        guard start < end else { return }
+        let mid = start+(end-start)/2
+        mergeSort(nums, &indexArr, &counts, start, mid)
+        mergeSort(nums, &indexArr, &counts, mid+1, end)
+        merge(nums, &indexArr, &counts, start, mid, end)
+    }
+    
+    func merge(_ nums: [Int], 
+               _ indexArr: inout [Int], _ counts: inout [Int], 
+               _ start: Int, _ mid: Int, _ end: Int) {
+        // print(start, mid, end)
+        var left = Array(indexArr[start...mid])
+        var right = Array(indexArr[(mid+1)...end])
+        // print(left, right)
+        
+        var i = 0
+        var j = 0
+        var k = start
+        var rightCount = 0
+        
+        while i < left.count, j < right.count {
+            // print("===", i, j, right[j], left[i])
+            if nums[right[j]] < nums[left[i]] {
+                indexArr[k] = right[j]
+                rightCount += 1
+                k += 1
+                j += 1
+            } else {
+                indexArr[k] = left[i]
+                counts[left[i]] += rightCount
+                k += 1
+                i += 1
+            }
+        }
+        // print(left, right, indexArr, counts)
+        
+        while i < left.count {
+            indexArr[k] = left[i]
+            counts[left[i]] += rightCount
+            k += 1
+            i += 1
+        }
+        
+        while j < right.count {
+            indexArr[k] = right[j]
+            rightCount += 1
+            k += 1
+            j += 1
+        }
+        // print(left, right, indexArr, counts)
+    }
+}
+
 // Solution 1: brute force
 // for each element, search remain array
 // 
