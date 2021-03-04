@@ -134,6 +134,7 @@ class Solution {
             let y = j + dir[d+1]
             if x < 0 || x >= n || y < 0 || y >= m { continue }
             if matrix[x][y] > matrix[i][j] { 
+                // + 1 at here, to count current element into the path
                 temp = max(temp, dfs(x, y)+1)
             }
         }
