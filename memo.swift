@@ -6,6 +6,9 @@ String(charArr) // char array to string
 var str: String = "ab c"
 Array(str) // change to [Character]() array
 str.lowercased() // lower case string
+str.startIndex // string first index String.Index
+str.endIndex // string end index String.Index
+str.index(after: String.Index) // next string index
 let a = Character("a").asciiValue! // ascii value
 Character(UnicodeScalar(a+1)) // asciiValue to char
 Character("a").isLetter // check if char is letter
