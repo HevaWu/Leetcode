@@ -85,6 +85,11 @@ for (a,b) in zip(str, word) {
     }
 }
 
+// ===== function variable =====
+let test: ((Int, Int) -> Int) = { a, b in
+    return a+b
+}
+
 // ===== mutating variable =====
 func test(a: inout Int) { }
 var _a = 0
