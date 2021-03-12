@@ -33,34 +33,33 @@ O(n^3)
 */
 class Solution {
     func maxCoins(_ nums: [Int]) -> Int {
-        guard !nums.isEmpty else { return 0 }
-        guard nums.count > 1 else { return nums[0] }
+        if nums.count == 1 { return nums[0] }
         
-        // burst all zeros first
+        // burst all zeros firs
         var nums = nums.filter { $0 > 0 }
         nums.insert(1, at: 0)
-        nums.insert(1, at: nums.count )
+        nums.append(1)
+        
         let n = nums.count
         
-        var dp = Array(repeating: Array(repeating: 0, count: n), count: n)
-        for k in 2..<n {
+        var dp = Array(repeating: Array(repeating: 0, count: n), 
+                       count: n)
+        
+        for size in 2..<n {
             var left = 0
-            while left < n-k {
-                var right = left + k
+            while left < n-size {
+                var right = left+size
                 
-                var i = left + 1
-                while i < right {
-                    dp[left][right] = max(
-                        dp[left][right], 
-                        dp[left][i] + nums[left]*nums[i]*nums[right] + dp[i][right]
-                    )
-                    i+=1
+                var k = left+1
+                while k < right {
+                    dp[left][right] = max(dp[left][right], 
+                                          dp[left][k] + dp[k][right] + nums[left] * nums[k] * nums[right])
+                    k += 1
                 }
-                
                 left += 1
             }
         }
+        
         return dp[0][n-1]
     }
 }
-
