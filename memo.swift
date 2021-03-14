@@ -54,7 +54,7 @@ for (i,v) in arr.enumerated() { // enumerate, iterate
     print(i, v)
     // 0,1 1,2 2,3
 }
-var i = arr.makeIterator() // iterator
+var i = arr.makeIterator() // iterator, type IndexingIterator<[Int]>
 i.next()
 arr.enumerated().sorted { (first, second) -> Bool in // enumerate, sort
     return first.element == second.element
