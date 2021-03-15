@@ -19,6 +19,8 @@ str.remove(at: index) // remove char at index
 String(3, radix: 2) // "11" transfer decimal to binary
 var i = str.indices.last! // string indices
 i = str.index(before: i) // index before/after
+str[str.index(str.startIndex, offsetBy: 2)] // string index str[2]
+
 
 // ===== int =====
 0^1 // xor 1
