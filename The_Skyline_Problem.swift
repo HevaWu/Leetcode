@@ -97,7 +97,7 @@ class Solution {
                 var h = max(lh, rh)
                 if h != maxh {
                     if res.count > 0, res[res.count-1][0] == l[li][0] {
-                        res[res.count-1][1] = l[li][1]
+                        res[res.count-1][1] = h
                     } else {
                         res.append([l[li][0], h])
                     }
@@ -111,7 +111,7 @@ class Solution {
                 var h = max(lh, rh)
                 if h != maxh {
                     if res.count > 0, res[res.count-1][0] == r[ri][0] {
-                        res[res.count-1][1] = r[ri][1]
+                        res[res.count-1][1] = h
                     } else {
                         res.append([r[ri][0], h])
                     }
