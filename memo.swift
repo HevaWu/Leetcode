@@ -42,6 +42,7 @@ digits.swapAt(i, j)  // swap
 arr.reverse() // reverse array
 arr.shuffled() // shuffle array
 Int.random(in: 1...2) // random element
+Double.random(in: Double(1.2)...Double(2.3)) // random in double array
 arr.indices // get indices
 arr[..<4] + arr[4...].sorted() // subarray
 arr.reduce(into: 0) { res, next in //  reduce
@@ -100,6 +101,11 @@ test(a: &_a)
 // ===== math =====
 
 abs(-1) // abs: 1
+sin(1)
+cos(1)
+pow(Double(2), Double(3)) // pow: 8
+
+Double.pi // pi
 
 Double(25).squareRoot() // sqrt: 5
 Double(5.5).rounded() // round: 6
@@ -109,7 +115,6 @@ Double(3).sign // sign: plus
 -4.signum // -1 signum: -1 negative, 1 positive, 0 
 
 import Darwin
-pow(Double(2), Double(3)) // pow: 8
 sqrt(4) // sqrt: 2
 floor(1.1) // floor: 1
 floor(1.9) // floor: 1
