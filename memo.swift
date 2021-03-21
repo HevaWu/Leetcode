@@ -20,6 +20,7 @@ String(3, radix: 2) // "11" transfer decimal to binary
 var i = str.indices.last! // string indices
 i = str.index(before: i) // index before/after
 str[str.index(str.startIndex, offsetBy: 2)] // string index str[2]
+String("abc").hash // hash return a fixed int value
 
 
 // ===== int =====
@@ -110,6 +111,7 @@ Double.pi // pi
 Double(25).squareRoot() // sqrt: 5
 Double(5.5).rounded() // round: 6
 Double(5.2).rounded() // round: 5
+Double(round(1.666666666 * 1000) / 1000) // round to 3 digits -> 1.667
 Double(-3).sign // sign: minus
 Double(3).sign // sign: plus
 -4.signum // -1 signum: -1 negative, 1 positive, 0 
