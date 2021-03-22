@@ -5,6 +5,9 @@ var charArr: [Character] = ["a", "b", "c"]
 String(charArr) // char array to string
 var str: String = "ab c"
 Array(str) // change to [Character]() array
+Character("a").isUppercase // check if char is upper case
+Character("a").isLowercase // check if char is lower case
+str.uppercased() // upper case string 
 str.lowercased() // lower case string
 str.startIndex // string first index String.Index
 str.endIndex // string end index String.Index
