@@ -26,13 +26,13 @@ class Solution {
     func threeSum(_ nums: [Int]) -> [[Int]] {
         guard !nums.isEmpty else { return [] }
         var sums = [[Int]]()
-        
+
         var nums = nums
-        nums.sort()        
+        nums.sort()
         for i in 0..<nums.count {
             // skip same temp
             if i > 0, nums[i] == nums[i - 1] { continue }
-            
+
             // two sum
             var leftNode = i + 1
             var rightNode = nums.count - 1
@@ -41,7 +41,7 @@ class Solution {
                 switch nums[leftNode] + nums[rightNode] {
                 case tempSum:
                     sums.append([nums[i], nums[leftNode], nums[rightNode]])
-                    
+
                     // update leftNode & rightNode, skip same val
                     while leftNode < rightNode, nums[leftNode] == nums[leftNode + 1] {
                         leftNode += 1
@@ -56,11 +56,11 @@ class Solution {
                 case let x where x < tempSum:
                     leftNode += 1
                 default:
-                    continue    
+                    continue
                 }
             }
         }
-        
+
         return sums
     }
 }

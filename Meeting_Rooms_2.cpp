@@ -47,21 +47,21 @@ class Solution {
 public:
     int minMeetingRooms(vector<Interval>& intervals) {
         if(intervals.size()<1) return intervals.size();
-        
+
         int n = intervals.size();
         vector<int> starts(n);
         vector<int> ends(n);
-        
+
         //store all intervals starts and ends
         for(Interval i:intervals){
             starts.push_back(i.start);
             ends.push_back(i.end);
         }
-        
-        //sort starts and ends 
+
+        //sort starts and ends
         sort(starts.begin(), starts.end());
         sort(ends.begin(), ends.end());
-        
+
         int rooms = 0; //count the rooms we need
         int e = 0; //end index
         for(int s = 0; s < starts.size(); ++s){
@@ -95,21 +95,21 @@ public:
 public class Solution {
     public int minMeetingRooms(Interval[] intervals) {
         if(intervals.length < 1) return intervals.length;
-        
+
         int n = intervals.length;
         int[] starts = new int[n];
         int[] ends = new int[n];
-        
+
         //store all starts and ends of intervals
         for(int i = 0; i < n; ++i){
             starts[i] = intervals[i].start;
             ends[i] = intervals[i].end;
         }
-        
+
         //sort starts and ends
         Arrays.sort(starts);
         Arrays.sort(ends);
-        
+
         int rooms = 0; //store the number of rooms we need
         int e = 0; //index of ends
         for(int s = 0; s < starts.length; ++s){
@@ -147,14 +147,14 @@ return heap.size()
 public class Solution {
     public int minMeetingRooms(Interval[] intervals) {
         if(intervals.length < 1) return intervals.length;
-        
+
         //sort intervals according their start
         Arrays.sort(intervals, new Comparator<Interval>(){
            public int compare(Interval a, Interval b){
                return a.start-b.start;
-           } 
+           }
         });
-        
+
         //build a heap for room
         PriorityQueue<Interval> room = new PriorityQueue<>(intervals.length,
             new Comparator<Interval>(){
@@ -162,7 +162,7 @@ public class Solution {
                     return a.end-b.end;
                 }
             });
-        
+
         room.offer(intervals[0]);
         for(int i = 1; i < intervals.length; ++i){
             Interval temp = room.poll();
@@ -175,7 +175,7 @@ public class Solution {
             }
             room.offer(temp); //remember to put the temp back to room queue
         }
-        
+
         return room.size();
     }
 }

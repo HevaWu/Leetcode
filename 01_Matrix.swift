@@ -3,7 +3,7 @@ Given a matrix consists of 0 and 1, find the distance of the nearest 0 for each 
 
 The distance between two adjacent cells is 1.
 
- 
+
 
 Example 1:
 
@@ -27,7 +27,7 @@ Output:
 [[0,0,0],
  [0,1,0],
  [1,2,1]]
- 
+
 
 Note:
 
@@ -41,7 +41,7 @@ Solution 2:
 DP
 1. first find all 0 cells
 2. update dist by:
-- a. update from top and left: 
+- a. update from top and left:
      dist[i][j] = min(dist[i][j],
 	 				  min(dist[i-1][j], dist[i][j-1])+1)
 - b. update from bottom and right:
@@ -54,17 +54,17 @@ Space Complexity: O(nm)
 
 class Solution {
     func updateMatrix(_ matrix: [[Int]]) -> [[Int]] {
-        guard !matrix.isEmpty, !matrix[0].isEmpty else { 
-            return matrix 
+        guard !matrix.isEmpty, !matrix[0].isEmpty else {
+            return matrix
         }
-        
+
         let n = matrix.count
         let m = matrix[0].count
-        
+
         // in case of out the limit, set value as Int.max-10000, because cell will at most have 10000 elements
         var dp = Array(repeating: Array(repeating: Int.max - 10000, count: m),
                       count: n)
-        
+
         for i in 0..<n {
             for j in 0..<m {
                 // 1. find all 0 cells
@@ -81,7 +81,7 @@ class Solution {
                 }
             }
         }
-        
+
         // 3. check from right and bottom
         for i in stride(from: n-1, through: 0, by: -1) {
             for j in stride(from: m-1, through: 0, by: -1) {
@@ -93,7 +93,7 @@ class Solution {
                 }
             }
         }
-        
+
         return dp
     }
 }
@@ -113,16 +113,16 @@ Space Complexity: O(nm)
 class Solution {
     func updateMatrix(_ matrix: [[Int]]) -> [[Int]] {
         guard !matrix.isEmpty, !matrix[0].isEmpty else { return matrix }
-        
+
         let n = matrix.count
         let m = matrix[0].count
-        
+
         var dist = Array(repeating: Array(repeating: Int.max, count: m),
                         count: n)
-        
+
         // bfs store cells (r, c)
         var queue = [(Int, Int)]()
-        
+
         // find all 0 cells first
         for i in 0..<n {
             for j in 0..<m {
@@ -132,10 +132,10 @@ class Solution {
                 }
             }
         }
-        
+
         // 4 directions
         let dir: [(Int, Int)] = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        
+
         while !queue.isEmpty {
             let cur = queue.removeFirst()
             for d in dir {
@@ -149,7 +149,7 @@ class Solution {
                 }
             }
         }
-        
+
         return dist
     }
 }

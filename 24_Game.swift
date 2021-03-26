@@ -16,7 +16,7 @@
 // There are only 4 cards and only 4 operations that can be performed. Even when all operations do not commute, that gives us an upper bound of 12 * 6 * 2 * 4 * 4 * 4 = 921612∗6∗2∗4∗4∗4=9216 possibilities, which makes it feasible to just try them all. Specifically, we choose two numbers (with order) in 12 ways and perform one of 4 operations (12 * 4). Then, with 3 remaining numbers, we choose 2 of them and perform one of 4 operations (6 * 4). Finally we have two numbers left and make a final choice of 2 * 4 possibilities.
 // We will perform 3 binary operations (+, -, *, / are the operations) on either our numbers or resulting numbers. Because - and / do not commute, we must be careful to consider both a / b and b / a.
 // For every way to remove two numbers a, b in our list, and for each possible result they can make, like a+b, a/b, etc., we will recursively solve the problem on this smaller list of numbers.
-// 
+//
 // Time Complexity: O(1)O(1). There is a hard limit of 9216 possibilities, and we do O(1)O(1) work for each of them.
 // Space Complexity: O(1)O(1). Our intermediate arrays are at most 4 elements, and the number made is bounded by an O(1)O(1) factor.
 class Solution {
@@ -25,15 +25,15 @@ class Solution {
         for num in nums {
             arr.append(Double(num))
         }
-        return solve(arr) 
+        return solve(arr)
         // return solve(nums.map{ Double($0) })
     }
-    
+
     func solve(_ arr: [Double]) -> Bool {
         if arr.isEmpty { return false }
         // 1e-6 for processing floating point issue
         if arr.count == 1 { return abs(arr.first! - 24) < 1e-6 }
-        
+
         for i in 0..<arr.count {
             for j in 0..<arr.count {
                 if i != j {
@@ -43,7 +43,7 @@ class Solution {
                             temp.append(arr[k])
                         }
                     }
-                    
+
                     for k in 0..<4 {
                         // only run the half for + * would be enough
                         if k < 2 && j > i { continue }
@@ -51,7 +51,7 @@ class Solution {
                         if k == 0 { temp.append(arr[i] + arr[j]) }
                         if k == 1 { temp.append(arr[i] * arr[j]) }
                         if k == 2 { temp.append(arr[i] - arr[j]) }
-                        if k == 3 { 
+                        if k == 3 {
                             if arr[j] != 0 {
                                 temp.append(arr[i] / arr[j])
                             } else {
