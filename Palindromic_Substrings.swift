@@ -8,14 +8,14 @@ Example 1:
 Input: "abc"
 Output: 3
 Explanation: Three palindromic strings: "a", "b", "c".
- 
+
 
 Example 2:
 
 Input: "aaa"
 Output: 6
 Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
- 
+
 
 Note:
 
@@ -41,19 +41,19 @@ class Solution {
         if s.isEmpty { return 0 }
         var s = Array(s)
         let n = s.count
-        
+
         var count = 0
-        
+
         for i in 0..<n {
             expandCenter(s, n, i, i, &count)
             expandCenter(s, n, i, i+1, &count)
         }
-        
+
         return count
     }
-    
-    func expandCenter(_ s: [Character], _ n: Int, 
-                      _ start: Int, _ end: Int, 
+
+    func expandCenter(_ s: [Character], _ n: Int,
+                      _ start: Int, _ end: Int,
                       _ count: inout Int) {
         guard start >= 0, end < n, s[start] == s[end] else { return }
         count += 1
@@ -67,7 +67,7 @@ DP
 
 Idea:
 - dp[i][j] = dp[i+1][j-1] && (s[i] == s[j])
-- dp base: 
+- dp base:
   - dp[i][i] = true
   - dp[i][i+1] = (s[i] == s[i+1])
 
@@ -79,25 +79,25 @@ class Solution {
         if s.isEmpty { return 0 }
         var s = Array(s)
         let n = s.count
-        
+
         // each single char would be a valid palindromic substring
         var count = n
-        
+
         // dp[i][j] means s[i...j] is palindromic or not
-        var dp = Array(repeating: Array(repeating: false, count: n), 
+        var dp = Array(repeating: Array(repeating: false, count: n),
                        count: n)
-        
+
         for i in 0..<n {
             dp[i][i] = true
         }
-        
+
         for i in 0..<(n-1) {
             dp[i][i+1] = s[i] == s[i+1]
             count += (dp[i][i+1] ? 1 : 0)
         }
-        
+
         if n <= 2 { return count }
-        
+
         for len in 3...n {
             var i = 0
             var j = i+len-1
@@ -108,7 +108,7 @@ class Solution {
                 j += 1
             }
         }
-        
+
         return count
     }
 }
@@ -128,9 +128,9 @@ class Solution {
         if s.isEmpty { return 0 }
         var s = Array(s)
         let n = s.count
-        
+
         var checked = [String: Bool]()
-        
+
         var count = 0
         for i in 0..<n {
             for j in i..<n {
@@ -141,17 +141,17 @@ class Solution {
         }
         return count
     }
-    
-    func isPalindromic(_ s: [Character], 
-                       _ start: Int, _ end: Int, 
+
+    func isPalindromic(_ s: [Character],
+                       _ start: Int, _ end: Int,
                        _ checked: inout [String: Bool]) -> Bool {
         let str = String(s[start...end])
         if let val = checked[str] {
             return val
         }
-        
+
         var start = start
-        var end = end 
+        var end = end
         while start < end {
             if s[start] != s[end] {
                 checked[str] = false
