@@ -38,29 +38,34 @@ class Solution {
     func isPalindrome(_ head: ListNode?) -> Bool {
         // reverse list head
         var rev: ListNode? = nil
-        
+
         var slow = head
         var fast = head
         while fast != nil, fast?.next != nil {
             fast = fast?.next?.next
-            
+
             // reverse first half list
             let _next = slow?.next
             slow?.next = rev
             rev = slow
             slow = _next
         }
-        
+
+        // if this list is odd length
+        // s = s?.next to skip middle node
+        // [1,2,3,2,1]
+        // before   -> rev: 2, s = 3
+        // after    -> rev: 2, s = 2
         if fast != nil {
             slow = slow?.next
         }
         // print(rev?.val, slow?.val)
-        
+
         while rev != nil, rev?.val == slow?.val {
             slow = slow?.next
             rev = rev?.next
         }
-        
+
         // print(rev?.val, slow?.val)
         return rev?.val == slow?.val
     }
