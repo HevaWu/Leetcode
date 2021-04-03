@@ -1,7 +1,7 @@
 /*
 Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
 
- 
+
 
 Example 1:
 
@@ -17,7 +17,7 @@ Example 3:
 
 Input: s = ""
 Output: 0
- 
+
 
 Constraints:
 
@@ -35,16 +35,16 @@ we make use of two counters leftleft and rightright. First, we start traversing 
 Time Complexity: O(n)
 Space Complexity: O(1)
 */
-class Solution {
+class Solution1 {
     func longestValidParentheses(_ s: String) -> Int {
         let n = s.count
         if n < 2 { return 0 }
-        
+
         var s = Array(s)
-        
+
         var left = 0
         var right = 0
-        
+
         var valid = 0
         for i in 0..<n {
             if s[i] == "(" {
@@ -52,7 +52,7 @@ class Solution {
             } else {
                 right += 1
             }
-            
+
             if left == right {
                 valid = max(valid, 2*right)
             } else if right > left {
@@ -60,7 +60,7 @@ class Solution {
                 right = 0
             }
         }
-        
+
         left = 0
         right = 0
         for i in stride(from: n-1, through: 0, by: -1) {
@@ -69,7 +69,7 @@ class Solution {
             } else {
                 right += 1
             }
-            
+
             if left == right {
                 valid = max(valid, 2*right)
             } else if left > right {
@@ -77,7 +77,7 @@ class Solution {
                 right = 0
             }
         }
-        
+
         return valid
     }
 }
@@ -92,13 +92,13 @@ Stack
 Time Complexity: O(n)
 Space Complexity: O(n)
 */
-class Solution {
+class Solution2 {
     func longestValidParentheses(_ s: String) -> Int {
         let n = s.count
         if n < 2 { return 0 }
-        
+
         var s = Array(s)
-        
+
         var left = [-1]
         var valid = 0
         for i in 0..<n {
@@ -107,13 +107,13 @@ class Solution {
             } else {
                 left.removeLast()
                 if !left.isEmpty {
-                    valid = max(valid, i-left.last!)   
+                    valid = max(valid, i-left.last!)
                 } else {
                     left.append(i)
                 }
             }
         }
-        
+
         return valid
     }
 }
@@ -123,6 +123,7 @@ Solution 1:
 DP
 
 idea:
+dp[i] longest valid substring end with i
 - s[i] = ")", s[i-1] = "("
 	- dp[i] = dp[i-2] + 2
 - s[i] = ")", s[i-1] = ")", s[i-dp[i-1]-1] = "("
@@ -135,9 +136,9 @@ class Solution {
     func longestValidParentheses(_ s: String) -> Int {
         let n = s.count
         if n < 2 { return 0 }
-        
+
         var s = Array(s)
-        
+
         // dp[i] longest valid substring end with i
         var dp = Array(repeating: 0, count: n)
         var valid = 0
@@ -145,18 +146,18 @@ class Solution {
             if s[i] == ")" {
                 if s[i-1] == "(" {
                     dp[i] = (i >= 2 ? dp[i-2] : 0) + 2
-                    
-                } else if s[i-1] == ")", 
-                i-dp[i-1] > 0, 
+
+                } else if s[i-1] == ")",
+                i-dp[i-1] > 0,
                 s[i-dp[i-1]-1] == "(" {
-                    dp[i] = dp[i-1] 
-                    + (i - dp[i-1] >= 2 ? dp[i-dp[i-1]-2] : 0) 
+                    dp[i] = dp[i-1]
+                    + (i - dp[i-1] >= 2 ? dp[i-dp[i-1]-2] : 0)
                     + 2
                 }
                 valid = max(valid, dp[i])
             }
         }
-        
+
         return valid
     }
 }
