@@ -4,21 +4,21 @@ There are a total of numCourses courses you have to take, labeled from 0 to numC
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
 Return true if you can finish all courses. Otherwise, return false.
 
- 
+
 
 Example 1:
 
 Input: numCourses = 2, prerequisites = [[1,0]]
 Output: true
-Explanation: There are a total of 2 courses to take. 
+Explanation: There are a total of 2 courses to take.
 To take course 1 you should have finished course 0. So it is possible.
 Example 2:
 
 Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
 Output: false
-Explanation: There are a total of 2 courses to take. 
+Explanation: There are a total of 2 courses to take.
 To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.
- 
+
 
 Constraints:
 
@@ -33,14 +33,14 @@ All the pairs prerequisites[i] are unique.
 Solution 3:
 optimize Solution 2 by using hashMap for graph part
 */
-class Solution {
+class Solution3 {
     func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
         var graph = [Int: [Int]]()
-        
+
         for list in prerequisites {
             graph[list[1], default: [Int]()].append(list[0])
         }
-        
+
         var visited = Array(repeating: 0, count: numCourses)
         for i in 0..<numCourses {
             if !noCycle(graph, i, &visited, numCourses) {
@@ -49,14 +49,14 @@ class Solution {
         }
         return true
     }
-    
+
     // return false if exsit cycle
     // return true if not exist cycle
-    func noCycle(_ graph: [Int: [Int]], _ course: Int, 
+    func noCycle(_ graph: [Int: [Int]], _ course: Int,
                     _ visited: inout [Int], _ numCourses: Int ) -> Bool {
         if visited[course] == 1 { return false }
         if visited[course] == 2 { return true }
-        
+
         // under checking
         visited[course] = 1
         if let list = graph[course] {
@@ -64,9 +64,9 @@ class Solution {
                 if !noCycle(graph, next, &visited, numCourses) {
                     return false
                 }
-            }   
+            }
         }
-        
+
         // no cycle for course, mark it as 2 means checking DONE
         visited[course] = 2
         return true
@@ -85,17 +85,17 @@ use visited to check if this node checking before:
 Time Complexity: O(n)
 Space Complexity: O(n*n)
 */
-class Solution {
+class Solution2 {
     func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
         var graph = Array(repeating: Array(repeating: false, count: numCourses),
                          count: numCourses)
-        
+
         for i in 0..<prerequisites.count {
             let course = prerequisites[i][0]
             let pre = prerequisites[i][1]
             graph[pre][course] = true
         }
-        
+
         var visited = Array(repeating: 0, count: numCourses)
         for i in 0..<numCourses {
             if !noCycle(graph, i, &visited, numCourses) {
@@ -104,14 +104,14 @@ class Solution {
         }
         return true
     }
-    
+
     // return false if exsit cycle
     // return true if not exist cycle
-    func noCycle(_ graph: [[Bool]], _ course: Int, 
+    func noCycle(_ graph: [[Bool]], _ course: Int,
                     _ visited: inout [Int], _ numCourses: Int ) -> Bool {
         if visited[course] == 1 { return false }
         if visited[course] == 2 { return true }
-        
+
         // under checking
         visited[course] = 1
         for i in 0..<numCourses {
@@ -121,7 +121,7 @@ class Solution {
                 }
             }
         }
-        
+
         // no cycle for course, mark it as 2 means checking DONE
         visited[course] = 2
         return true
@@ -142,12 +142,15 @@ if count != numCourses, there is a circle exists
 Time Complexity: O(n)
 Space Complexity: O(n*n)
 */
-class Solution {
+class Solution1 {
     func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
+        // graph[pre][course]
         var graph = Array(repeating: Array(repeating: 0, count: numCourses),
                          count: numCourses)
+
+        // courses[i] - for take i courses, need to take courses[i] preCourses
         var courses = Array(repeating: 0, count: numCourses)
-        
+
         for i in 0..<prerequisites.count {
             let course = prerequisites[i][0]
             let pre = prerequisites[i][1]
@@ -156,7 +159,7 @@ class Solution {
             }
             graph[pre][course] = 1
         }
-        
+
         var count = 0
         var queue = [Int]()
         for i in 0..<numCourses {
@@ -164,11 +167,11 @@ class Solution {
                 queue.append(i)
             }
         }
-        
+
         while !queue.isEmpty {
             let cur = queue.removeFirst()
             count += 1
-            
+
             for i in 0..<numCourses {
                 if graph[cur][i] != 0 {
                     courses[i] -= 1
@@ -178,7 +181,7 @@ class Solution {
                 }
             }
         }
-        
+
         return count == numCourses
     }
 }
