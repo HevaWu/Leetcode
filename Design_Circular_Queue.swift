@@ -12,7 +12,7 @@ boolean enQueue(int value) Inserts an element into the circular queue. Return tr
 boolean deQueue() Deletes an element from the circular queue. Return true if the operation is successful.
 boolean isEmpty() Checks whether the circular queue is empty or not.
 boolean isFull() Checks whether the circular queue is full or not.
- 
+
 
 Example 1:
 
@@ -33,16 +33,16 @@ myCircularQueue.isFull();   // return True
 myCircularQueue.deQueue();  // return True
 myCircularQueue.enQueue(4); // return True
 myCircularQueue.Rear();     // return 4
- 
+
 
 Constraints:
 
 1 <= k <= 1000
 0 <= value <= 1000
 At most 3000 calls will be made to enQueue, deQueue, Front, Rear, isEmpty, and isFull.
- 
 
-Follow up: Could you solve the problem without using the built-in queue? 
+
+Follow up: Could you solve the problem without using the built-in queue?
 */
 
 /*
@@ -64,7 +64,7 @@ class MyCircularQueue {
         tail = 0
         n = k
     }
-    
+
     func enQueue(_ value: Int) -> Bool {
         guard !isFull() else { return false }
         if isEmpty() {
@@ -76,36 +76,36 @@ class MyCircularQueue {
             }
             arr[tail] = value
         }
-        
+
         return true
     }
-    
+
     func deQueue() -> Bool {
         guard !isEmpty() else { return false }
         arr[head] = nil
         head += 1
         if head == n {
             head = 0
-        } 
+        }
         if isEmpty() {
             // if there is no next element, move tail pointer together with head pointer
             tail = head
         }
         return true
     }
-    
+
     func Front() -> Int {
         return isEmpty() ? -1 : arr[head]!
     }
-    
+
     func Rear() -> Int {
         return isEmpty() ? -1 : arr[tail]!
     }
-    
+
     func isEmpty() -> Bool {
         return arr[head] == nil
     }
-    
+
     func isFull() -> Bool {
         guard !isEmpty() else { return false }
         if head <= tail {
