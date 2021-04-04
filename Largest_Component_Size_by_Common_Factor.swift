@@ -4,7 +4,7 @@
 // There is an edge between A[i] and A[j] if and only if A[i] and A[j] share a common factor greater than 1.
 // Return the size of the largest connected component in the graph.
 
- 
+
 
 // Example 1:
 
@@ -35,7 +35,7 @@ class Solution {
     func largestComponentSize(_ A: [Int]) -> Int {
         let n = A.count
         let uf = UF(n)
-        
+
         // key is factor, value is index
         var factorMap = [Int: Int]()
         for (index, value) in A.enumerated() {
@@ -49,7 +49,7 @@ class Solution {
                         // this factor has already checked
                         uf.union(index, factorMap[f]!)
                     }
-                    
+
                     let quotient = value/f
                     if !factorMap.keys.contains(quotient) {
                         factorMap[quotient] = index
@@ -59,7 +59,7 @@ class Solution {
                 }
                 f += 1
             }
-            
+
             // valud should also be a factor
             if !factorMap.keys.contains(value) {
                 factorMap[value] = index
@@ -79,14 +79,14 @@ class UF {
         parent = Array.init(0..<n)
         size = Array.init(repeating: 1, count: n)
     }
-    
+
     func find(_ x: Int) -> Int {
         if x != parent[x] {
             parent[x] = find(parent[x])
         }
         return parent[x]
     }
-    
+
     func union(_ x: Int, _ y: Int) {
         let rx = find(x)
         let ry = find(y)
@@ -98,10 +98,10 @@ class UF {
     }
 }
 
-// Solution 1: 
+// Solution 1:
 // find factor first, then connect their root
-// time complexity: 
-// -- findFactor: O(n^2) n is size of A, 
+// time complexity:
+// -- findFactor: O(n^2) n is size of A,
 // -- connect: O(n^3) worst case
 class Solution {
     func largestComponentSize(_ A: [Int]) -> Int {
@@ -110,7 +110,7 @@ class Solution {
         for i in A {
             setFactor(num: i, factorDic: &factorDic, numDic: &numDic)
         }
-        
+
         var connectedMap = [Int: Set<Int>]()
         // key is num, value is its connected root
         var visited = [Int: Int]()
@@ -135,18 +135,18 @@ class Solution {
                 }
             }
         }
-        
+
         var maxSize = 0
         for v in connectedMap.values {
             maxSize = max(maxSize, v.count)
         }
         return maxSize
     }
-    
+
     func connect(num: Int, A: inout Set<Int>, factorDic: [Int: Set<Int>], numDic: [Int: Set<Int>]) -> Int {
         if !A.contains(num) { return 0 }
         A.remove(num)
-        
+
         if numDic[num] == nil { return 1 }
         var size = 1
         for factor in numDic[num]! {
@@ -157,7 +157,7 @@ class Solution {
         }
         return size
     }
-    
+
     // numDic: key is number, value is array of factors
     // factorDic: key is factor, value is array of number
     func setFactor(num: Int, factorDic: inout [Int: Set<Int>], numDic: inout [Int: Set<Int>]) {
@@ -168,13 +168,13 @@ class Solution {
             factorDic[f, default: Set<Int>()].insert(num)
         }
     }
-    
+
     func findFactor(of num: Int) -> Set<Int> {
         var factor: Set<Int> = []
         _findFactor(of: num, f: 2, factor: &factor)
         return factor
     }
-    
+
     func _findFactor(of num: Int, f: Int, factor: inout Set<Int>) {
         if num == 1 { return }
         if num % f == 0 {

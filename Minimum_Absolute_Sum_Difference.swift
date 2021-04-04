@@ -43,6 +43,15 @@ n == nums2.length
 1 <= nums1[i], nums2[i] <= 105
 */
 
+/*
+Solution 1:
+since we can only replace at most 1 element in nums1
+- count curDiff (diff by using original nums1 and nums2)
+- for each nums1[i], see if there is another proper replaceable number in nums1 can minimize abs diff
+
+Time Complexity: O(nlogn)
+Space Complexity: O(n)
+*/
 class Solution {
     func minAbsoluteSumDiff(_ nums1: [Int], _ nums2: [Int]) -> Int {
         let n = nums1.count
