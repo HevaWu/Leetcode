@@ -3,7 +3,7 @@
 // Example:
 
 // Input: matrix = [[1,0,1],[0,-2,3]], k = 2
-// Output: 2 
+// Output: 2
 // Explanation: Because the sum of rectangle [[0, 1], [-2, 3]] is 2,
 //              and 2 is the max number no larger than k (k = 2).
 // Note:
@@ -13,7 +13,7 @@
 
 // Solution 1:
 // 2D Kadane's algorithm + 1D maxSum problem with sum limit k
-// 
+//
 // Time complexity: O(n^2)
 // Space complexity: O(n)
 class Solution {
@@ -21,7 +21,7 @@ class Solution {
         guard !matrix.isEmpty, !matrix[0].isEmpty else { return 0 }
         let n = matrix.count
         let m = matrix[0].count
-        
+
         var maxSum = Int.min
         for l in 0..<m {
             var rowSum = Array(repeating: 0, count: n)
@@ -29,20 +29,19 @@ class Solution {
                 for i in 0..<n {
                     rowSum[i] += matrix[i][r]
                 }
-                
+
                 // find max subarray no more than K
-                var curMax = maxSumInArray(rowSum, k)
-                maxSum = max(maxSum, curMax)   
+                maxSum = max(maxSum, maxSumInArray(rowSum, k))
             }
         }
-        
+
         return maxSum
     }
-    
+
     // max sum of subarray <= k
     func maxSumInArray(_ arr: [Int], _ k: Int) -> Int {
         guard arr.count > 1 else { return arr[0] <= k ? arr[0] : Int.min }
-        
+
         var maxSum = Int.min
         for i in 0..<arr.count {
             var j = i + 1
