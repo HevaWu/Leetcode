@@ -7,7 +7,7 @@ var str: String = "ab c"
 Array(str) // change to [Character]() array
 Character("a").isUppercase // check if char is upper case
 Character("a").isLowercase // check if char is lower case
-str.uppercased() // upper case string 
+str.uppercased() // upper case string
 str.lowercased() // lower case string
 str.startIndex // string first index String.Index
 str.endIndex // string end index String.Index
@@ -117,7 +117,7 @@ Double(5.2).rounded() // round: 5
 Double(round(1.666666666 * 1000) / 1000) // round to 3 digits -> 1.667
 Double(-3).sign // sign: minus
 Double(3).sign // sign: plus
--4.signum // -1 signum: -1 negative, 1 positive, 0 
+-4.signum // -1 signum: -1 negative, 1 positive, 0
 
 import Darwin
 sqrt(4) // sqrt: 2

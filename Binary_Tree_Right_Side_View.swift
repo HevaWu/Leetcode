@@ -15,6 +15,48 @@ Explanation:
 */
 
 /*
+Solution 2:
+recursion
+
+Time Complexity: O(n)
+Space Complexity: O(logn)
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init() { self.val = 0; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+ *         self.val = val
+ *         self.left = left
+ *         self.right = right
+ *     }
+ * }
+ */
+class Solution {
+    func rightSideView(_ root: TreeNode?) -> [Int] {
+        guard let root = root else { return [] }
+        var res = [Int]()
+        traverse(root, 0, &res)
+        return res
+    }
+
+    func traverse(_ node: TreeNode?,
+                  _ depth: Int, _ res: inout [Int]) {
+        guard let node = node else { return }
+        if res.count == depth {
+            res.append(node.val)
+        }
+
+        traverse(node.right, depth+1, &res)
+        traverse(node.left, depth+1, &res)
+    }
+}
+
+/*
 Solution 1:
 iterative
 
@@ -41,27 +83,27 @@ Space Complexity: O(logn)
  *     }
  * }
  */
-class Solution {
+class Solution2 {
     func rightSideView(_ root: TreeNode?) -> [Int] {
         guard let node = root else { return [] }
         var res: [Int] = [node.val]
-        
+
         var queue: [(TreeNode, Int)] = [(node, 1)]
         while !queue.isEmpty {
             let (cur, level) = queue.removeFirst()
-            if level == res.count { 
+            if level == res.count {
                 if cur.right != nil { queue.append((cur.right!, level+1)) }
                 if cur.left != nil { queue.append((cur.left!, level+1)) }
-                continue 
+                continue
             }
-            
+
             // find a right side node
             res.append(cur.val)
-            
+
             if cur.right != nil { queue.append((cur.right!, level+1)) }
             if cur.left != nil { queue.append((cur.left!, level+1)) }
         }
-        
+
         return res
     }
 }
@@ -81,23 +123,24 @@ class Solution {
  *     }
  * }
  */
-class Solution {
+class Solution1 {
     func rightSideView(_ root: TreeNode?) -> [Int] {
         guard let node = root else { return [] }
         var res: [Int] = [Int]()
-        
+
         var queue: [(TreeNode, Int)] = [(node, 0)]
         while !queue.isEmpty {
             let (cur, level) = queue.removeFirst()
-            if level == res.count { 
+            if level == res.count {
                 // find a right side node
                 res.append(cur.val)
             }
-            
+
             if cur.right != nil { queue.append((cur.right!, level+1)) }
             if cur.left != nil { queue.append((cur.left!, level+1)) }
         }
-        
+
         return res
     }
 }
+
