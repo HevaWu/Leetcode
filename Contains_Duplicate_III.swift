@@ -1,7 +1,7 @@
 /*
 Given an array of integers, find out whether there are two distinct indices i and j in the array such that the absolute difference between nums[i] and nums[j] is at most t and the absolute difference between i and j is at most k.
 
- 
+
 
 Example 1:
 
@@ -15,7 +15,7 @@ Example 3:
 
 Input: nums = [1,5,9,1,5,9], k = 2, t = 3
 Output: false
- 
+
 
 Constraints:
 
@@ -38,7 +38,7 @@ use set to help insert & delete nums quickly
 Time Complexity: O(nk)
 Space Complexity: O(k)
 */
-class Solution {
+class Solution2 {
     func containsNearbyAlmostDuplicate(_ nums: [Int], _ k: Int, _ t: Int) -> Bool {
         guard !nums.isEmpty else { return false }
         var set = Set<Int>()
@@ -55,7 +55,7 @@ class Solution {
                     return true
                 }
             }
-            
+
             set.insert(nums[i])
             if set.count == k+1 {
                 set.remove(nums[i-k])
@@ -69,8 +69,8 @@ class Solution {
 Solution 1:
 binary search
 
-sort first k element, 
-then check if there are 2 ajacent element val <= t, 
+sort first k element,
+then check if there are 2 ajacent element val <= t,
 if exist, return true
 
 for remaining element i in 1..<(n-k)
@@ -81,21 +81,21 @@ for remaining element i in 1..<(n-k)
 Time Complexity: O(n logK)
 Space Complexity: O(k)
 */
-class Solution {
+class Solution1 {
     func containsNearbyAlmostDuplicate(_ nums: [Int], _ k: Int, _ t: Int) -> Bool {
         if nums.isEmpty {
             return false
         }
-        
+
         let n = nums.count
 		// return false for all of k==0
         if k == 0 { return false }
-        
+
 		// control first tempSize
         let tempSize = k < n ? k+1 : n
         var temp = Array(nums[0..<tempSize])
         temp.sort()
-                
+
         for i in 0..<(tempSize-1) {
             let cur = temp[i+1] - temp[i]
             if cur <= t {
@@ -103,20 +103,20 @@ class Solution {
             }
         }
         // print(temp)
-        
+
         if n <= k { return false }
-        
-        for i in 1..<(n-k) {            
+
+        for i in 1..<(n-k) {
             // remove nums[i-1], and insert nums[k+i]
             remove(&temp, k, nums[i-1])
             var _index = add(&temp, k, nums[k+i])
             // print(temp)
-            
+
             if _index > 0 {
                 let dis = temp[_index] - temp[_index-1]
                 if dis <= t { return true }
             }
-            
+
             if _index < k {
                 let dis = temp[_index+1] - temp[_index]
                 if dis <= t { return true }
@@ -124,22 +124,22 @@ class Solution {
         }
         return false
     }
-    
+
     // remove val in sorted nums
     func remove(_ nums: inout [Int], _ n: Int, _ val: Int) {
-        if nums[0] == val { 
+        if nums[0] == val {
             nums.removeFirst()
-            return 
+            return
         }
-        
+
         if nums[n] == val {
             nums.removeLast()
             return
         }
-        
+
         var left = 0
         var right = n-1
-        
+
         while left <= right {
             let mid = left + (right - left)/2
             if nums[mid] == val {
@@ -152,22 +152,22 @@ class Solution {
             }
         }
     }
-    
+
     // add val in sorted nums, return index where we insert val
     // n is nums.count
     func add(_ nums: inout [Int], _ n: Int, _ val: Int) -> Int {
-        if nums[0] > val { 
+        if nums[0] > val {
             nums.insert(val, at: 0)
-            return 0 
+            return 0
         }
-        
+
         if nums[n-1] < val {
             nums.append(val)
             return n
         }
-        
+
         var left = 0
-        var right = n-1 
+        var right = n-1
         while left < right {
             let mid = left + (right - left)/2
             if nums[mid] > val {
@@ -176,7 +176,7 @@ class Solution {
                 left = mid + 1
             }
         }
-        
+
         nums.insert(val, at: left)
         return left
     }
