@@ -30,9 +30,9 @@ class SummaryRanges {
 public:
     /** Initialize your data structure here. */
     SummaryRanges() {
-        
+
     }
-    
+
     void addNum(int val) {
         auto cmp = [](Interval a, Interval b){return a.start<b.start;};
         auto it = lower_bound(inter.begin(), inter.end(), Interval(val,val), cmp);
@@ -46,7 +46,7 @@ public:
         }
         inter.insert(it,Interval(start,end));
     }
-    
+
     vector<Interval> getIntervals() {
         return inter;
     }
@@ -83,7 +83,7 @@ public class SummaryRanges {
     public SummaryRanges() {
         mytree = new TreeMap<>();
     }
-    
+
     public void addNum(int val) {
         if(mytree.containsKey(val))
             return;
@@ -101,7 +101,7 @@ public class SummaryRanges {
             mytree.put(val, new Interval(val,val));
         }
     }
-    
+
     public List<Interval> getIntervals() {
         return new ArrayList<>(mytree.values());
     }

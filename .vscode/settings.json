@@ -2,6 +2,10 @@
     "files.associations": {
         "*.tt": "html",
         "iosfwd": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "algorithm": "cpp",
+        "chrono": "cpp",
+        "limits": "cpp",
+        "random": "cpp"
     }
 }
