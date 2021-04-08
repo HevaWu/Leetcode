@@ -17,13 +17,13 @@ Character(UnicodeScalar(a+1)) // asciiValue to char
 Character("a").isLetter // check if char is letter
 Character("1").wholeNumberValue // number value
 var sub = str.split(separator: " ") // split
-a.joined(separator: " ") // join
-str.remove(at: index) // remove char at index
+sub.joined(separator: " ") // join
+str.remove(at: str.startIndex) // remove char at index
 String(3, radix: 2) // "11" transfer decimal to binary
 var i = str.indices.last! // string indices
 i = str.index(before: i) // index before/after
 str[str.index(str.startIndex, offsetBy: 2)] // string index str[2]
-String("abc").hash // hash return a fixed int value
+String("abc").hash // hash return a fixed int value, can be used in a hashTable
 
 
 // ===== int =====
@@ -41,8 +41,8 @@ var arr = [0,1,2,3,4,5]
 arr.replaceSubrange(1...2, with: 4...5) // [0, 4, 5, 3, 4, 5] replace sub array
 arr.insert(0, at: 0) // insert [0,0,4,5,3,4,5]
 arr.removeLast(3) // remove last 3 element
-arr.append(contentsOf:)
-digits.swapAt(i, j)  // swap
+arr.append(contentsOf: [2,3,4]) // append contentsOf
+arr.swapAt(3, 4)  // swap at index 3 & index 4
 arr.reverse() // reverse array
 arr.shuffled() // shuffle array
 Int.random(in: 1...2) // random element
@@ -56,13 +56,12 @@ arr.reduce(into: 0) { res, next in //  reduce
 arr.sorted(by: {
     $0 < $1
 })
-var arr = [1, 2, 3]
 for (i,v) in arr.enumerated() { // enumerate, iterate
     print(i, v)
     // 0,1 1,2 2,3
 }
-var i = arr.makeIterator() // iterator, type IndexingIterator<[Int]>
-i.next()
+var it = arr.makeIterator() // iterator, type IndexingIterator<[Int]>
+it.next()
 arr.enumerated().sorted { (first, second) -> Bool in // enumerate, sort
     return first.element == second.element
         ? first.offset < second.offset
@@ -72,19 +71,21 @@ arr.enumerated().sorted { (first, second) -> Bool in // enumerate, sort
 // ===== Set =====
 set.insert(3) // insert
 set.remove(3) // remove
+var set1 = Set([1,2,3])
+var set2 = Set([2,3,4])
 set1.formUnion(set2) // insert set2 elements to set1
 var dic: [Int: Set<Int>] = [:]
 var set: Set<Int> = [1,2,3]
 dic[2, default: Set<Int>()].formUnion(set)
 
 // ===== Dictionary =====
-var dic: [Int: Int] = [:]
-dic[1, default: 0] // default value
+var dic1: [Int: Int] = [:]
+dic1[1, default: 0] += 1 // default value
 
 // ===== zip sequence =====
-var str = "abcwer"
+var str1 = "abcwer"
 var word = "abeedr"
-for (a,b) in zip(str, word) {
+for (a,b) in zip(str1, word) {
     if a == b {
         print(a) //a b r
     } else {
@@ -107,6 +108,7 @@ test(a: &_a)
 abs(-1) // abs: 1
 sin(1)
 cos(1)
+
 pow(Double(2), Double(3)) // pow: 8
 
 Double.pi // pi

@@ -12,7 +12,7 @@ The skyline should be represented as a list of "key points" sorted by their x-co
 
 Note: There must be no consecutive horizontal lines of equal height in the output skyline. For instance, [...,[2 3],[4 5],[7 5],[11 5],[12 7],...] is not acceptable; the three lines of height 5 should be merged into one in the final output as such: [...,[2 3],[4 5],[12 7],...]
 
- 
+
 
 Example 1:
 
@@ -26,7 +26,7 @@ Example 2:
 
 Input: buildings = [[0,2,3],[2,5,3]]
 Output: [[0,3],[5,0]]
- 
+
 
 Constraints:
 
@@ -42,33 +42,33 @@ backTrack
 
 improve sort?
 */
-class Solution {
+class Solution2 {
     func getSkyline(_ buildings: [[Int]]) -> [[Int]] {
         func backTrack(_ start: Int, _ end: Int) -> [[Int]] {
             guard start < end else { return [] }
-            
+
             let count = end-start
             if count == 1 {
                 return [[buildings[start][0], buildings[start][2]],
                        [buildings[start][1], 0]]
             }
-            
+
             let mid = start+(end-start)/2
-            
+
             let l = backTrack(start, mid)
             let r = backTrack(mid, end)
-            
+
             var res = [[Int]]()
-            
+
             // merge
             var li = 0
             var lh = 0
-            
+
             var ri = 0
             var rh = 0
-            
+
             var maxh = 0
-            
+
             while li < l.count, ri < r.count {
                 var cur = 0
                 if l[li][0] < r[ri][0] {
@@ -80,7 +80,7 @@ class Solution {
                     cur = r[ri][0]
                     ri += 1
                 }
-                
+
                 var h = max(lh, rh)
                 if h != maxh {
                     if res.count > 0, res[res.count-1][0] == cur {
@@ -91,7 +91,7 @@ class Solution {
                     maxh = h
                 }
             }
-            
+
             while li < l.count {
                 lh = l[li][1]
                 var h = max(lh, rh)
@@ -105,7 +105,7 @@ class Solution {
                 }
                 li += 1
             }
-            
+
             while ri < r.count {
                 rh = r[ri][1]
                 var h = max(lh, rh)
@@ -119,10 +119,10 @@ class Solution {
                 }
                 ri += 1
             }
-            
+
             return res
         }
-        
+
         return backTrack(0, buildings.count)
     }
 }
@@ -137,21 +137,21 @@ Solution 1:
 TimeComplexity: O(nlogn)
 Space Complexity: O(n)
 */
-class Solution {
+class Solution1 {
     func getSkyline(_ buildings: [[Int]]) -> [[Int]] {
         var heights = [(Int, Int)]()
         for b in buildings {
             heights.append((b[0], b[2]))
             heights.append((b[1], -b[2]))
         }
-        
+
         // sort by left, then height
         heights.sort(by: { first, second in
             if first.0 == second.0 {
                 // for same index,
                 // if both of them are at left, sort by abs(first.1) > abs(second.1)
                 // if both of them are at right, sort by abs(first.1) < abs(second.1)
-                // if one of them means left, return this one first 
+                // if one of them means left, return this one first
                 if first.1 * second.1 > 0 {
                     return first.1 > second.1
                 } else {
@@ -162,15 +162,15 @@ class Solution {
             }
         })
         // print(heights)
-        
+
         var res = [[Int]]()
-        
+
         var map = [Int: Int]()
         // use it to control right base line
         map[0] = 1
-        
+
         var preMaxHeight = 0
-        
+
         for h in heights {
             var curHeight = preMaxHeight
             if h.1 > 0 {
@@ -179,11 +179,11 @@ class Solution {
             } else {
                 // use -h.1 to find this buildings left side
                 guard let val = map[-h.1] else { break }
-                
+
                 if val == 1 {
                     // only one building
                     map[-h.1] = nil
-                    
+
                     // find remaining highest building
                     if let mapMaxHeight = map.keys.max() {
                         curHeight = mapMaxHeight
@@ -192,13 +192,13 @@ class Solution {
                     map[-h.1] = val-1
                 }
             }
-            
+
             if curHeight != preMaxHeight {
                 res.append([h.0, curHeight])
                 preMaxHeight = curHeight
             }
         }
-        
+
         return res
     }
 }
