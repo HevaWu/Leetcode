@@ -94,6 +94,8 @@ class RangeModule {
         if intervals.last!.pos <= left { return false }
         if intervals.first!.pos >= right { return false }
 
+        // for left, use isLeft false, and for right, use isLeft true
+        // this will help checking if (left,right) are in same range
         let l = getIndex(left, false)
         let r = getIndex(right, true)
 
