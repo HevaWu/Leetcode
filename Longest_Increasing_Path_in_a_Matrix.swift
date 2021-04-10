@@ -62,8 +62,8 @@ class Solution1 {
 // Cache the results for the recursion so that any subproblem will be calculated only once.
 // use a set to prevent the repeat visit in one DFS search. This optimization will reduce the time complexity for each DFS to O(mn)O(mn) and the total algorithm to O(m^2n^2)
 //
-// Time complexity : O(mn)O(mn). Each vertex/cell will be calculated once and only once, and each edge will be visited once and only once. The total time complexity is then O(V+E)O(V+E). VV is the total number of vertices and EE is the total number of edges. In our problem, O(V) = O(mn)O(V)=O(mn), O(E) = O(4V) = O(mn)O(E)=O(4V)=O(mn).
-// Space complexity : O(mn)O(mn). The cache dominates the space complexity.
+// Time complexity : O(mn). Each vertex/cell will be calculated once and only once, and each edge will be visited once and only once. The total time complexity is then O(V+E). V is the total number of vertices and E is the total number of edges. In our problem, O(V) = O(mn), O(E) = O(4V) = O(mn).
+// Space complexity : O(mn). The cache dominates the space complexity.
 class Solution2 {
     var directions = [(0,1),(0,-1),(-1,0),(1,0)]
     var m = 0
