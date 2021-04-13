@@ -18,7 +18,7 @@
 // The median is (2 + 3)/2 = 2.5
 
 // Solution 1: default sort
-// 
+//
 class Solution {
     func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
         var num = nums1 + nums2
@@ -49,12 +49,12 @@ class Solution {
 // Means \text{A}[i-1]A[i−1] is too big. And we must decrease ii to get \text{A}[i-1]\leq \text{B}[j]A[i−1]≤B[j].
 // That is, we must adjust the searching range to [\text{imin}, i-1][imin,i−1].
 // So, set \text{imax} = i-1imax=i−1, and goto 2.
-// 
+//
 // max(A[i−1],B[j−1]), when m + nm+n is odd
 // \frac{\max(\text{A}[i-1], \text{B}[j-1]) + \min(\text{A}[i], \text{B}[j])}{2},2max(A[i−1],B[j−1])+min(A[i],B[j]), when m + nm+n is even
-// 
+//
 // Searching ii in [0, m][0,m], to find an object ii such that:(j = 0(j=0 or i = mi=m or \text{B}[j-1] \leq \text{A}[i])B[j−1]≤A[i]) and(i = 0(i=0 or j = nj=n or \text{A}[i-1] \leq \text{B}[j]),A[i−1]≤B[j]), where j = \frac{m + n + 1}{2} - ij= 2m+n+1−i
-// 
+//
 // Time complexity: O\big(\log\big(\text{min}(m,n)\big)\big)O(log(min(m,n))).
 // At first, the searching range is [0, m][0,m]. And the length of this searching range will be reduced by half after each loop. So, we only need \log(m)log(m) loops. Since we do constant operations in each loop, so the time complexity is O\big(\log(m)\big)O(log(m)). Since m \leq nm≤n, so the time complexity is O\big(\log\big(\text{min}(m,n)\big)\big)O(log(min(m,n))).
 // Space complexity: O(1)O(1).
@@ -63,7 +63,7 @@ class Solution {
     func findMedianSortedArrays(_ nums1: [Int], _ nums2: [Int]) -> Double {
         var m = nums1.count
         var n = nums2.count
-        
+
         // always make sure m <= n
         var nums1 = nums1
         var nums2 = nums2
@@ -71,24 +71,26 @@ class Solution {
             let temp = nums1
             nums1 = nums2
             nums2 = temp
-            
+
             var tmp = m
             m = n
             n = tmp
         }
-        
+
         var imin = 0
-        var imax = m
+        var imax = m // max is m not m-1
+
+        // use (m+n+1)/2 to make sure halfLen enough large
         var halfLen = (m+n+1)/2
-        
+
         while imin <= imax {
             var i = (imin+imax)/2
             var j = halfLen - i
-            
+
             print(i,j, nums1, nums2, m, n)
             if i < imax, nums2[j-1] > nums1[i] { // i is too small
                 imin = i+1
-            } else if i > imin, nums1[i-1] > nums2[j] { // i is too large
+            } else if i > imin, nums1[i-1] > nums2[j] { // i is too large, use nums1[i-1] > nums2[j] to help checking if i is large
                 imax = i-1
             } else { // i is perfect, return value
                 var maxLeft = 0
@@ -96,12 +98,12 @@ class Solution {
                 else if j == 0 { maxLeft = nums1[i-1]}
                 else { maxLeft = max(nums1[i-1], nums2[j-1]) }
                 if (m+n)%2 == 1 { return Double(maxLeft) }
-                
+
                 var minRight = 0
                 if i == m { minRight = nums2[j] }
                 else if j == n { minRight = nums1[i] }
                 else { minRight = min(nums2[j], nums1[i]) }
-            
+
                 return Double(maxLeft+minRight)/2.0
             }
         }
