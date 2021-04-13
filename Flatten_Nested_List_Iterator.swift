@@ -7,13 +7,13 @@ Example 1:
 
 Input: [[1,1],2,[1,1]]
 Output: [1,1,2,1,1]
-Explanation: By calling next repeatedly until hasNext returns false, 
+Explanation: By calling next repeatedly until hasNext returns false,
              the order of elements returned by next should be: [1,1,2,1,1].
 Example 2:
 
 Input: [1,[4,[6]]]
 Output: [1,4,6]
-Explanation: By calling next repeatedly until hasNext returns false, 
+Explanation: By calling next repeatedly until hasNext returns false,
              the order of elements returned by next should be: [1,4,6].
 */
 
@@ -22,8 +22,8 @@ Solution 1:
 
 - stack: iterator stack
 - nextEle: next element
-- cacheNext: 
-  - true if this nextEle is NOT been called by next(), 
+- cacheNext:
+  - true if this nextEle is NOT been called by next(),
   - false if this nextEle is not set yet OR has already popped in next() function
 
 - next()
@@ -68,38 +68,39 @@ Space Complexity: O(size of deepest nested NestedInteger list)
  */
 
 class NestedIterator {
+    // NOTE: here is [NestedInteger] iterator
     var stack = [IndexingIterator<[NestedInteger]>]()
     var nextEle: Int? = nil
-    
+
     // flag help checking if hasNext()'s nextEle has already been called in next()
     var cacheNext = false
 
     init(_ nestedList: [NestedInteger]) {
         stack.append(nestedList.makeIterator())
     }
-    
+
     func next() -> Int {
-        hasNext()
+        guard hasNext() else { return -1 }
         cacheNext = false
         return nextEle ?? -1
     }
-    
+
     func hasNext() -> Bool {
         if cacheNext {
-            return nextEle == nil
+            return nextEle != nil
         }
-        
+
         cacheNext = true
         while !stack.isEmpty {
             var cur = stack.removeLast()
             if let _next = cur.next() {
                 stack.append(cur)
-                
+
                 if _next.isInteger() {
                     nextEle = _next.getInteger()
                     return true
                 }
-                // _next is a list
+                // _next is a list, getList() then makeIterator()
                 stack.append(_next.getList().makeIterator())
             }
         }
