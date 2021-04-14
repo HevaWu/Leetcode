@@ -12,7 +12,7 @@
 
 // Solution 1: Mege list one by one
 // convert to search 2 list for n times <- n is lists.count
-// 
+//
 // Time Complexity: O(Kn)
 // Space Complexity: O(Kn)
 /**
@@ -30,7 +30,7 @@ class Solution {
     func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
         guard !lists.isEmpty else { return nil }
         var node = lists[0]
-        
+
         for i in 1..<lists.count {
             let list = lists[i]
             // sort node
@@ -38,16 +38,16 @@ class Solution {
         }
         return node
     }
-    
+
     func merge2Lists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
         guard list1 != nil else { return list2 }
         guard list2 != nil else { return list1 }
-        
+
         var list1 = list1
         var list2 = list2
         var node = ListNode(0)
         var head = node
-        
+
         while list1 != nil, list2 != nil {
             if list1!.val < list2!.val {
                 node.next = list1
@@ -58,17 +58,17 @@ class Solution {
             }
             node = node.next!
         }
-        
+
         if list1 == nil {
-            node.next = list2    
+            node.next = list2
         }
-        
+
         if list2 == nil {
             node.next = list1
         }
-        
+
         return head.next
-    } 
+    }
 }
 
 // Solution 2: Divide & Conquer
@@ -91,30 +91,30 @@ class Solution {
 class Solution {
     func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
         guard !lists.isEmpty else { return nil }
-        
+
         var lists = lists
         var n = lists.count
         var interval = 1
-        
+
         while interval < n {
             // use interval*2 at here, in case check duplicated
-            for i in stride(from: 0, to: n - interval, by: interval+1) {
+            for i in stride(from: 0, to: n - interval, by: 2*interval) {
                 lists[i] = merge2List(lists[i], lists[i+interval])
             }
-            interval *= 2 
+            interval *= 2
         }
-        return lists[0] 
+        return lists[0]
     }
-    
+
     func merge2List(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
         guard list1 != nil else { return list2 }
         guard list2 != nil else { return list1 }
-        
+
         var list1 = list1
         var list2 = list2
         var node = ListNode(0)
         var head = node
-        
+
         while list1 != nil, list2 != nil {
             if list1!.val > list2!.val {
                 node.next = list2
@@ -125,23 +125,23 @@ class Solution {
             }
             node = node.next!
         }
-        
+
         if list1 == nil {
             node.next = list2
         }
-        
+
         if list2 == nil {
             node.next = list1
         }
-        
+
         return head.next
     }
 
-// Another merge2Lists solution 
+// Another merge2Lists solution
     func merge2Lists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
         guard list1 != nil else { return list2 }
         guard list2 != nil else { return list1 }
-        
+
         var head: ListNode
         var another: ListNode?
         if list1!.val < list2!.val {
@@ -151,7 +151,7 @@ class Solution {
             head = list2!
             another = list1
         }
-        
+
         var cur: ListNode = head
         while another != nil {
             if cur.next == nil || cur.next!.val > another!.val {
@@ -167,7 +167,7 @@ class Solution {
 
 // Solution 3: Brute Force
 // Put all of node in an array first, then sort them
-// 
+//
 // Time Complexity: O(N\log N) where NN is the total number of nodes.
 // Collecting all the values costs O(N) time.
 // A stable sorting algorithm costs O(N\log N) time.
@@ -189,7 +189,7 @@ class Solution {
 class Solution {
     func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
         guard !lists.isEmpty else { return nil }
-        
+
         // save all node
         var nodeArr = [Int]()
         for list in lists {
@@ -199,7 +199,7 @@ class Solution {
                 varlist = varlist!.next
             }
         }
-        
+
         // put it into ListNode
         var node = ListNode(0)
         var head = node
@@ -230,7 +230,7 @@ Time Limit Exceeded
 class Solution {
     func mergeKLists(_ lists: [ListNode?]) -> ListNode? {
         guard !lists.isEmpty else { return nil }
-        
+
         var node: ListNode? = nil
         var cur = 0
 
@@ -240,11 +240,11 @@ class Solution {
                 cur = i
             }
         }
-        
+
         if node == nil {
             return nil
         }
-                
+
         var temp = lists
         if lists[cur]?.next == nil {
             temp.remove(at: cur)
@@ -278,17 +278,17 @@ class Solution {
         guard !lists.isEmpty else { return nil }
         if lists.count == 1 { return lists[0] }
         if lists.count == 2 { return merge2Lists(lists[0], lists[1]) }
-        
+
         return merge2Lists(
             mergeKLists(Array(lists[..<(lists.count/2)])),
             mergeKLists(Array(lists[(lists.count/2)..<lists.count]))
         )
     }
-    
+
     func merge2Lists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
         guard list1 != nil else { return list2 }
         guard list2 != nil else { return list1 }
-        
+
         var head: ListNode
         var another: ListNode?
         if list1!.val < list2!.val {
@@ -298,7 +298,7 @@ class Solution {
             head = list2!
             another = list1
         }
-        
+
         var cur: ListNode = head
         while another != nil {
             if cur.next == nil || cur.next!.val > another!.val {
