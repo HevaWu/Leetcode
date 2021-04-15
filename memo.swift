@@ -76,7 +76,8 @@ var set2 = Set([2,3,4])
 set1.formUnion(set2) // insert set2 elements to set1
 var dic: [Int: Set<Int>] = [:]
 var set: Set<Int> = [1,2,3]
-dic[2, default: Set<Int>()].formUnion(set)
+dic[2, default: Set<Int>()].formUnion(set) // union set
+set.max() // return max element int the set
 
 // ===== Dictionary =====
 var dic1: [Int: Int] = [:]
