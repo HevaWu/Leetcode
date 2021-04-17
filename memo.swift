@@ -24,6 +24,7 @@ var i = str.indices.last! // string indices
 i = str.index(before: i) // index before/after
 str[str.index(str.startIndex, offsetBy: 2)] // string index str[2]
 String("abc").hash // hash return a fixed int value, can be used in a hashTable
+str.append(String(repeating: "c", count: 3)) // string append list of char
 
 
 // ===== int =====
