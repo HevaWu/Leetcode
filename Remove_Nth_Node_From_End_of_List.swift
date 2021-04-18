@@ -17,7 +17,7 @@
 // First pass go through all linked list, mark length len
 // we should remove len-n+1 node
 // second pass relink len-n & len-n+2 to remove node
-// 
+//
 // Time Complexity: O(L).The algorithm makes two traversal of the list, first to calculate list length LL and second to find the (L - n)(L−n) th node. There are 2L-n2L−n operations and time complexity is O(L)O(L).
 // Space complexity : O(1)O(1).We only used constant extra space.
 
@@ -32,20 +32,20 @@
  *     }
  * }
  */
-class Solution {
+class Solution1 {
     func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
         guard head != nil, n > 0 else { return head }
-        
+
         var dummy = ListNode(0)
         dummy.next = head
-        
+
         var len = 0
         var head = head
         while head != nil {
             len += 1
             head = head!.next
         }
-        
+
         // remove len-n+1 node
         // find len-n node
         var node = dummy
@@ -63,10 +63,10 @@ class Solution {
 }
 
 // Solution 2: one pass
-// The above algorithm could be optimized to one pass. Instead of one pointer, we could use two pointers. The first pointer advances the list by n+1n+1 steps from the beginning, while the second pointer starts from the beginning of the list. Now, both pointers are exactly separated by nn nodes apart. We maintain this constant gap by advancing both pointers together until the first pointer arrives past the last node. The second pointer will be pointing at the nnth node counting from the last. We relink the next pointer of the node referenced by the second pointer to point to the node's next next node.
-// 
-// Time complexity : O(L)O(L) The algorithm makes one traversal of the list of LL nodes. Therefore time complexity is O(L)O(L).
-// Space complexity : O(1)O(1). We only used constant extra space.
+// The above algorithm could be optimized to one pass. Instead of one pointer, we could use two pointers. The first pointer advances the list by n+1 steps from the beginning, while the second pointer starts from the beginning of the list. Now, both pointers are exactly separated by nn nodes apart. We maintain this constant gap by advancing both pointers together until the first pointer arrives past the last node. The second pointer will be pointing at the nnth node counting from the last. We relink the next pointer of the node referenced by the second pointer to point to the node's next next node.
+//
+// Time complexity : O(L) The algorithm makes one traversal of the list of LL nodes. Therefore time complexity is O(L)O(L).
+// Space complexity : O(1). We only used constant extra space.
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -78,15 +78,15 @@ class Solution {
  *     }
  * }
  */
-class Solution {
+class Solution2 {
     func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
         var dummy = ListNode(0)
         dummy.next = head
-        
+
         var left = dummy
         var right = dummy
         var dis = 0
-        
+
         while right.next != nil {
             right = right.next!
             dis += 1
@@ -94,9 +94,46 @@ class Solution {
                 left = left.next!
             }
         }
-        
+
         guard left.next != nil else { return nil }
         left.next = left.next!.next
         return dummy.next
+    }
+}
+
+/*
+Solution 3:
+kind of similar as Solution 2
+*/
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init() { self.val = 0; self.next = nil; }
+ *     public init(_ val: Int) { self.val = val; self.next = nil; }
+ *     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ * }
+ */
+class Solution3 {
+    func removeNthFromEnd(_ head: ListNode?, _ n: Int) -> ListNode? {
+        var cur = head
+        var n = n
+        while n != 0 {
+            cur = cur?.next
+            n -= 1
+        }
+
+        // n == current list count
+        if cur == nil { return head?.next }
+
+        var node = head
+        while cur?.next != nil {
+            node = node?.next
+            cur = cur?.next
+        }
+
+        node?.next = node?.next?.next
+        return head
     }
 }
