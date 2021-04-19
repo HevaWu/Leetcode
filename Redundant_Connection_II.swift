@@ -31,19 +31,23 @@
 // map: save direction edge
 // twoParents: 2 edge which have same parent
 // circle: store circle edge
-// 
+//
 // Time complexity: O(nm), n is node, m is length of edges
 // Space complexity: O(n), for the map
 class Solution {
+    // parent map
     var map = [Int: Int]()
 
     func findRedundantDirectedConnection(_ edges: [[Int]]) -> [Int] {
         var circle = [Int]()
+
+        // [[preParent, curEdge1], edge]
+        // once we find one, append 2 edge
         var twoParents = [[Int]]()
-        
+
         for edge in edges {
             if map[edge[0]] == nil { map[edge[0]] = edge[0] }
-            
+
             if map[edge[1]] == nil || map[edge[1]] == edge[1] {
                 map[edge[1]] = edge[0]
             } else {
@@ -51,19 +55,19 @@ class Solution {
                 twoParents = [[map[edge[1]]!, edge[1]], edge]
                 if !circle.isEmpty { return twoParents.first! }
             }
-            
+
             // current is not circle, add this edge, cause circle
             if circle.isEmpty, !findRoot(edge[0]) {
                 circle = edge
                 if !twoParents.isEmpty { return twoParents.first! }
             }
         }
-        
+
         if !circle.isEmpty { return circle }
         if !twoParents.isEmpty { return twoParents.last! }
         return [Int]()
     }
-    
+
     // return false if there is a circle
     func findRoot(_ node: Int) -> Bool {
         if map[node] == node { return true }
