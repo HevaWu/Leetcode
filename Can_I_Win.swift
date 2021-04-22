@@ -35,13 +35,27 @@ Constraints:
 0 <= desiredTotal <= 300
 */
 
+/*
+Solution 1:
+DP
+
+use cache to help memorizing already checked state
+state is a int, which represent which number is picked
+- ex: for 1...5, if state is 01100, which means 2,3 is picked, 1,4,5 are not picked yet
+
+Time Complexity: O(2^n)
+- n is maxChoosableInteger
+- there is 2^n possible cases
+
+Space Complexity: O(2^n)
+- we store each possible cases state
+*/
 class Solution {
     func canIWin(_ maxChoosableInteger: Int, _ desiredTotal: Int) -> Bool {
         if desiredTotal <= maxChoosableInteger { return true }
         if maxChoosableInteger * (maxChoosableInteger+1) / 2 < desiredTotal { return false }
 
         var cache = [Int: Bool]()
-        print(cache)
         return check(desiredTotal, maxChoosableInteger, 0, &cache)
     }
 
