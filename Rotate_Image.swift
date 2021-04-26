@@ -7,7 +7,7 @@
 
 // Example 1:
 
-// Given input matrix = 
+// Given input matrix =
 // [
 //   [1,2,3],
 //   [4,5,6],
@@ -28,7 +28,7 @@
 //   [ 2, 4, 8,10],
 //   [13, 3, 6, 7],
 //   [15,14,12,16]
-// ], 
+// ],
 
 // rotate the input matrix in-place such that it becomes:
 // [
@@ -39,7 +39,8 @@
 // ]
 
 // Solution 1: Transpose and Reverse
-// 1. transpose 对称调换, extrange [i][j] to [j][i]
+//
+// 1. transpose 对称调换, exchange [i][j] to [j][i]
 // 2. reverse each row
 //
 // Time complexity: O(n^2)
@@ -47,7 +48,7 @@
 class Solution {
     func rotate(_ matrix: inout [[Int]]) {
         guard !matrix.isEmpty else { return }
-        
+
         let n = matrix.count
         for i in 0..<n {
             for j in i..<n {
@@ -56,7 +57,7 @@ class Solution {
                 matrix[j][i] = temp
             }
         }
-        
+
         // reverse in each row
         for i in 0..<n {
             matrix[i].reverse()
@@ -66,6 +67,7 @@ class Solution {
 
 // Solution 2: Rotate 4 rectangle
 // Now the solution is quite straightforward - one could move across the elements in the first rectangle and rotate them using a temp list of 4 elements.
+//
 // for [[1,2,3],[4,5,6],[7,8,9]]
 // the one we need to process is [1,4]
 // for 1, temp = [1,3,9,7], rotate it
@@ -76,14 +78,14 @@ class Solution {
 class Solution {
     func rotate(_ matrix: inout [[Int]]) {
         guard !matrix.isEmpty else { return }
-        
+
         let n = matrix.count
         for i in 0..<n/2 {
             // set n/2+n%2 for the odd n, ex: 3*3 matrix, check 0,0 to 1,0
             for j in 0..<(n/2 + n%2) {
                 // rotate 4 rectangle
                 let temp = matrix[i][j]
-                // check the corresponding index 
+                // check the corresponding index
                 matrix[i][j] = matrix[n-j-1][i]
                 matrix[n-j-1][i] = matrix[n-i-1][n-j-1]
                 matrix[n-i-1][n-j-1] = matrix[j][n-i-1]
