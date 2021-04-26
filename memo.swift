@@ -34,6 +34,7 @@ Int(4).leadingZeroBitCount // leading zero bit count 61
 Int(4).bitWidth // 64
 Int.init("100", radix: 2) // radix from string, 4
 (log10(Double(27)) / log10(Double(3))).truncatingRemainder(dividingBy: 1) // truncatingRemainder to check if there is a decimal part
+NSDecimalNumber(decimal: decimal).intValue // convert Decimal to Int
 
 // ===== Array =====
 Array(repeating: Array(repeating: 0, count: n+1), count: n+1) // [[Int]] Array init
