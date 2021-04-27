@@ -3,7 +3,7 @@ Given an integer n, return true if it is a power of three. Otherwise, return fal
 
 An integer n is a power of three, if there exists an integer x such that n == 3x.
 
- 
+
 
 Example 1:
 
@@ -21,12 +21,12 @@ Example 4:
 
 Input: n = 45
 Output: false
- 
+
 
 Constraints:
 
 -231 <= n <= 231 - 1
- 
+
 
 Follow up: Could you do it without using any loop / recursion?
 */
@@ -52,6 +52,8 @@ class Solution {
 /*
 Solution 2
 math, use log
+
+n is a power of three if and only if i is an integer. In Java, we check if a number is an integer by taking the decimal part (using % 1) and checking if it is 0.
 
 Time Complexity: unknown, use log10() here, need to check how Swift implement this function
 Space Complexity: O(1)

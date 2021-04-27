@@ -33,7 +33,7 @@ str.append(String(repeating: "c", count: 3)) // string append list of char
 Int(4).leadingZeroBitCount // leading zero bit count 61
 Int(4).bitWidth // 64
 Int.init("100", radix: 2) // radix from string, 4
-(log10(Double(27)) / log10(Double(3))).truncatingRemainder(dividingBy: 1) // truncatingRemainder to check if there is a decimal part
+(log10(Double(27)) / log10(Double(3))).truncatingRemainder(dividingBy: 1) // truncatingRemainder to check if there is a decimal part, floating number %
 NSDecimalNumber(decimal: decimal).intValue // convert Decimal to Int
 
 // ===== Array =====
