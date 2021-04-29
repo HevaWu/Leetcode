@@ -15,7 +15,7 @@
 
 // Solution 1: binary search 2 pointer
 // set left & right pointer, and use pivot to check if we find the target
-// 
+//
 // Time complexity: O(logn)
 class Solution {
     func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
@@ -23,7 +23,7 @@ class Solution {
         var left = 0
         var right = nums.count-1
         var pivot = 0
-        
+
         while left <= right {
             pivot = (left+right)/2
             if nums[pivot] == target {
@@ -31,13 +31,13 @@ class Solution {
                 var lp = pivot - 1
                 while lp>=left, nums[lp]==target {
                     lp -= 1
-                }               
-                
+                }
+
                 var rp = pivot + 1
                 while rp<=right, nums[rp]==target {
                     rp += 1
                 }
-                
+
                 return [lp+1, rp-1]
             } else if nums[pivot] < target {
                 left = pivot + 1
@@ -61,14 +61,14 @@ class Solution {
         var rp = check(nums, target, false)-1
         return [lp, rp]
     }
-    
+
     func check(_ nums: [Int], _ target: Int, _ isLeft: Bool) -> Int {
         var left = 0
         var right = nums.count
         var pivot = 0
         while left < right {
             pivot = (left+right)/2
-            if nums[pivot] > target || 
+            if nums[pivot] > target ||
             (isLeft && nums[pivot] == target) {
                 right = pivot
             } else {
