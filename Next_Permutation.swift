@@ -10,12 +10,12 @@
 // 如果没有，直接逆转排序
 
 // Solution1: Brute Force
-// Just find all of the possiblity of permutation and find out the permutation which is just larger than the given one. But this one will be a very naive approach, since it requires us to find out every possible permutation which will take really long time and the implementation is complex. Thus, this approach is not acceptable at all. 
+// Just find all of the possiblity of permutation and find out the permutation which is just larger than the given one. But this one will be a very naive approach, since it requires us to find out every possible permutation which will take really long time and the implementation is complex. Thus, this approach is not acceptable at all.
 //
 // Time complexity : O(n!). Total possible permutations is n!.
 // Space complexity : O(n). Since an array will be used to store the permutations.
 
-// Solution 2: 
+// Solution 2:
 // 1. find first a[first] which is in the ascending order, if cannot find, just reverse this array would be the answer. Note: after finding this element, assign it to a variable for checking, otherwise it is hard to clarify the descending & target index at 0
 // 2. betwen firstIndex+1 to n-1, find the element just larger than a[firstIndex], and swap them
 // 3. now, a[firstIndex] is the fixed one, for firstIndex+1 to n-1, just reverse them would be the correct answer
@@ -26,23 +26,28 @@ class Solution {
     func nextPermutation(_ nums: inout [Int]) {
         // find last ascending index
         var last = nums.count - 2
-        while last >= 0 , , nums[right] >= nums[right+1]{
+        while last >= 0 {
+            if nums[last] < nums[last+1] {
+                break
+            }
             last -= 1
         }
-        
-        // nums are in descending order, reverse it to ascending one 
+
+        // nums are in descending order, reverse it to ascending one
         if last == -1 {
             nums.reverse()
-            return 
+            return
         }
-        
+
         // find next close larger than last, swap element & reverse remain
         var next = last + 1
         //  use nums[index] > nums[last] to help finding next close larger element
-        for index in next..<nums.count where nums[index] > nums[right] {
-            next = index
+        for index in next..<nums.count {
+            if nums[index] > nums[last], index > next {
+                next = index
+            }
         }
-        
+
         nums.swapAt(last, next)
         nums[(last+1)...].reverse()
     }
