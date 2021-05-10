@@ -1,7 +1,7 @@
 /*
 Count the number of prime numbers less than a non-negative number, n.
 
- 
+
 
 Example 1:
 
@@ -16,7 +16,7 @@ Example 3:
 
 Input: n = 1
 Output: 0
- 
+
 
 Constraints:
 
@@ -40,22 +40,22 @@ class Solution {
     func countPrimes(_ n: Int) -> Int {
         guard n > 2 else { return 0 }
         var isPrime = Array(repeating: true, count: n)
-        
+
         var i = 2
         while i*i < n {
             defer { i += 1 }
-            
-            if !isPrime[i] { 
-                continue 
+
+            if !isPrime[i] {
+                continue
             }
-            
+
             var j = i*i
             while j < n {
                 isPrime[j] = false
                 j += i
             }
         }
-        
+
         var res = 0
         for i in 2..<n {
             if isPrime[i] {
