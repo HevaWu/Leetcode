@@ -11,6 +11,7 @@ str.uppercased() // upper case string
 str.lowercased() // lower case string
 str.startIndex // string first index String.Index
 str.endIndex // string end index String.Index
+str.firstIndex(of: "a") //string first index
 str.index(after: String.Index) // next string index
 let a = Character("a").asciiValue! // ascii value
 Character(UnicodeScalar(a+1)) // asciiValue to char
