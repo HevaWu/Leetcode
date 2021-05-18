@@ -43,6 +43,23 @@ How to make sure the duplicated files you find are not false positive?
 */
 
 /*
+Follow up explain
+
+Very large files and false positives
+For very large files we should do the following comparisons in this order:
+- compare sizes, if not equal, then files are different and stop here!
+- hash them with a fast algorithm e.g. MD5 or use SHA256 (no collisions found yet), if not equal then stop here!
+- compare byte by byte to avoid false positives due to collisions.
+
+Have you used an IDE in remote development mode?
+For example, CLion has some options on how to compare the local files with the remote server files and then decides to synchronize or not.
+
+Complexity
+Runtime - Worst case (which is very unlikely to happen): O(N^2 * L) where L is the size of the maximum bytes that need to be compared
+Space - Worst case: all files are hashed and inserted in the hashmap, so O(H^2*L), H is the hash code size and L is the filename size
+*/
+
+/*
 Solution 1:
 map
 
