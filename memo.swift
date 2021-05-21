@@ -73,6 +73,7 @@ arr.enumerated().sorted { (first, second) -> Bool in // enumerate, sort
 
 // ===== Set =====
 set.insert(3) // insert
+set.insert(4).inserted // insert element into set, use inserted to check if insert success or not
 set.remove(3) // remove
 var set1 = Set([1,2,3])
 var set2 = Set([2,3,4])
