@@ -14,7 +14,7 @@ str.endIndex // string end index String.Index
 str.firstIndex(of: "a") //string first index
 str.index(after: String.Index) // next string index
 let a = Character("a").asciiValue! // ascii value
-Character(UnicodeScalar(a+1)) // asciiValue to char
+Character(UnicodeScalar(Int(a+1))!) // asciiValue to char, Character(UnicodeScalar(Int)!)
 Character("a").isLetter // check if char is letter
 Character("1").wholeNumberValue // number value
 var sub = str.split(separator: " ") // split
