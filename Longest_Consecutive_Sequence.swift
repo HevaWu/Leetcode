@@ -10,29 +10,31 @@
 
 // Solution 1:
 // map
-// 
+//
 // Time complexity: O(n)
 // Space complexity: O(n)
 class Solution {
     func longestConsecutive(_ nums: [Int]) -> Int {
         guard !nums.isEmpty else { return 0 }
-        
+
         var count = 0
+
+        // map[i], current consecutive path contains nums[i]
         var map = [Int: Int]()
-        
+
         for num in nums {
             if let _ = map[num] {
                 // this one already counted
-                continue 
+                continue
             } else {
                 // check num-1 & num+1
                 var left = map[num-1, default: 0]
                 var right = map[num+1, default: 0]
                 var temp = left + right + 1
-                
+
                 map[num] = temp
                 count = max(count, map[num]!)
-                
+
                 // update left & right bound
                 map[num-left] = temp
                 map[num+right] = temp
