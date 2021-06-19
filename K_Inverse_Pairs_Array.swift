@@ -68,9 +68,9 @@ DP
 
 dp[i][j]=dp[i−1][j]−dp[i−1][j−i]+dp[i−1][j]
 
-The maximum number of inverse pairs for any arbitrary nn occur only when the array is sorted in descending order leading to [n,n-1,....,3,2,1] as the arrangement.
+The maximum number of inverse pairs for any arbitrary n occur only when the array is sorted in descending order leading to [n,n-1,....,3,2,1] as the arrangement.
 
-This arrangement has a total of n*(n-1)/2n∗(n−1)/2 inverse pairs. Thus, for an array with ii as the number of elements, the maximum number of inverse pairs possible is i*(i-1)/2i∗(i−1)/2 only. Thus, for fillling in the i^{th} row of dpdp, we can place this limit on jj's value.
+This arrangement has a total of n*(n-1)/2 inverse pairs. Thus, for an array with ii as the number of elements, the maximum number of inverse pairs possible is i*(i-1)/2 only. Thus, for fillling in the i^{th} row of dp, we can place this limit on jj's value.
 
 Time Complexity: O(n*k)
 Space Complexity: O(nk)
@@ -106,13 +106,21 @@ class Solution {
 Solution 2:
 DP
 
-- If n=0, no inverse pairs exist. Thus, dp[0][k]=0dp[0][k]=0.
-- If k=0, only one arrangement is possible, which is all numbers sorted in ascending order. Thus, dp[n][0]=1dp[n][0]=1.
-- Otherwise, dp[i][j]=count(i,j)+∑ k=0 j−1 dp[i][k].
+dp[i][j] is used to store the number of arrangements with i elements and exactly j inverse pairs.
 
-to obtain the sum of elements from dp[i-1][j-i+1]dp[i−1][j−i+1] to dp[i-1][j]dp[i−1][j](including both), we can directly use dp[i-1][j] - dp[i-1][j-i]dp[i−1][j]−dp[i−1][j−i].
+- If n=0, no inverse pairs exist. Thus, dp[0][k]=0.
+- If k=0, only one arrangement is possible, which is all numbers sorted in ascending order. Thus, dp[n][0]=1.
+- Otherwise, dp[i,j]=∑ p=0 min(j,i−1) count(i−1,j−p).
 
-dp[i][j] = dp[i][j-1] + dp[i-1][j] - dp[i-1][j-i]
+dp -> we fill the cumulative sum upto the current element in a row in any dp entry
+-> dp[i][j], i elements with (0+1+2+...+j) reverse pairs
+
+=> we need to traverse back to some limit in the previous row of the dp array to fill in the current dp entry. Instead of doing this traversal to find the sum of the required elements, we can ease the process if we fill the cumulative sum upto the current element in a row in any dp entry, instead of the actual value.
+=> dp[i][j]=count(i,j)+∑ k=0 j−1 dp[i][k].
+
+to obtain the sum of elements from dp[i−1][j−i+1] to dp[i−1][j](including both), we can directly use dp[i-1][j] - dp[i-1][j-i].
+
+dp[i][j] = dp[i][j-1] + (dp[i-1][j] - dp[i-1][j-i])
 
 At the end, while returning the result, we need to return dp[n][k]-dp[n][k-1] to obtain the required result from the cumulative sums.
 
@@ -149,15 +157,15 @@ Solution 1:
 recursive with memoization
 Time Limit Exceeded
 
-- whenever a number is shifted yy times towards the left starting from the array a_0, after the shift, y numbers smaller than it lie towards its right, giving a total of y inverse pairs.
-- suppose we know the number of arrangements of an array with n-1n−1 elements, with the number of inverse pairs being 0, 1, 2,..., k0,1,2,...,k, let's say being equal to count_0, count_1, count_2,.., count_k. Now, we can determine the number of arrangements of an array with nn elements with exactly kk inverse pairs easily.
-- To generate the arrangements with exactly kk inverse pairs and nn elements, we can add the new number nn to all the arrangements with kk inverse pairs at the last position. For the arrangements with k-1k−1 inverse pairs , we can add nn at a position 1 step from the right.
-- Similarly, for an element with k-ik−i number of inverse pairs, we can add this new number nn at a position ii steps from the right. Each of these updations to the arrays leads to a new arrangement, each with the number of inverse pairs being equal to kk.
+- whenever a number is shifted y times towards the left starting from the array a_0, after the shift, y numbers smaller than it lie towards its right, giving a total of y inverse pairs.
+- suppose we know the number of arrangements of an array with n-1 elements, with the number of inverse pairs being 0, 1, 2,..., k, let's say being equal to count_0, count_1, count_2,.., count_k. Now, we can determine the number of arrangements of an array with n elements with exactly k inverse pairs easily.
+- To generate the arrangements with exactly k inverse pairs and n elements, we can add the new number n to all the arrangements with k inverse pairs at the last position. For the arrangements with k-1 inverse pairs , we can add n at a position 1 step from the right.
+- Similarly, for an element with k−i number of inverse pairs, we can add this new number n at a position i steps from the right. Each of these updations to the arrays leads to a new arrangement, each with the number of inverse pairs being equal to k.
 
 Idea:
-- Let's say count(i,j)count(i,j) represents the number of arrangements with ii elements and exactly jj inverse pairs.
-- If n=0, no inverse pairs exist. Thus, count(0,k)=0count(0,k)=0.
-- If k=0, only one arrangement is possible, which is all numbers sorted in ascending order. Thus, count(n,0)=1count(n,0)=1.
+- Let's say count(i,j) represents the number of arrangements with i elements and exactly j inverse pairs.
+- If n=0, no inverse pairs exist. Thus, count(0,k)=0.
+- If k=0, only one arrangement is possible, which is all numbers sorted in ascending order. Thus, count(n,0)=1.
 - Otherwise, count(n,k)=∑ i=0 min(k,n−1) count(n−1,k−i).
 
 Time Complexity: O(n^2 * k)
