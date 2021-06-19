@@ -177,7 +177,7 @@ class NumArray {
     private func buildTree(_ nums: [Int]) {
         var i = n
         var j = 0
-        while i < 2 n {
+        while i < 2 * n {
             tree[i] = nums[j]
             i += 1
             j += 1
