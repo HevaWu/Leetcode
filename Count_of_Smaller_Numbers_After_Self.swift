@@ -3,7 +3,7 @@
 // Example:
 
 // Input: [5,2,6,1]
-// Output: [2,1,1,0] 
+// Output: [2,1,1,0]
 // Explanation:
 // To the right of 5 there are 2 smaller elements (2 and 1).
 // To the right of 2 there is only 1 smaller element (1).
@@ -16,7 +16,7 @@ merge sort
 
 1. use indexArr to help sorting nums to correct ascending array
 ex: 5,2,6,1 with indexArr: 0,1,2,3
-after sorting -> 1,2,5,6 => indexArr: 3,1,0,2 
+after sorting -> 1,2,5,6 => indexArr: 3,1,0,2
 2. update counts when processing sort
 
 Time Complexity: O(nlogn)
@@ -26,14 +26,14 @@ class Solution {
     func countSmaller(_ nums: [Int]) -> [Int] {
         let n = nums.count
         if n == 1 { return [0] }
-        
+
         var counts = Array(repeating: 0, count: n)
         var indexArr = Array(0..<n)
         mergeSort(nums, &indexArr, &counts, 0, n-1)
         return counts
     }
-    
-    func mergeSort(_ nums: [Int], 
+
+    func mergeSort(_ nums: [Int],
                    _ indexArr: inout [Int], _ counts: inout [Int],
                    _ start: Int, _ end: Int) {
         guard start < end else { return }
@@ -42,20 +42,20 @@ class Solution {
         mergeSort(nums, &indexArr, &counts, mid+1, end)
         merge(nums, &indexArr, &counts, start, mid, end)
     }
-    
-    func merge(_ nums: [Int], 
-               _ indexArr: inout [Int], _ counts: inout [Int], 
+
+    func merge(_ nums: [Int],
+               _ indexArr: inout [Int], _ counts: inout [Int],
                _ start: Int, _ mid: Int, _ end: Int) {
         // print(start, mid, end)
         var left = Array(indexArr[start...mid])
         var right = Array(indexArr[(mid+1)...end])
         // print(left, right)
-        
+
         var i = 0
         var j = 0
         var k = start
         var rightCount = 0
-        
+
         while i < left.count, j < right.count {
             // print("===", i, j, right[j], left[i])
             if nums[right[j]] < nums[left[i]] {
@@ -71,14 +71,14 @@ class Solution {
             }
         }
         // print(left, right, indexArr, counts)
-        
+
         while i < left.count {
             indexArr[k] = left[i]
             counts[left[i]] += rightCount
             k += 1
             i += 1
         }
-        
+
         while j < right.count {
             indexArr[k] = right[j]
             rightCount += 1
@@ -91,13 +91,13 @@ class Solution {
 
 // Solution 1: brute force
 // for each element, search remain array
-// 
+//
 // Time complexity: O(n^2)
 // Space complexity: O(1)
 class Solution {
     func countSmaller(_ nums: [Int]) -> [Int] {
         guard !nums.isEmpty else { return [Int]() }
-        
+
         var counts = [Int]()
         for i in nums.indices {
             let num = nums[i]
@@ -120,14 +120,14 @@ class Solution {
 // left always < node < right
 // count --> the node have same value
 // smallCount --> this node left children
-// 
+//
 // Time complexity: O(nlogn)
 // Space complexity: O(logn) <- tree size
 class Solution {
     func countSmaller(_ nums: [Int]) -> [Int] {
         guard !nums.isEmpty else { return [Int]() }
-        
-        var counts = Array(repeating: 0, count: nums.count)  
+
+        var counts = Array(repeating: 0, count: nums.count)
         var root: TreeNode? = nil
 
         // scan from end of array
@@ -136,14 +136,14 @@ class Solution {
         }
         return counts
     }
-    
+
     private func insert(_ node: inout TreeNode?, _ val: Int, _ index: Int, _ counts: inout [Int], _ preSmallCount: Int) {
         if node == nil {
             node = TreeNode(val: val)
             counts[index] = preSmallCount
         } else if node!.val == val {
             node!.count += 1
-            // Note: add node smaller count 
+            // Note: add node smaller count
             counts[index] = preSmallCount + node!.smallCount
         } else if node!.val < val {
             insert(&node!.right, val, index, &counts, preSmallCount+node!.smallCount+node!.count)
@@ -157,17 +157,64 @@ class Solution {
 class TreeNode {
     var left: TreeNode?
     var right: TreeNode?
-    
-    // node value 
+
+    // node value
     var val = 0
-    
+
     // number which have same value node
-    var count = 1 
-    
+    var count = 1
+
     // number of left children(smaller value)
     var smallCount = 0
-    
+
     init(val: Int) {
         self.val = val
+    }
+}
+
+/*
+Solution 3:
+binary search
+
+Time complexity: O(nlogn)
+Space complexity: O(logn) <- tree size
+*/
+class Solution {
+    func countSmaller(_ nums: [Int]) -> [Int] {
+        let n = nums.count
+        var small = Array(repeating: 0, count: n)
+
+        var finded = [Int]()
+        for i in stride(from: n-1, through: 0, by: -1) {
+            small[i] = insert(nums[i], &finded)
+        }
+        return small
+    }
+
+    func insert(_ target: Int, _ arr: inout [Int]) -> Int {
+        if arr.isEmpty || target < arr.first! {
+            arr.insert(target, at: 0)
+            return 0
+        }
+
+        let n = arr.count
+        if target > arr.last! {
+            arr.append(target)
+            return n
+        }
+
+        var left = 0
+        var right = n-1
+        while left < right {
+            let mid = left + (right-left)/2
+            if arr[mid] < target {
+                left = mid+1
+            } else {
+                right = mid
+            }
+        }
+
+        arr.insert(target, at: left)
+        return left
     }
 }
