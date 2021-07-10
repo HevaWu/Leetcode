@@ -83,6 +83,7 @@ class Solution {
                 } else if s[i-1] == "2" {
                     dp[i+1] = (dp[i+1] + 6 * dp[i-1]) % mod
                 } else if s[i-1] == "*" {
+                    // 15 at here, first is 1, second has 9 possibilities, first is 2, second has 6 possibilities
                     dp[i+1] = (dp[i+1] + 15 * dp[i-1]) % mod
                 }
             } else {
