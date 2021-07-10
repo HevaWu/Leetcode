@@ -70,6 +70,7 @@ arr.enumerated().sorted { (first, second) -> Bool in // enumerate, sort
         ? first.offset < second.offset
         : first.element < second.element
 }.map { $0.offset }
+Array([[1,2],[3,4]].joined()) // flatten array, [1,2,3,4]
 
 // ===== Set =====
 set.insert(3) // insert
