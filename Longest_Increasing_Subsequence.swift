@@ -3,8 +3,8 @@
 // Example:
 
 // Input: [10,9,2,5,3,7,101,18]
-// Output: 4 
-// Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4. 
+// Output: 4
+// Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
 // Note:
 
 // There may be more than one LIS combination, it is only necessary for you to return the length.
@@ -14,14 +14,14 @@
 // Solution 1: force
 // pick & not pick
 // recursive
-// 
+//
 // Time complexity : O(2^n) Size of recursion tree will be 2^n
 // Space complexity : O(n^2) memomemo array of size n * nn∗n is used.
 class Solution {
     func lengthOfLIS(_ nums: [Int]) -> Int {
         return check(nums, Int.min, 0)
     }
-    
+
     func check(_ nums: [Int], _ pre: Int, _ index: Int) -> Int {
         if index == nums.count { return 0 }
         var pick = 0
@@ -39,7 +39,7 @@ class Solution {
 // dp[i] = \text{max}(dp[j]) + 1, \forall 0\leq j < idp[i]=max(dp[j])+1,∀0≤j<i
 // At the end, the maximum out of all the dp[i]dp[i]'s to determine the final result.
 // LIS_{length}= \text{max}(dp[i]), \forall 0\leq i < n
-// 
+//
 // Time complexity : O(n^2) Two loops of nn are there.
 // Space complexity : O(n)O(n). dpdp array of size nn is used.
 class Solution {
@@ -64,10 +64,11 @@ class Solution {
     }
 }
 
- 
+
 // Solution 1: DP + binary search
-// In this approach, we scan the array from left to right. We also make use of a dpdp array initialized with all 0's. This dpdp array is meant to store the increasing subsequence formed by including the currently encountered element. While traversing the numsnums array, we keep on filling the dpdp array with the elements encountered so far. For the element corresponding to the j^{th}index (nums[j]nums[j]), we determine its correct position in the dpdp array(say i^{th}index) by making use of Binary Search(which can be used since the dpdp array is storing increasing subsequence) and also insert it at the correct position. An important point to be noted is that for Binary Search, we consider only that portion of the dpdp array in which we have made the updates by inserting some elements at their correct positions(which remains always sorted). Thus, only the elements upto the i^{th}index in the dpdp array can determine the position of the current element in it. Since, the element enters its correct position(ii) in an ascending order in the dpdp array, the subsequence formed so far in it is surely an increasing subsequence. Whenever this position index ii becomes equal to the length of the LIS formed so far(lenlen), it means, we need to update the lenlen as len = len + 1len=len+1.
-// Note: dpdp array does not result in longest increasing subsequence, but length of dpdp array will give you length of LIS.
+// In this approach, we scan the array from left to right. We also make use of a dp array initialized with all 0's. This dp array is meant to store the increasing subsequence formed by including the currently encountered element. While traversing the nums array, we keep on filling the dp array with the elements encountered so far. For the element corresponding to the j^{th}index (nums[j]), we determine its correct position in the dp array(say i^{th}index) by making use of Binary Search(which can be used since the dp array is storing increasing subsequence) and also insert it at the correct position. An important point to be noted is that for Binary Search, we consider only that portion of the dp array in which we have made the updates by inserting some elements at their correct positions(which remains always sorted). Thus, only the elements upto the i^{th}index in the dp array can determine the position of the current element in it. Since, the element enters its correct position(i) in an ascending order in the dp array, the subsequence formed so far in it is surely an increasing subsequence. Whenever this position index i becomes equal to the length of the LIS formed so far(len), it means, we need to update the len as len = len + 1.
+
+// Note: dpdp array does not result in longest increasing subsequence, but length of dp array will give you length of LIS.
 // Consider the example:
 // input: [0, 8, 4, 12, 2]
 // dp: [0]
@@ -75,14 +76,14 @@ class Solution {
 // dp: [0, 4]
 // dp: [0, 4, 12]
 // dp: [0 , 2, 12] which is not the longest increasing subsequence, but length of dpdp array results in length of Longest Increasing Subsequence.
-// 
+//
 // Time complexity: O(nlogn)
 // Space complexity: O(n)
 class Solution {
     func lengthOfLIS(_ nums: [Int]) -> Int {
         guard !nums.isEmpty else { return 0 }
         let n = nums.count
-        
+
         // binary search to store strictly increased sub array
         var dp = Array(repeating: 0, count: n)
         var len = 0
@@ -93,10 +94,10 @@ class Solution {
                 len += 1
             }
         }
-        
+
         return len
     }
-    
+
     func binarySearch(_ arr: [Int], _ left: Int, _ right: Int, _ target: Int) -> Int {
         var left = left
         var right = right
