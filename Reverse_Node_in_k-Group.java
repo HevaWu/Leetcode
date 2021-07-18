@@ -90,7 +90,7 @@ public class Solution {
                 cur = head;
                 head = nextNode;
             }
-            head = cur; //remember update the head
+            head.next = cur; //remember update the head
         }
         return head;
     }
