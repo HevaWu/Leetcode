@@ -33,6 +33,43 @@ Constraints:
 */
 
 /*
+Solution 2:
+1D DP
+
+Time Complexity: O(5n)
+Space Complexity: O(5)
+*/
+class Solution {
+    func countVowelPermutation(_ n: Int) -> Int {
+        if n == 1 { return 5 }
+
+        let mod = Int(1e9 + 7)
+
+        var arr = [1, 1, 1, 1, 1]
+
+        // ae
+        // ea, ei
+        // ia, ie, io, iu
+        // oi, ou
+        // ua
+        for i in 1..<n {
+            var temp = arr
+            temp[0] = (arr[1] + arr[2] + arr[4]) % mod
+            temp[1] = (arr[0] + arr[2]) % mod
+            temp[2] = (arr[1] + arr[3]) % mod
+            temp[3] = arr[2]
+            temp[4] = (arr[2] + arr[3]) % mod
+
+            arr = temp
+        }
+
+        return arr.reduce(into: 0) { res, next in
+            res = (res + next) % mod
+        }
+    }
+}
+
+/*
 Solution 1:
 DP
 
