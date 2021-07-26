@@ -54,6 +54,33 @@ Constraints:
 */
 
 /*
+Solution 2:
+greedy
+
+sort tasks by ascending diff->(t[1]-t[0])
+take tasks, effort += t[0] effort = max(effort, t[1])
+
+Time Complexity: O(nlogn)
+Space Complexity: O(n)
+*/
+class Solution {
+    func minimumEffort(_ tasks: [[Int]]) -> Int {
+        var tasks = tasks.sorted(by: { first, second -> Bool in
+            let diff1 = first[1]-first[0]
+            let diff2 = second[1] - second[0]
+            return diff1 < diff2
+        })
+
+        var effort = 0
+        for t in tasks {
+            effort += t[0]
+            effort = max(effort, t[1])
+        }
+        return effort
+    }
+}
+
+/*
 Solution 1:
 binary search
 
