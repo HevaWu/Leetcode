@@ -17,11 +17,45 @@ One possible answer is: [0,-3,9,-10,null,5], which represents the following heig
 */
 
 /*
+Solution 2:
+recursive by itself
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init() { self.val = 0; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+ *         self.val = val
+ *         self.left = left
+ *         self.right = right
+ *     }
+ * }
+ */
+class Solution {
+    func sortedArrayToBST(_ nums: [Int]) -> TreeNode? {
+        if nums.isEmpty { return nil }
+        let n = nums.count
+        let mid = n/2
+        var node = TreeNode(nums[mid])
+        node.left = sortedArrayToBST(Array(nums[0..<mid]))
+        node.right = sortedArrayToBST(Array(nums[(mid+1)...]))
+        return node
+    }
+}
+
+/*
 Solution 1:
 binary search
 
 since this is a sorted array
-we can always put mid as the root node, 
+we can always put mid as the root node,
 then put left part as node.left, right part as node.right
 recursively add mid node into tree
 
@@ -48,7 +82,7 @@ class Solution {
         guard !nums.isEmpty else { return nil }
         return bst(nums, 0, nums.count-1)
     }
-    
+
     func bst(_ nums: [Int], _ left: Int, _ right: Int) -> TreeNode? {
         if left > right { return nil }
         let mid = left + (right-left)/2
