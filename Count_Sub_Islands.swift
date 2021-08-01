@@ -188,16 +188,14 @@ class UF {
         let px = find(x)
         let py = find(y)
         if x == y || px == py { return }
-        parent[py] = px
 
-        // if px == py { return }
-        // if rank[px] < rank[py] {
-        //     parent[py] = px
-        // } else {
-        //     if rank[px] == rank[py] {
-        //         rank[px] += 1
-        //     }
-        //     parent[px] = py
-        // }
+        if rank[px] == rank[py] {
+            rank[py] += 1
+            parent[px] = py
+        } else if rank[px] < rank[py] {
+            parent[px] = py
+        } else {
+            parent[py] = px
+        }
     }
 }
