@@ -38,6 +38,48 @@ The observations in richer are all logically consistent.
 */
 
 /*
+Solution 2:
+DFS
+
+Time Complexity: O(n^2)
+Space Complexity: O(n^2)
+*/
+class Solution {
+    func loudAndRich(_ richer: [[Int]], _ quiet: [Int]) -> [Int] {
+        let n = quiet.count
+
+        // key is personK
+        // value is person who richer than personK
+        var graph = [Int: [Int]]()
+        for r in richer {
+            graph[r[1], default: [Int]()].append(r[0])
+        }
+
+        var res = Array(repeating: -1, count: n)
+        for i in 0..<n {
+            dfs(i, &res, graph, quiet)
+        }
+        return res
+    }
+
+    func dfs(_ index: Int, _ res: inout [Int],
+             _ graph: [Int: [Int]], _ quiet: [Int]) -> Int {
+        if res[index] == -1 {
+            res[index] = index
+            if let list = graph[index] {
+                for person in list {
+                    let cand = dfs(person, &res, graph, quiet)
+                    if quiet[cand] < quiet[res[index]] {
+                        res[index] = cand
+                    }
+                }
+            }
+        }
+        return res[index]
+    }
+}
+
+/*
 Solution 1:
 graph + bfs
 
