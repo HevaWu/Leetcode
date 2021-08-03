@@ -32,26 +32,23 @@ Space Complexity: O(n)
 */
 class Solution {
     func subsetsWithDup(_ nums: [Int]) -> [[Int]] {
+        var subset = Set<[Int]>()
         let n = nums.count
-        // sorted first to improve later time complexity
         var nums = nums.sorted()
 
-        var res = Set<[Int]>()
-        var cur = [Int]()
-        check(nums, 0, n, &cur, &res)
-        return Array(res)
+        check(0, n, [Int](), &subset, nums)
+        return Array(subset)
     }
 
-    func check(_ nums: [Int], _ index: Int, _ n: Int,
-               _ cur: inout [Int], _ res: inout Set<[Int]>) {
-        res.insert(cur)
-
-        if index == n { return }
-        for i in index..<n {
-            cur.append(nums[i])
-            check(nums, i+1, n, &cur, &res)
-            cur.removeLast()
+    func check(_ index: Int, _ n: Int, _ cur: [Int],
+               _ subset: inout Set<[Int]>, _ nums: [Int]) {
+        if index == n {
+            subset.insert(cur)
+            return
         }
+
+        check(index+1, n, cur, &subset, nums)
+        check(index+1, n, cur+[nums[index]], &subset, nums)
     }
 }
 
