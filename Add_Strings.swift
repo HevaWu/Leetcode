@@ -28,6 +28,51 @@ num1 and num2 don't have any leading zeros except for the zero itself.
 */
 
 /*
+Solution 2:
+optimize solution 1 by only loop in one place
+*/
+class Solution {
+    func addStrings(_ num1: String, _ num2: String) -> String {
+        let n1 = num1.count
+        let n2 = num2.count
+
+        var num1 = Array(num1.reversed())
+        var num2 = Array(num2.reversed())
+
+        var num = [Int]()
+
+        var i = 0
+        var cur = 0
+        while i < max(n1, n2) {
+            if i < n1 {
+                cur += num1[i].wholeNumberValue!
+            }
+            if i < n2 {
+                cur += num2[i].wholeNumberValue!
+            }
+
+            num.append(cur%10)
+            cur /= 10
+
+            i += 1
+        }
+
+        if cur != 0 {
+            num.append(cur)
+        }
+
+
+        // reverse num and convert it to string
+        num.reverse()
+        var str = String()
+        for i in num {
+            str.append(String(i).first!)
+        }
+        return str
+    }
+}
+
+/*
 Solution 1:
 convert each num to intArr first,
 then add num to intArr
