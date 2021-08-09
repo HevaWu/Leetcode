@@ -70,7 +70,6 @@ class Solution {
     // check if set nums[index] = val, can match requirements of not
     func canFind(_ val: Int, _ n: Int, _ index: Int, _ maxSum: Int) -> Bool {
         // nums[i] need to be positive interger
-        // use max(1, xxx) at here
         let minLeft = val-index >= 1
         ? (index * (val - 1 + val - index)) / 2
         : ((val-1) * val)/2 + (index-val+1)
