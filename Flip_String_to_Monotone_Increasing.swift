@@ -55,7 +55,7 @@ class Solution {
 
             // zero: flip 1 to zero
             // one: min(flip 1->0, flip 0->1)
-            one = min(zero, one+1 - (c == "0" ? 0 : 1))
+            one = min(zero, one + (c == "0" ? 1 : 0))
 
             // print(zero, one)
         }
