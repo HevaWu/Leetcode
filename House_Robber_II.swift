@@ -49,7 +49,7 @@ class Solution {
         var pre = 0
         var maxSum = 0
 
-        // check rob from 0 to n-1
+        // check rob from 0 to n-2
         for i in 0..<n-1 {
             let temp = pre
             pre = maxSum + nums[i]
@@ -60,6 +60,7 @@ class Solution {
 
         pre = 0
         maxSum = 0
+        // check rob from 1 to n-1
         for i in 1..<n {
             let temp = pre
             pre = maxSum + nums[i]
