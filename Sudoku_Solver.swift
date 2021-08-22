@@ -8,7 +8,7 @@ Each of the digits 1-9 must occur exactly once in each column.
 Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
 The '.' character indicates empty cells.
 
- 
+
 
 Example 1:
 
@@ -18,7 +18,7 @@ Output: [["5","3","4","6","7","8","9","1","2"],["6","7","2","1","9","5","3","4",
 Explanation: The input board is shown above and the only valid solution is shown below:
 
 
- 
+
 
 Constraints:
 
@@ -29,7 +29,7 @@ It is guaranteed that the input board has only one solution.
 */
 
 /*
-Solution 1: 
+Solution 1:
 backtrack
 
 if cur num is dot, check if we can find a num put into the board,
@@ -39,11 +39,11 @@ Time Complexity: O(9*9*9)
 class Solution {
     var num: [Character] = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     var dot: Character = "."
-    
+
     func solveSudoku(_ board: inout [[Character]]) {
         _solve(&board)
     }
-    
+
     func _solve(_ board: inout [[Character]]) -> Bool {
         for i in 0..<9 {
             for j in 0..<9 {
@@ -61,9 +61,11 @@ class Solution {
                 }
             }
         }
+
+        // return true means find valid 9*9 sudoku in the end
         return true
     }
-    
+
     func isValid(_ board: [[Character]], _ row: Int, _ col: Int, _ c: Character) -> Bool {
         for i in 0..<9 {
             if board[i][col] != dot, board[i][col] == c { return false }
