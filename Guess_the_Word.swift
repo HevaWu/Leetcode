@@ -28,7 +28,7 @@
 // We can guess that having less words in the word list is generally better. If the data is random, we can reason this is often the case.
 // Now let's use the strategy of making the guess that minimizes the maximum possible size of the resulting word list. If we started with NN words in our word list, we can iterate through all possibilities for what the secret could be.
 // Store H[i][j] as the number of matches of wordlist[i] and wordlist[j]. For each guess that hasn't been guessed before, do a minimax as described above, taking the guess that gives us the smallest group that might occur.
-// 
+//
 // Time Complexity: O(N^2 \log N), where NN is the number of words, and assuming their length is O(1)O(1). Each call to solve is O(N^2), and the number of calls is bounded by O(\log N)O(logN).
 // Space Complexity: O(N^2).
  /**
@@ -56,17 +56,17 @@ class Solution {
                 match[j][i] = count
             }
         }
-        
+
         // possible word where secret would be
         var possible = Array(0..<n)
-    
+
         var visited = [Int]()
         while !possible.isEmpty {
-            var guess = pick(possible, visited)  
+            var guess = pick(possible, visited)
             var matches = master.guess(wordlist[guess])
             if matches == 6 {
                 // finded
-                return 
+                return
             }
             var nextPossible = [Int]()
             for j in possible {
@@ -78,7 +78,7 @@ class Solution {
             visited.append(guess)
         }
     }
-    
+
     private func pick(_ possible: [Int], _ visited: [Int]) -> Int {
         guard possible.count > 2 else { return possible[0] }
         var answer = possible
@@ -88,7 +88,7 @@ class Solution {
                 var groups = Array(repeating: [Int](), count: 6)
                 for j in possible {
                     if i != j {
-                        groups[match[i][j]].append(j)   
+                        groups[match[i][j]].append(j)
                     }
                 }
                 var maxGroup = groups[0]
@@ -109,7 +109,7 @@ class Solution {
 
 
 
-// Solution 2: 
+// Solution 2:
 /**
  * // This is the Master's API interface.
  * // You should not implement it, or speculate about its implementation
@@ -122,11 +122,11 @@ class Solution {
         var possible = wordlist
         while let word = possible.randomElement() {
             let matches = master.guess(word)
-            if matches == 6 { 
+            if matches == 6 {
                 // finded
-                return 
+                return
             }
-            
+
             var nextTry = [String]()
             for next in possible {
                 guard next != word else { continue }
@@ -146,5 +146,63 @@ class Solution {
             }
             possible = nextTry
         }
+    }
+}
+
+/*
+Solution 3:
+optimize solution 2 code
+
+Time Complexity: O(wordlist.count * 6)
+Space Complexity: O(wordlist.count)
+*/
+/**
+ * // This is the Master's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * class Master {
+ *     public func guess(word: String) -> Int {}
+ * }
+ */
+class Solution {
+    func findSecretWord(_ wordlist: [String], _ master: Master) {
+        var list = wordlist
+        var match = 0
+
+        while !list.isEmpty {
+            var start = ""
+
+            for word in list {
+                let val = master.guess(word)
+                if val > match {
+                    // word will be start word
+                    start = word
+                    match = val
+                    break
+                }
+            }
+
+            if match == 6 { return }
+
+            // update list
+            var temp = [String]()
+            for word in list {
+                let val = getMatch(start, word)
+                if val == match {
+                    temp.append(word)
+                }
+            }
+            list = temp
+        }
+    }
+
+    // get how many char match between word1 and word2
+    func getMatch(_ word1: String, _ word2: String) -> Int {
+        var match = 0
+        for i in word1.indices {
+            if word1[i] == word2[i] {
+                match += 1
+            }
+        }
+        return match
     }
 }
