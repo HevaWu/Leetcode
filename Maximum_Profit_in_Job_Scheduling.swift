@@ -80,9 +80,10 @@ class Solution {
 
             // for element in (i+1)..<index, these object are overlapping with i object,
             // pick maxProfit between them
-            for j in (i+1)..<index {
-                dp[i] = max(dp[i], dp[j])
-            }
+            // for j in (i+1)..<index {
+            //     dp[i] = max(dp[i], dp[j])
+            // }
+            dp[i] = max(dp[i], dp[i+1])
         }
         return dp[0]
     }
