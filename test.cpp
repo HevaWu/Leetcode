@@ -25,7 +25,7 @@ int main(){
     for(int i = 2; i < w.size(); i++){
         w[i] = pow(w2,i);
     }
-  
+
     complex<double> a0(2,0);
     complex<double> a1(4,0);
     complex<double> a2(3,0);
