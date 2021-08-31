@@ -77,3 +77,29 @@ public class Solution {
     }
 }
 
+/*
+Solution 3:
+binary search
+
+Time Complexity: O(logn)
+Space Complexity: O(1)
+*/
+class Solution {
+    public int findMin(int[] nums) {
+        int n = nums.length;
+        if (nums[0] < nums[n-1]) { return nums[0]; }
+
+        int left = 0;
+        int right = n-1;
+        while (left+1 < right) {
+            int mid = left + (right - left)/2;
+            if (nums[left] < nums[mid]) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        return nums[right];
+    }
+}
+

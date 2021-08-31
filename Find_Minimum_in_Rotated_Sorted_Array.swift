@@ -7,7 +7,7 @@ Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in 
 
 Given the sorted rotated array nums, return the minimum element of this array.
 
- 
+
 
 Example 1:
 
@@ -23,8 +23,8 @@ Example 3:
 
 Input: nums = [11,13,15,17]
 Output: 11
-Explanation: The original array was [11,13,15,17] and it was rotated 4 times. 
- 
+Explanation: The original array was [11,13,15,17] and it was rotated 4 times.
+
 
 Constraints:
 
@@ -44,6 +44,37 @@ Hint 3:
 All the elements to the left of inflection point > first element of the array.
 All the elements to the right of inflection point < first element of the array.
 */
+
+/*
+Solution 3:
+binary search
+
+left+1 < right
+
+Time Complexity: O(logn)
+Space Complexity: O(1)
+*/
+class Solution {
+    func findMin(_ nums: [Int]) -> Int {
+        let n = nums.count
+        if nums[0] < nums[n-1] {
+            return nums[0]
+        }
+
+        var left = 0
+        var right = n-1
+        while left+1 < right {
+            let mid = left + (right - left)/2
+            if nums[mid] > nums[left] {
+                left = mid
+            } else {
+                right = mid
+            }
+        }
+
+        return nums[right]
+    }
+}
 
 /*
 Solution 2:
@@ -92,28 +123,28 @@ class Solution {
         let n = nums.count
         var left = 0
         var right = n - 1
-        
+
         if nums[left] < nums[right] {
             return nums[left]
         }
-        
+
         while left <= right {
             let mid = left + (right-left)/2
             if nums[mid] > nums[mid+1] {
                 return nums[mid+1]
             }
-            
+
             if nums[mid-1] > nums[mid] {
                 return nums[mid]
             }
-            
+
             if nums[mid] > nums[left] {
                 left = mid+1
             } else {
                 right = mid-1
             }
         }
-        
+
         return -1
     }
 }
