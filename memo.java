@@ -1,3 +1,7 @@
+// ======= Integer =======
+int max = Integer.MAX_VALUE; // java integer's max value
+long a = (long)3; // convert int to long
+
 // ======= String =======
 char[] arr = s.toCharArray(); //string to char array
 s.substring(i) + s.substring(0, i); // substring
@@ -10,3 +14,8 @@ int charA = 'a'; // convert char to int
 // ======= Arrays =======
 Arrays.sort(arr); // sort array
 Arrays.fill(arr, 1); // fill array
+
+// ======= Map =======
+Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
+map.getOrDefault(c, 0); // if key c exist, return value of c, otherwise, return 0
+map.put(c, 0); // set key c's value as 0
