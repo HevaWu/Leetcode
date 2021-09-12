@@ -2,7 +2,11 @@
 int max = Integer.MAX_VALUE; // java integer's max value
 long a = (long)3; // convert int to long
 
+// ======= Double =======
+Double b = 3; // init Double from int
+
 // ======= String =======
+String str = "abc";
 char[] arr = s.toCharArray(); //string to char array
 s.substring(i) + s.substring(0, i); // substring
 s1.compareTo(s2); // compare 2 strings, 0 means equal, <0 means s1 < s2, >0 means s1 > s2
@@ -10,6 +14,11 @@ s.charAt(0); // return char at index
 int charA = 'a'; // convert char to int
 (int)'a'; // convert char to int
 (char)next; // convert int to char
+str.indexOf('a'); // first index appear of char a
+
+// ======= StringBuilder =======
+StringBuilder sb = new StringBuilder(str);
+sb.reverse(); // reverse string builder
 
 // ======= Arrays =======
 Arrays.sort(arr); // sort array
