@@ -20,7 +20,7 @@ str.indexOf('a'); // first index appear of char a
 StringBuilder sb = new StringBuilder(str);
 sb.reverse(); // reverse string builder
 
-// ======= Arrays =======
+// ======= Arrays =======　
 Arrays.sort(arr); // sort array
 Arrays.fill(arr, 1); // fill array
 
