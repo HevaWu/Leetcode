@@ -23,6 +23,7 @@ sb.reverse(); // reverse string builder
 // ======= Arrays =======　
 Arrays.sort(arr); // sort array
 Arrays.fill(arr, 1); // fill array
+Arrays.copyOf(arr, newSize); // return a copy of arr
 
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
