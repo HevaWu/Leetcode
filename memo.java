@@ -24,6 +24,12 @@ sb.reverse(); // reverse string builder
 Arrays.sort(arr); // sort array
 Arrays.fill(arr, 1); // fill array
 Arrays.copyOf(arr, newSize); // return a copy of arr
+int[] arr = new int[3];
+arr.length; // return arr's size
+List<Integer> arr = new ArrayList<Integer>();
+arr.isEmpty(); // check arr is empty or not
+arr.add(ele); // array list add element
+Collections.swap(arr, i, j); // swap element in collections
 
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
