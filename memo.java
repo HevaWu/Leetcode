@@ -30,6 +30,7 @@ List<Integer> arr = new ArrayList<Integer>();
 arr.isEmpty(); // check arr is empty or not
 arr.add(ele); // array list add element
 Collections.swap(arr, i, j); // swap element in collections
+int index = Arrays.binarySearch(nums, target); // binary search target, if exist, return correct index, if not return "-(should be inserted index)"
 
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
