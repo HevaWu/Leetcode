@@ -1,7 +1,7 @@
 /*
 Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
 
- 
+
 
 Example 1:
 
@@ -13,7 +13,7 @@ Example 2:
 
 Input: nums = [-7,-3,2,3,11]
 Output: [4,9,9,49,121]
- 
+
 
 Constraints:
 
@@ -50,19 +50,19 @@ O(n)
 class Solution {
     func sortedSquares(_ nums: [Int]) -> [Int] {
         if nums[0] >= 0 { return nums.map { $0 * $0 } }
-        
+
         let n = nums.count
         var res = [Int]()
-        
+
         // positive number index
         guard var p_i = nums.firstIndex(where: { $0 > 0 }) else {
             // no positive number, all negative, return reversed nums squared
             return stride(from: n-1, through: 0, by: -1).map { nums[$0]*nums[$0] }
         }
-        
+
         // non-positive index
         var n_i: Int = p_i - 1
-        
+
         // compare nums[n_i] squared and nums[p_i] squared
         // pick the smaller one and append it into res array
         while n_i >= 0 && p_i < n {
@@ -76,17 +76,61 @@ class Solution {
                 p_i += 1
             }
         }
-        
+
         while n_i >= 0 {
             res.append(nums[n_i]*nums[n_i])
             n_i -= 1
         }
-        
+
         while p_i < n {
             res.append(nums[p_i]*nums[p_i])
             p_i += 1
         }
-        
+
+        return res
+    }
+}
+
+/*
+Solution 3:
+optimize solution 2
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+class Solution {
+    func sortedSquares(_ nums: [Int]) -> [Int] {
+        let n = nums.count
+
+        var i = 0
+        while i < n, nums[i] < 0 {
+            i += 1
+        }
+
+        var res = [Int]()
+
+        var left = i-1
+        var right = i
+        while left >= 0 || right < n {
+            var pick = 0
+            if left >= 0, right < n {
+                if abs(nums[left]) < abs(nums[right]) {
+                    pick = nums[left] * nums[left]
+                    left -= 1
+                } else {
+                    pick = nums[right] * nums[right]
+                    right += 1
+                }
+            } else if left >= 0 {
+                pick = nums[left] * nums[left]
+                left -= 1
+            } else {
+                pick = nums[right] * nums[right]
+                right += 1
+            }
+            res.append(pick)
+        }
+
         return res
     }
 }

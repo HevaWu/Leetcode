@@ -29,6 +29,7 @@ arr.length; // return arr's size
 List<Integer> arr = new ArrayList<Integer>();
 arr.isEmpty(); // check arr is empty or not
 arr.add(ele); // array list add element
+arr.stream().mapToInt(Integer::intValue).toArray(); // convert arrayList to array
 Collections.swap(arr, i, j); // swap element in collections
 int index = Arrays.binarySearch(nums, target); // binary search target, if exist, return correct index, if not return "-(should be inserted index)"
 
@@ -36,3 +37,6 @@ int index = Arrays.binarySearch(nums, target); // binary search target, if exist
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
 map.getOrDefault(c, 0); // if key c exist, return value of c, otherwise, return 0
 map.put(c, 0); // set key c's value as 0
+
+// ======= Math =======
+Math.abs(-3); // get absolute value of one element
