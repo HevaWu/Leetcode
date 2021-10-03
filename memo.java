@@ -30,8 +30,11 @@ List<Integer> arr = new ArrayList<Integer>();
 arr.isEmpty(); // check arr is empty or not
 arr.add(ele); // array list add element
 arr.stream().mapToInt(Integer::intValue).toArray(); // convert arrayList to array
+Arrays.asList(nums); // convert array to list
 Collections.swap(arr, i, j); // swap element in collections
 int index = Arrays.binarySearch(nums, target); // binary search target, if exist, return correct index, if not return "-(should be inserted index)"
+Arrays.copyOfRange(nums, n-k, n); // get range of element in array
+System.arraycopy(lastK, 0, nums, 0, k); // copy lastK's k elements to nums[0..<k]
 
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
