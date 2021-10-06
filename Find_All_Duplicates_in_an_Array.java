@@ -22,24 +22,15 @@ Hide Similar Problems (E) Find All Numbers Disappeared in an Array
 */
 
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-
-
-
-
 /*
-O(1) space, O(n) time
-
+Solution 1
 Since 1 ≤ a[i] ≤ n (n = size of array),
 for ith element, we flip the i-1 element from positive to negative
 if we find one element is already negative, we push this element to the return list
- */
 
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
 public class Solution {
     public List<Integer> findDuplicates(int[] nums) {
         if(nums.length <= 0) return new ArrayList<>();
