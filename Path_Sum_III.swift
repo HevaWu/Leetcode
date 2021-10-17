@@ -30,6 +30,7 @@ Return 3. The paths that sum to 8 are:
 /*
 Solution 1:
 build prefixMap to help checking already checked path
+preSum = [sum: how many path from root to current node has this path sum value]
 
 Time Complexity: O(n)
 Space Complexity: O(n)
@@ -56,14 +57,14 @@ class Solution {
         preSum[0] = 1
         return checkPath(root, sum, 0, &preSum)
     }
-    
-    func checkPath(_ node: TreeNode?, _ sum: Int, 
+
+    func checkPath(_ node: TreeNode?, _ sum: Int,
                    _ cur: Int, _ preSum: inout [Int: Int]) -> Int {
         guard let node = node else { return 0 }
-        
+
         let cur = cur + node.val
         var res = preSum[cur-sum, default: 0]
-        
+
         preSum[cur, default: 0] += 1
         res += checkPath(node.left, sum, cur, &preSum) + checkPath(node.right, sum, cur, &preSum)
         preSum[cur]! -= 1
