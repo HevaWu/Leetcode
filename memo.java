@@ -37,6 +37,10 @@ int index = Arrays.binarySearch(nums, target); // binary search target, if exist
 Arrays.copyOfRange(nums, n-k, n); // get range of element in array
 System.arraycopy(lastK, 0, nums, 0, k); // copy lastK's k elements to nums[0..<k]
 
+// ======= Queue =======　
+Queue<TreeNode> q = new LinkedList<>(); // offer() insert element, poll return and remove first, peek return but not remove
+q.size(); // get queue size
+
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
 map.getOrDefault(c, 0); // if key c exist, return value of c, otherwise, return 0
