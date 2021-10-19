@@ -41,6 +41,13 @@ System.arraycopy(lastK, 0, nums, 0, k); // copy lastK's k elements to nums[0..<k
 Queue<TreeNode> q = new LinkedList<>(); // offer() insert element, poll return and remove first, peek return but not remove
 q.size(); // get queue size
 
+// ======= Stack =======　
+Stack<Integer> stack = new Stack<>();
+stack.peek(); // return stack first object
+stack.pop(); // remove first in stack and return it
+stack.push(ele); // push element into stack
+stack.empty(); // check empty
+
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
 map.getOrDefault(c, 0); // if key c exist, return value of c, otherwise, return 0

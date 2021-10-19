@@ -51,22 +51,21 @@ Time Complexity: O(m+n)
 Space Complexity: O(n)
 */
 class Solution {
-    func nextGreaterElement(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
-        let n = nums2.count
-
-        var map = [Int: Int]()
-        var stack = [Int]()
-
-        for i in stride(from: n-1, through: 0, by: -1) {
-            while !stack.isEmpty, stack.last! <= nums2[i] {
-                stack.removeLast()
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<>();
+        Stack<Integer> stack = new Stack<>();
+        for (int i = nums2.length-1; i >= 0; i--) {
+            while (!stack.empty() && stack.peek() < nums2[i]) {
+                stack.pop();
             }
-
-            map[nums2[i]] = stack.isEmpty ? -1 : stack.last!
-            stack.append(nums2[i])
+            map.put(nums2[i], stack.empty() ? -1 : stack.peek());
+            stack.push(nums2[i]);
         }
-        // print(map)
 
-        return nums1.map { map[$0, default: -1] }
+        int[] res = new int[nums1.length];
+        for (int i = 0; i < nums1.length; i++) {
+            res[i] = map.getOrDefault(nums1[i], -1);
+        }
+        return res;
     }
 }
