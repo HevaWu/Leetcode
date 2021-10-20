@@ -15,6 +15,13 @@ int charA = 'a'; // convert char to int
 (int)'a'; // convert char to int
 (char)next; // convert int to char
 str.indexOf('a'); // first index appear of char a
+s.trim().split("\\s+"); //split by multiple whitespace
+String.join(" ", str); // join string from array
+
+// ======= StringBuilder =======
+StringBuilder str = new StringBuilder();
+str.append(s.substring(i+1, end+1)).append(" "); // append string
+str.toString(); // convert stringbuilder to string
 
 // ======= StringBuilder =======
 StringBuilder sb = new StringBuilder(str);
@@ -36,6 +43,7 @@ Collections.swap(arr, i, j); // swap element in collections
 int index = Arrays.binarySearch(nums, target); // binary search target, if exist, return correct index, if not return "-(should be inserted index)"
 Arrays.copyOfRange(nums, n-k, n); // get range of element in array
 System.arraycopy(lastK, 0, nums, 0, k); // copy lastK's k elements to nums[0..<k]
+Collections.reverse(Arrays.asList(str)) // reverse array
 
 // ======= Queue =======　
 Queue<TreeNode> q = new LinkedList<>(); // offer() insert element, poll return and remove first, peek return but not remove

@@ -27,15 +27,6 @@ Hide Tags String
 Hide Similar Problems (M) Reverse Words in a String II
 */
 
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-
-
-
-
 /*
 Solution 3 faster than Solution 2 faster than Solution 1
 
