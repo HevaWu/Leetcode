@@ -1,6 +1,7 @@
 // ======= Integer =======
 int max = Integer.MAX_VALUE; // java integer's max value
 long a = (long)3; // convert int to long
+rand.nextInt(bound); // return random element in bound
 
 // ======= Double =======
 Double b = 3; // init Double from int
@@ -34,7 +35,6 @@ Arrays.fill(arr, 1); // fill array
 Arrays.copyOf(arr, newSize); // return a copy of arr
 int[] arr = new int[3];
 arr.length; // return arr's size
-List<Integer> arr = new ArrayList<Integer>();
 arr.isEmpty(); // check arr is empty or not
 arr.add(ele); // array list add element
 arr.stream().mapToInt(Integer::intValue).toArray(); // convert arrayList to array
@@ -44,6 +44,10 @@ int index = Arrays.binarySearch(nums, target); // binary search target, if exist
 Arrays.copyOfRange(nums, n-k, n); // get range of element in array
 System.arraycopy(lastK, 0, nums, 0, k); // copy lastK's k elements to nums[0..<k]
 Collections.reverse(Arrays.asList(str)) // reverse array
+
+// ======= ArrayList =======　
+List<Integer> arr = new ArrayList<Integer>();
+arr.get(0); // array list get element in the index
 
 // ======= Queue =======　
 Queue<TreeNode> q = new LinkedList<>(); // offer() insert element, poll return and remove first, peek return but not remove
@@ -60,6 +64,7 @@ stack.empty(); // check empty
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
 map.getOrDefault(c, 0); // if key c exist, return value of c, otherwise, return 0
 map.put(c, 0); // set key c's value as 0
+map.remove(key); // remove key
 
 // ======= Math =======
 Math.abs(-3); // get absolute value of one element
