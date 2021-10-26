@@ -18,13 +18,6 @@ Google: 90% of our engineers use the software you wrote (Homebrew), but you canâ
 */
 
 
-
-
-
-/*DFS*/
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -45,31 +38,3 @@ public:
         return root;
     }
 };
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public TreeNode invertTree(TreeNode root) {
-        if(root!=null){
-            final TreeNode left = root.left;
-            final TreeNode right = root.right;
-            root.left = invertTree(right);
-            root.right = invertTree(left);
-        }
-        return root;
-    }
-}
