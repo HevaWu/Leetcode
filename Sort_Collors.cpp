@@ -22,8 +22,6 @@ Subscribe to see which companies asked this question*/
 swap all 2s to the right
 then all 1s are left in the middle*/
 
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
@@ -44,29 +42,3 @@ public:
         }
     }
 };
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class Solution {
-    public void sortColors(int[] nums) {
-        int start = 0, end = nums.length-1;
-        for(int i = 0; i <= end; i++){
-            while(nums[i]==2 && i<end){
-                int temp = nums[i];
-                nums[i] = nums[end];
-                nums[end] = temp;
-                end--;
-            }
-            while(nums[i]==0 && i>start) {
-                int temp = nums[i];
-                nums[i] = nums[start];
-                nums[start] = temp;
-                start++;
-            }
-        }
-    }
-
-}
