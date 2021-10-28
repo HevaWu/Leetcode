@@ -22,15 +22,11 @@ Hide Similar Problems (E) Two Sum (M) 3Sum Closest (M) 4Sum (M) 3Sum Smaller
 
 
 
-
-
-
 /*
 1. sort array
 2. 2 sum problem
  */
 
-////////////////////////////////////////////////////////////////////////
 //Java
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {

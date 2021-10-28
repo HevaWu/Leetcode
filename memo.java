@@ -48,6 +48,8 @@ Collections.reverse(Arrays.asList(str)) // reverse array
 // ======= ArrayList =======　
 List<Integer> arr = new ArrayList<Integer>();
 arr.get(0); // array list get element in the index
+arr.add(0); // array list add element
+Arrays.asList(1, 2, 3); // convert array to list
 
 // ======= Queue =======　
 Queue<TreeNode> q = new LinkedList<>(); // offer() insert element, poll return and remove first, peek return but not remove
