@@ -40,7 +40,7 @@ public:
     int sumNumbers(TreeNode* root) {
         return sumTree(root, 0);
     }
-    
+
     int sumTree(TreeNode* root, int num){
         if(!root) return 0;
         if(!root->left && !root->right){
@@ -54,27 +54,3 @@ public:
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public int sumNumbers(TreeNode root) {
-        return sumTree(root, 0);
-    }
-    
-    public int sumTree(TreeNode root, int num){
-        if(root == null) return 0;
-        if(root.right == null && root.left == null){
-            return num*10+root.val;
-        }
-        return sumTree(root.left, num*10+root.val) + sumTree(root.right, num*10+root.val);
-    }
-}
