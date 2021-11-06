@@ -34,38 +34,14 @@ public:
         for(int n: nums){  //get the XOR of the two element
             diffBit ^= n;
         }
-        
+
         diffBit &= -diffBit; //get its last set bit
-        
+
         for(int n:nums){
             if((n&diffBit)==0) ret[0] ^= n;  //find the bit not set
             else ret[1] ^= n;  //the bit in the set
         }
-        
+
         return ret;
     }
 };
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class Solution {
-    public int[] singleNumber(int[] nums) {
-        int[] ret = new int[2];
-        int diffBit = 0;
-        for(int n:nums){
-            diffBit ^= n;
-        }
-        
-        diffBit &= ~(diffBit-1);
-        
-        for(int n:nums){
-            if((diffBit&n)==0) ret[0] ^= n;
-            else ret[1] ^= n;
-        }
-        
-        return ret;
-    }
-}
