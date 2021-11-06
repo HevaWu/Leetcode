@@ -39,29 +39,3 @@ public:
     return vector<int>({lo+1,hi+1});
     }
 };
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class Solution {
-    public int[] twoSum(int[] numbers, int target) {
-        int left = 0;
-        int right = numbers.length - 1;
-        
-        while(left <= right){
-            int sum = numbers[left] + numbers[right];
-            if(sum > target){
-                //move the right pointer to make sum smaller
-                right--;
-            } else if (sum < target){
-                left++;
-            } else {
-                //sum == target
-                break;
-            }
-        }
-        return new int[]{left+1, right+1};
-    }
-}

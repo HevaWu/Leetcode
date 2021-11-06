@@ -7,7 +7,7 @@ Note:
 
 Your returned answers (both index1 and index2) are not zero-based.
 You may assume that each input would have exactly one solution and you may not use the same element twice.
- 
+
 
 Example 1:
 
@@ -22,7 +22,7 @@ Example 3:
 
 Input: numbers = [-1,0], target = -1
 Output: [1,2]
- 
+
 
 Constraints:
 
@@ -49,11 +49,11 @@ class Solution {
                 return [i+1, finded+1]
             }
         }
-        
+
         // cannot find such pair
         return []
     }
-    
+
     func canSearch(_ nums: [Int], _ start: Int, _ end: Int, _ target: Int) -> Int? {
         var left = start
         var right = end
@@ -68,5 +68,33 @@ class Solution {
             }
         }
         return nil
+    }
+}
+
+/*
+Solution 2:
+two pointer
+
+use left, right pointer to check if nums[left]+nums[right] is > < = target
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+class Solution {
+    func twoSum(_ numbers: [Int], _ target: Int) -> [Int] {
+        var left = 0
+        var right = numbers.count-1
+
+        while left <= right {
+            let sum = numbers[left] + numbers[right]
+            if sum == target {
+                break
+            } else if sum < target {
+                left += 1
+            } else if sum > target {
+                right -= 1
+            }
+        }
+        return [left+1, right+1]
     }
 }
