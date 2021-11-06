@@ -20,11 +20,11 @@ Hide Tags Array Two Pointers
 Hide Similar Problems (E) Remove Element
 */
 
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-///C++
+/*
+use two pointers
+i --- point to the original nums
+j --- point to the un-zero nums
+ */
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
@@ -37,32 +37,3 @@ public:
             nums[j]=0;
     }
 };
-
-
-
-
-
-/*
-use two pointers
-i --- point to the original nums
-j --- point to the un-zero nums
- */
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-///Java
-public class Solution {
-    public void moveZeroes(int[] nums) {
-        if(nums.length == 0) return;
-        int j = 0;
-        for(int i = 0; i < nums.length; ++i){
-            if(nums[i] != 0){
-                nums[j++] = nums[i];
-            }
-        }
-
-        //set the end of array as zero
-        while(j < nums.length){
-            nums[j++] = 0;
-        }
-    }
-}
