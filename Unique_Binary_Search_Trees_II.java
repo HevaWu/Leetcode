@@ -27,6 +27,12 @@ Constraints:
 0 <= n <= 8
 */
 
+/*DP*/
+/*1...n is the in-order traversal for BST
+pick i-th node as the root, the elements 1 to (i-1) should be the left node
+the element (i+1) to n should be the right node
+recursively do this
+*/
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

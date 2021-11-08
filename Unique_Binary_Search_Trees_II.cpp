@@ -17,7 +17,7 @@ Subscribe to see which companies asked this question*/
 
 /*DP*/
 /*1...n is the in-order traversal for BST
-pick i-th node as the root, the elements i to (i-1) should be the left node
+pick i-th node as the root, the elements 1 to (i-1) should be the left node
 the element (i+1) to n should be the right node
 recursively do this
 */
@@ -41,13 +41,13 @@ public:
         }
         return buildTree(1, n);
     }
-    
+
     vector<TreeNode*> buildTree(int start, int end){
         vector<TreeNode*> ret;
         if(start>end){
             ret.push_back(NULL);
         }
-        
+
         vector<TreeNode*> left, right;
         for(int i = start; i <= end; ++i){
             left = buildTree(start, i-1);
@@ -61,52 +61,8 @@ public:
                 }
             }
         }
-        
+
         return ret;
     }
 };
 
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public List<TreeNode> generateTrees(int n) {
-        if(n==0){
-            return (new LinkedList<TreeNode>());
-        }
-        return buildTree(1,n);
-    }
-    
-    public List<TreeNode> buildTree(int start, int end){
-        List<TreeNode> ret = new LinkedList<>();
-        if(start > end){
-            ret.add(null);
-        }
-        
-        for(int i = start; i <= end; ++i){
-            List<TreeNode> left = buildTree(start, i-1);
-            List<TreeNode> right = buildTree(i+1, end);
-            for(TreeNode l:left){
-                for(TreeNode r:right){
-                    TreeNode root = new TreeNode(i);
-                    root.left = l;
-                    root.right = r;
-                    ret.add(root);
-                }
-            }
-        }
-        
-        return ret;
-    }
-}
