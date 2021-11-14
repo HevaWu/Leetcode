@@ -8,6 +8,7 @@ Double b = 3; // init Double from int
 
 // ======= String =======
 String str = "abc";
+str.length(); // size of string
 char[] arr = s.toCharArray(); //string to char array
 s.substring(i) + s.substring(0, i); // substring
 s1.compareTo(s2); // compare 2 strings, 0 means equal, <0 means s1 < s2, >0 means s1 > s2
@@ -49,6 +50,7 @@ Collections.reverse(Arrays.asList(str)) // reverse array
 List<Integer> arr = new ArrayList<Integer>();
 arr.get(0); // array list get element in the index
 arr.add(0); // array list add element
+arr.size(); // array list size
 Arrays.asList(1, 2, 3); // convert array to list
 
 // ======= Queue =======　
