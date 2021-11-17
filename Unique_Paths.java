@@ -22,8 +22,28 @@ Hide Similar Problems (M) Unique Paths II (M) Minimum Path Sum (H) Dungeon Game
 
 
 
+/*
+Solution 2
+1D dp
 
+dp[j] += dp[j-1]
 
+Time Complexity: O(mn)
+Space Complexity: O(n)
+*/
+public class Solution {
+    public int uniquePaths(int m, int n) {
+        int[] dp = new int[n];
+        dp[0] = 1;
+        for (int i = 0; i < m; i++) {
+            int[] temp = dp;
+            for (int j = 0; j < n; j++) {
+                dp[j] = temp[j] + (j > 0 ? dp[j-1] : 0);
+            }
+        }
+        return dp[n-1];
+    }
+}
 
 /*
 Solution 3 faster than Solution 2,1
