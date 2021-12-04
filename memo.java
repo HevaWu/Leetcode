@@ -21,13 +21,12 @@ s.trim().split("\\s+"); //split by multiple whitespace
 String.join(" ", str); // join string from array
 
 // ======= StringBuilder =======
-StringBuilder str = new StringBuilder();
-str.append(s.substring(i+1, end+1)).append(" "); // append string
-str.toString(); // convert stringbuilder to string
-
-// ======= StringBuilder =======
-StringBuilder sb = new StringBuilder(str);
-sb.reverse(); // reverse string builder
+StringBuilder sb = new StringBuilder();
+sb.append(s.substring(i+1, end+1)).append(" "); // append string
+sb.toString(); // convert stringbuilder to string
+sb.reverse(); // reverse string by stringBuilder
+sb.charAt(i); // access stringBuilder character
+sb.insert(0, char) // insert char at 0 index
 
 // ======= Arrays =======　
 int[] dir = new int[] {0, 1, 0, -1, 0}; // array initialization
