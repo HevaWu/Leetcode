@@ -24,11 +24,11 @@ Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
 Constraints:
 
 The number of nodes in the tree is in the range [1, 104].
-0 <= Node.val <= 104s
-*/
+0 <= Node.val <= 104
+ */
 
-/*
-Solution 2:
+ /*
+Solution 1:
 If you trace all the way back to the beginning, you'll find the answer lies in the way how we have defined rob(root). As I mentioned, for each tree root, there are two scenarios: it is robbed or is not. rob(root) does not distinguish between these two cases, so "information is lost as the recursion goes deeper and deeper", which results in repeated subproblems.
 
 If we were able to maintain the information about the two scenarios for each tree root, let's see how it plays out. Redefine rob(root) as a new function which will return an array of two elements, the first element of which denotes the maximum amount of money that can be robbed if root is not robbed, while the second element signifies the maximum amount of money robbed if it is robbed.
@@ -43,72 +43,33 @@ Space Complexity: O(1)
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     public var val: Int
- *     public var left: TreeNode?
- *     public var right: TreeNode?
- *     public init() { self.val = 0; self.left = nil; self.right = nil; }
- *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
- *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
- *         self.val = val
- *         self.left = left
- *         self.right = right
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
  *     }
  * }
  */
 class Solution {
-    func rob(_ root: TreeNode?) -> Int {
-        guard let root = root else { return 0 }
-        var res = robSub(root)
-        return max(res[0], res[1])
+    public int rob(TreeNode root) {
+        int[] money = robSub(root);
+        return Math.max(money[0], money[1]);
     }
 
-    func robSub(_ node: TreeNode?) -> [Int] {
-        guard let node = node else { return [0, 0] }
+    public int[] robSub(TreeNode node) {
+        if (node == null) { return new int[]{0, 0}; }
 
-        let left = robSub(node.left)
-        let right = robSub(node.right)
+        int[] moneyL = robSub(node.left);
+        int[] moneyR = robSub(node.right);
 
-        let valWithCur = node.val + left[0] + right[0]
-        let valWithoutCur = max(left[0], left[1]) + max(right[0], right[1])
+        int maxI = node.val + moneyL[1] + moneyR[1];
+        int maxE = Math.max(moneyL[0], moneyL[1]) + Math.max(moneyR[0], moneyR[1]);
 
-        return [valWithoutCur, valWithCur]
-    }
-}
-
-
-
-/*
-Solution 1:
-TLE
-*/
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     public var val: Int
- *     public var left: TreeNode?
- *     public var right: TreeNode?
- *     public init() { self.val = 0; self.left = nil; self.right = nil; }
- *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
- *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
- *         self.val = val
- *         self.left = left
- *         self.right = right
- *     }
- * }
- */
-class Solution {
-    func rob(_ root: TreeNode?) -> Int {
-        guard let root = root else { return 0 }
-
-        var val = 0
-
-        if let left = root.left {
-            val += rob(left.left) + rob(left.right)
-        }
-        if let right = root.right {
-            val += rob(right.left) + rob(right.right)
-        }
-
-        return max(val+root.val, rob(root.left)+rob(root.right))
+        return new int[]{maxI, maxE};
     }
 }
