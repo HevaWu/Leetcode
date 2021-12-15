@@ -24,56 +24,24 @@ class Solution {
 public:
     ListNode* insertionSortList(ListNode* head) {
         if(head==NULL) return head;
-        
+
         ListNode begin(INT_MIN);
         while(head){
             ListNode* temp = &begin;
             while(temp->next && temp->next->val < head->val){
                 temp = temp->next;//find the right place to insert
             }
-            
+
             //insert
             ListNode* next = head->next;
             head->next = temp->next;
             temp->next = head;
             head = next;
         }
-        
+
         return begin.next;
     }
 };
 
 
 
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public ListNode insertionSortList(ListNode head) {
-        if(head==null) return head;
-        
-        ListNode begin = new ListNode(Integer.MIN_VALUE);
-        while(head!=null){
-            ListNode temp = begin;
-            while(temp.next!=null && temp.next.val<head.val){ 
-            //temp.next!=null do not forget the" next"
-                temp = temp.next;
-            }
-            
-            ListNode next = head.next;
-            head.next = temp.next;
-            temp.next = head;
-            head = next;
-        }
-        
-        return begin.next;
-    }
-}
