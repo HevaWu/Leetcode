@@ -51,10 +51,14 @@ arr.get(0); // array list get element in the index
 arr.add(0); // array list add element
 arr.size(); // array list size
 Arrays.asList(1, 2, 3); // convert array to list
+arr.iterator().next(); // iterate over array list
 
 // ======= Queue =======　
 Queue<TreeNode> q = new LinkedList<>(); // offer() insert element, poll return and remove first, peek return but not remove
 q.size(); // get queue size
+q.offer(ele); // add element to queue
+q.poll()); //返回第一个元素，并在队列中删除
+q.peek()); //返回第一个元素
 
 // ======= Stack =======　
 Stack<Integer> stack = new Stack<>();
