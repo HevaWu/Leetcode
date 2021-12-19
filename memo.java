@@ -28,6 +28,10 @@ sb.reverse(); // reverse string by stringBuilder
 sb.charAt(i); // access stringBuilder character
 sb.insert(0, char) // insert char at 0 index
 
+// ======= StringBuilder =======
+Character.isDigit(c); // check if c is digit number
+(s.charAt(i)-'0'); // convert char to int
+
 // ======= Arrays =======　
 int[] dir = new int[] {0, 1, 0, -1, 0}; // array initialization
 Arrays.sort(arr); // sort array
