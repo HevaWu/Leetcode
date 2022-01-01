@@ -83,7 +83,7 @@ class Solution {
 
         let n = nums.count
 
-        // dp[i][j] max coins burst ballon in nums[i...j]
+        // dp[i][j] max coins burst ballon in nums[i+1..<j]
         var dp = Array(
             repeating: Array(repeating: 0, count: n),
             count: n
