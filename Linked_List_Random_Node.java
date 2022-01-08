@@ -21,15 +21,6 @@ Hide Tags Reservoir Sampling
 Hide Similar Problems (M) Random Pick Index
 */
 
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-
-
-
-
 /*
 check one and one again to achieve random pick one node
 
@@ -53,8 +44,15 @@ P(X was in the reservoir last time) × P(X is not replaced by k+i)
 When k+i reaches n, the probability of each number staying in the reservoir is k/n
  */
 
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
+/*
+Solution 2:
+Reservoir Sampling
+
+Time Complexity:
+- init: O(1)
+- get: O(n)
+Space Complexity: O(1)
+*/
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -72,7 +70,7 @@ public class Solution {
     public Solution(ListNode head) {
         this.head = head;
     }
-    
+
     /** Returns a random node's value. */
     public int getRandom() {
         ListNode ret = null;
@@ -83,8 +81,50 @@ public class Solution {
             }
             cur = cur.next;
         }
-        
+
         return ret.val;
+    }
+}
+
+/*
+Solution 1:
+save to array, then pick random element
+
+Time Complexity:
+- init: O(n)
+- get: O(1)
+Space Complexity: O(n)
+*/
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(head);
+ * int param_1 = obj.getRandom();
+ */
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    private List<Integer> arr = new ArrayList<>();
+    private Random rand = new Random();
+
+    public Solution(ListNode head) {
+        while (head != null) {
+            this.arr.add(head.val);
+            head = head.next;
+        }
+    }
+
+    public int getRandom() {
+        int index = rand.nextInt(arr.size());
+        return arr.get(index);
     }
 }
 
@@ -93,4 +133,3 @@ public class Solution {
  * Solution obj = new Solution(head);
  * int param_1 = obj.getRandom();
  */
-

@@ -83,3 +83,7 @@ Math.abs(-3); // get absolute value of one element
 Math.sqrt(4); // sqrt value
 Math.cell(0.3); // ceil number
 (int)Math.floor(0.4); // floor number and convert to int, return 0
+
+// ======= Random =======
+Random rand = new Random();
+rand.nextInt(n); // return integer in [0..<n-1]
