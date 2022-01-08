@@ -1,4 +1,4 @@
-/*
+'''
 Given a rows x cols matrix grid representing a field of cherries. Each cell in grid represents the number of cherries that you can collect.
 
 You have two robots that can collect cherries for you, Robot #1 is located at the top-left corner (0,0) , and Robot #2 is located at the top-right corner (0, cols-1) of the grid.
@@ -50,57 +50,40 @@ cols == grid[i].length
 0 <= grid[i][j] <= 100
 
 Use dynammic programming, define DP[i][j][k]: The maximum cherries that both robots can take starting on the ith row, and column j and k of Robot 1 and 2 respectively.
-*/
+'''
 
-/*
+'''
 Solution 2:
 bottom up DP
 
 Time Compexity: O(m * n^2)
 Space Complexity: O(m * n *n)
-*/
-class Solution {
-    func cherryPickup(_ grid: [[Int]]) -> Int {
-        let m = grid.count
-        let n = grid[0].count
-        var dp = Array(
-            repeating: Array(
-                repeating: Array(
-                    repeating: 0,
-                    count: n
-                ),
-                count: n
-            ),
-            count: m
-        )
+'''
+class Solution:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
+        dp = [[[0 for r in range(n)] for c1 in range(n)] for c2 in range(m)]
 
-        for r in stride(from: m-1, through: 0, by: -1) {
-            for c1 in 0..<n {
-                for c2 in 0..<n {
-                    var val = 0
-                    if r < m-1 {
-                        for nextC1 in [c1-1, c1, c1+1] {
-                            for nextC2 in [c2-1, c2, c2+1] {
-                                if nextC1 >= 0, nextC1 < n,
-                                nextC2 >= 0, nextC2 < n {
+        for r in range(m-1, -1, -1):
+            for c1 in range(n):
+                for c2 in range(n):
+                    val = 0
+                    if r < m-1:
+                        for nextC1 in [c1-1, c1, c1+1]:
+                            for nextC2 in [c2-1, c2, c2+1]:
+                                if nextC1 >= 0 and nextC1 < n and nextC2 >= 0 and nextC2 < n:
                                     val = max(val, dp[r+1][nextC1][nextC2])
-                                }
-                            }
-                        }
-                    }
-
-                    val += grid[r][c1] + (c1 == c2 ? 0 : grid[r][c2])
+                    val += grid[r][c1] + (0 if c1 == c2 else grid[r][c2])
                     dp[r][c1][c2] = val
-                }
-            }
-        }
-        return dp[0][0][n-1]
-    }
-}
 
-/*
+        return dp[0][0][n-1]
+
+
+
+'''
 Solution 1:
-DP, dfs top down
+DP, dfsCherry_Pickup_II
 
 count cherries
 dp[r][c1][c2] // for r-th row, robot 1 in c1, robot 2 in c2
@@ -110,43 +93,26 @@ dp[r][c1][c2] // for r-th row, robot 1 in c1, robot 2 in c2
 
 TimeCompexity:
 O(9 * m * n^2)
-*/
-class Solution {
-    func cherryPickup(_ grid: [[Int]]) -> Int {
-        guard !grid.isEmpty else { return 0 }
-        let n = grid.count
-        let m = grid[0].count
+'''
+class Solution:
+    def cherryPickup(self, grid: List[List[int]]) -> int:
+        m = len(grid)
+        n = len(grid[0])
 
-        // dp[r][c1][c2]
-        // for r-th row, robot 1 in c1, robot 2 in c2
-        var dp = Array(
-            repeating: Array(
-                repeating: Array(repeating: 0, count: m),
-                count: m),
-            count: n)
+        @lru_cache(None)
+        def dfs(r, c1, c2):
+            if r == m:
+                return 0
+            val = 0
+            for s1 in [-1, 0, 1]:
+                for s2 in [-1, 0, 1]:
+                    nextC1 = c1 + s1
+                    nextC2 = c2 + s2
+                    if nextC1 >= 0 and nextC1 < n and nextC2 >= 0 and nextC2 < n:
+                        val = max(val, dfs(r+1, nextC1, nextC2))
+            val += grid[r][c1] + (0 if c1 == c2 else grid[r][c2])
+            return val
 
-        func dfs(_ r: Int, _ c1: Int, _ c2: Int) -> Int {
-            // reach the bottom row
-            if r == n { return 0 }
+        return dfs(0, 0, n-1)
 
-            if dp[r][c1][c2] != 0 { return dp[r][c1][c2] }
-            var res = 0
 
-            for i in [-1, 0, 1] {
-                for j in [-1, 0, 1] {
-                    let next_c1 = c1 + i
-                    let next_c2 = c2 + j
-                    if next_c1 >= 0, next_c1 < m, next_c2 >= 0, next_c2 < m {
-                        res = max(res, dfs(r+1, next_c1, next_c2))
-                    }
-                }
-            }
-
-            res += (c1 == c2 ? grid[r][c1] : grid[r][c1] + grid[r][c2])
-            dp[r][c1][c2] = res
-            return res
-        }
-
-        return dfs(0, 0, m-1)
-    }
-}

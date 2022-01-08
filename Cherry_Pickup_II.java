@@ -60,47 +60,38 @@ Time Compexity: O(m * n^2)
 Space Complexity: O(m * n *n)
 */
 class Solution {
-    func cherryPickup(_ grid: [[Int]]) -> Int {
-        let m = grid.count
-        let n = grid[0].count
-        var dp = Array(
-            repeating: Array(
-                repeating: Array(
-                    repeating: 0,
-                    count: n
-                ),
-                count: n
-            ),
-            count: m
-        )
+    public int cherryPickup(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][][] dp = new int[m][n][n];
 
-        for r in stride(from: m-1, through: 0, by: -1) {
-            for c1 in 0..<n {
-                for c2 in 0..<n {
-                    var val = 0
-                    if r < m-1 {
-                        for nextC1 in [c1-1, c1, c1+1] {
-                            for nextC2 in [c2-1, c2, c2+1] {
-                                if nextC1 >= 0, nextC1 < n,
-                                nextC2 >= 0, nextC2 < n {
-                                    val = max(val, dp[r+1][nextC1][nextC2])
+        for (int r = m-1; r >= 0; r--) {
+            for (int c1 = 0; c1 < n; c1++) {
+                for (int c2 = 0; c2 < n; c2++) {
+                    int val = 0;
+
+                    if (r < m-1) {
+                        for (int nextC1 = c1-1; nextC1 <= c1+1; nextC1++) {
+                            for (int nextC2 = c2-1; nextC2 <= c2+1; nextC2++) {
+                                if (nextC1 >= 0 && nextC1 < n && nextC2 >= 0 && nextC2 < n) {
+                                    val = Math.max(val, dp[r+1][nextC1][nextC2]);
                                 }
                             }
                         }
                     }
-
-                    val += grid[r][c1] + (c1 == c2 ? 0 : grid[r][c2])
-                    dp[r][c1][c2] = val
+                    val += grid[r][c1] + (c1 == c2 ? 0 : grid[r][c2]);
+                    dp[r][c1][c2] = val;
                 }
             }
         }
-        return dp[0][0][n-1]
+
+        return dp[0][0][n-1];
     }
 }
 
 /*
 Solution 1:
-DP, dfs top down
+DP, dfs
 
 count cherries
 dp[r][c1][c2] // for r-th row, robot 1 in c1, robot 2 in c2
@@ -112,41 +103,38 @@ TimeCompexity:
 O(9 * m * n^2)
 */
 class Solution {
-    func cherryPickup(_ grid: [[Int]]) -> Int {
-        guard !grid.isEmpty else { return 0 }
-        let n = grid.count
-        let m = grid[0].count
+    public int cherryPickup(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
 
-        // dp[r][c1][c2]
-        // for r-th row, robot 1 in c1, robot 2 in c2
-        var dp = Array(
-            repeating: Array(
-                repeating: Array(repeating: 0, count: m),
-                count: m),
-            count: n)
+        int[][][] dp = new int[m][n][n];
+        return dfs(0, 0, n-1, m, n, grid, dp);
+    }
 
-        func dfs(_ r: Int, _ c1: Int, _ c2: Int) -> Int {
-            // reach the bottom row
-            if r == n { return 0 }
-
-            if dp[r][c1][c2] != 0 { return dp[r][c1][c2] }
-            var res = 0
-
-            for i in [-1, 0, 1] {
-                for j in [-1, 0, 1] {
-                    let next_c1 = c1 + i
-                    let next_c2 = c2 + j
-                    if next_c1 >= 0, next_c1 < m, next_c2 >= 0, next_c2 < m {
-                        res = max(res, dfs(r+1, next_c1, next_c2))
-                    }
-                }
-            }
-
-            res += (c1 == c2 ? grid[r][c1] : grid[r][c1] + grid[r][c2])
-            dp[r][c1][c2] = res
-            return res
+    public int dfs(int r, int c1, int c2,
+                   int m, int n, int[][] grid,
+                   int[][][] dp) {
+        if (r == m) { return 0; }
+        if (dp[r][c1][c2] != 0) {
+            return dp[r][c1][c2];
         }
 
-        return dfs(0, 0, m-1)
+        int val = 0;
+        for (int s1 : new int[]{-1, 0, 1}) {
+            for (int s2: new int[]{-1, 0, 1}) {
+                int nextC1 = c1 + s1;
+                int nextC2 = c2 + s2;
+                if (nextC1 >= 0 && nextC1 < n
+                    && nextC2 >= 0 && nextC2 < n) {
+                   val = Math.max(
+                       val,
+                       dfs(r+1, nextC1, nextC2, m, n, grid, dp)
+                   );
+                }
+            }
+        }
+        val += grid[r][c1] + (c1 == c2 ? 0 : grid[r][c2]);
+        dp[r][c1][c2] = val;
+        return val;
     }
 }
