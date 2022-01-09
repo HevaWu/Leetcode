@@ -87,3 +87,6 @@ Math.cell(0.3); // ceil number
 // ======= Random =======
 Random rand = new Random();
 rand.nextInt(n); // return integer in [0..<n-1]
+
+// ======= Pair =======
+Pair<String, Integer> person = new Pair<>("Sajal", 12);
