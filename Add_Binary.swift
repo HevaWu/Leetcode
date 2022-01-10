@@ -22,7 +22,8 @@ Each string does not contain leading zeros except for the zero itself.
 
 /*
 Solution 3:
-same idea as Solution 2
+first store result into [Int]
+then convert to String
 
 method without check a,b count
 
@@ -34,45 +35,29 @@ class Solution {
         var a = a.map { $0.wholeNumberValue! }
         var b = b.map { $0.wholeNumberValue! }
 
-        let na = a.count
-        let nb = b.count
+        var i = a.count-1
+        var j = b.count-1
 
-        var ia = na-1
-        var ib = nb-1
-
-        var cur = 0
-        var res = [Int]()
-        while ia >= 0, ib >= 0 {
-            cur += a[ia] + b[ib]
-            res.insert(cur%2, at: 0)
-            cur /= 2
-            ia -= 1
-            ib -= 1
+        var result = [Int]()
+        var current = 0
+        while i >= 0 || j >= 0 {
+            current += (i >= 0 ? a[i] : 0) + (j >= 0 ? b[j] : 0)
+            result.insert(current % 2, at: 0)
+            current /= 2
+            if i >= 0{
+                i -= 1
+            }
+            if j >= 0 {
+                j -= 1
+            }
+        }
+        if current > 0 {
+            result.insert(1, at: 0)
         }
 
-        while ia >= 0 {
-            cur += a[ia]
-            res.insert(cur%2, at: 0)
-            cur /= 2
-            ia -= 1
+        return result.reduce(into: "") { res, next in
+            res += String(next)
         }
-
-        while ib >= 0 {
-            cur += b[ib]
-            res.insert(cur % 2, at: 0)
-            cur /= 2
-            ib -= 1
-        }
-
-        if cur != 0 {
-            res.insert(cur, at: 0)
-        }
-
-        var final = String()
-        for num in res {
-            final.append(String(num))
-        }
-        return final
     }
 }
 

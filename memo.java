@@ -19,6 +19,7 @@ int charA = 'a'; // convert char to int
 str.indexOf('a'); // first index appear of char a
 s.trim().split("\\s+"); //split by multiple whitespace
 String.join(" ", str); // join string from array
+String.valueOf(3); // "3" convert int to string
 
 // ======= StringBuilder =======
 StringBuilder sb = new StringBuilder();

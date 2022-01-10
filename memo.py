@@ -1,3 +1,7 @@
+# int char
+chr(97) # int to char 'a'
+ord('a') # 97 char to int
+
 # List / array
 # https://docs.python.org/3/tutorial/introduction.html#lists
 len(array) # length of array
