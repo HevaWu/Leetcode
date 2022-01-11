@@ -72,6 +72,8 @@ stack.peek(); // return stack first object
 stack.pop(); // remove first in stack and return it
 stack.push(ele); // push element into stack
 stack.empty(); // check empty
+Deque<Pair<TreeNode, Integer>> stack = new ArrayDeque(); // use ArrayDeque to init stack
+stack.isEmpty(); // check empty
 
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
