@@ -3,7 +3,7 @@ You are given the root node of a binary search tree (BST) and a value to insert 
 
 Notice that there may exist multiple valid ways for the insertion, as long as the tree remains a BST after insertion. You can return any of them.
 
- 
+
 
 Example 1:
 
@@ -20,7 +20,7 @@ Example 3:
 
 Input: root = [4,2,7,1,3,null,null,null,null,null,null], val = 5
 Output: [4,2,7,1,3,5]
- 
+
 
 Constraints:
 
@@ -30,6 +30,52 @@ All the values Node.val are unique.
 -108 <= val <= 108
 It's guaranteed that val does not exist in the original BST.
 */
+
+/*
+Solution 2:
+iterative each node, and try to insert as leaf
+Time Complexity: O(logn)
+Space Complexity: O(1)
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init() { self.val = 0; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+ *         self.val = val
+ *         self.left = left
+ *         self.right = right
+ *     }
+ * }
+ */
+class Solution {
+    func insertIntoBST(_ root: TreeNode?, _ val: Int) -> TreeNode? {
+        var node = root
+        while node != nil {
+            if val < node!.val {
+                // try insert to left child
+                if let left = node!.left {
+                    node = left
+                } else {
+                    node!.left = TreeNode(val)
+                    return root
+                }
+            } else if val > node!.val {
+                if let right = node!.right {
+                    node = right
+                } else {
+                    node!.right = TreeNode(val)
+                    return root
+                }
+            }
+        }
+        return TreeNode(val)
+    }
+}
 
 /*
 Solution 1:
