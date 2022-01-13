@@ -49,6 +49,18 @@ int index = Arrays.binarySearch(nums, target); // binary search target, if exist
 Arrays.copyOfRange(nums, n-k, n); // get range of element in array
 System.arraycopy(lastK, 0, nums, 0, k); // copy lastK's k elements to nums[0..<k]
 Collections.reverse(Arrays.asList(str)) // reverse array
+Arrays.sort(points, new Comparator<int[]>() { // sort array
+    public int compare(int[] a, int[] b) {
+        return Integer.compare(a[1],b[1]);
+    }
+}) ;
+Arrays.sort(points, (p1, p2) -> {
+    if (p1[0] == p2[0]) {
+        return Integer.compare(p1[1], p2[1]);
+    } else {
+        return Integer.compare(p1[0], p2[0]);
+    }
+});
 
 // ======= ArrayList =======　
 List<Integer> arr = new ArrayList<Integer>();

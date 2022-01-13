@@ -20,3 +20,9 @@ a // 2 # 取整除 - 向下取接近商的整数 9//2 is 4
 random.randint(0, 3) # random int of 0...3
 @lru_cache(None) # cache function
 "变量1" if a>b else "变量2"
+
+# sort by comparator
+def compare(p1, p2) -> bool:
+    return p1[1] - p2[1]
+points = sorted(points, key=cmp_to_key(compare))
+points.sort(key = lambda x : x[1])
