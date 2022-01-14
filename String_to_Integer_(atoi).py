@@ -1,4 +1,4 @@
-/*
+'''
 Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).
 
 The algorithm for myAtoi(string s) is as follows:
@@ -86,9 +86,9 @@ Constraints:
 
 0 <= s.length <= 200
 s consists of English letters (lower-case and upper-case), digits (0-9), ' ', '+', '-', and '.'.
-*/
+'''
 
-/*
+'''
 Solution 1
 go through string
 
@@ -96,43 +96,33 @@ use isPos to check if current number will be positive
 
 Time Complexity: O(n)
 Space Complexity: O(1)
-*/
-class Solution {
-    func myAtoi(_ s: String) -> Int {
-        if s.isEmpty { return 0 }
-        var s = Array(s)
-        let n = s.count
-
-        var index = 0
-        while index < n, s[index] == " " {
+'''
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        n = len(s)
+        index = 0
+        while index < n and s[index] == ' ':
             index += 1
-        }
-        if index == n { return 0 }
 
-        // is positive mark
-        var isPos = true
-        if s[index] == "-" {
-            isPos = false
-            index += 1
-        } else if s[index] == "+" {
-            index += 1
-        }
+        if index == n:
+            return 0
 
-        var val = 0
-        while index < n {
-            guard let digit = s[index].wholeNumberValue else {
+        sign = 1
+        if s[index] == '-':
+            sign = -1
+            index += 1
+        elif s[index] == '+':
+            index += 1
+
+        val = 0
+        maxValue = 2**31-1
+        while index < n:
+            if s[index] < '0' or s[index] > '9':
                 break
-            }
-
-            if val > Int32.max / 10
-            || (val == Int32.max / 10 && digit > Int32.max % 10) {
-                return isPos ? Int(Int32.max) : Int(Int32.min)
-            }
-
-            val = val * 10 + s[index].wholeNumberValue!
+            digit = ord(s[index]) - ord('0')
+            if val > maxValue // 10 or (val == maxValue // 10 and digit > maxValue % 10):
+                return maxValue if sign == 1 else (-maxValue-1)
+            val = val * 10 + digit
             index += 1
-        }
 
-        return isPos ? val : -val
-    }
-}
+        return sign * val

@@ -2,6 +2,10 @@
 chr(97) # int to char 'a'
 ord('a') # 97 char to int
 
+sys.maxsize # int64 max
+-sys.maxsize - 1 # int64 min
+2**31-1 # int32 max
+
 # List / array
 # https://docs.python.org/3/tutorial/introduction.html#lists
 len(array) # length of array
