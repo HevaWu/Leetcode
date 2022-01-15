@@ -17,6 +17,21 @@ while stack # can use to check stack is empty or not
 stack.pop() # use to pop stack value
 stack.append((node, 23)) # push element into stack
 
+# Set
+startSet = set([0])
+startSet.add(3) # add into set
+if len(startSet) > len(endSet):
+    startSet, endSet = endSet, startSet # quick switch element
+
+# map
+graph = {}
+for i in range(n):
+    if arr[i] in graph:
+        graph[arr[i]].append(i)
+    else:
+        graph[arr[i]] = [i]
+graph[arr[cur]].clear() # remove key from graph
+
 # others
 range(1, 10) # range of 1..<10
 range(0, -10, -1) # [0, -1, -2, -3, -4, -5, -6, -7, -8, -9] last one is step

@@ -87,11 +87,17 @@ stack.empty(); // check empty
 Deque<Pair<TreeNode, Integer>> stack = new ArrayDeque(); // use ArrayDeque to init stack
 stack.isEmpty(); // check empty
 
+// ======= Set =======
+Set<Integer> set = new HashSet<Integer>();
+set.size(); // return size of set
+
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
 map.getOrDefault(c, 0); // if key c exist, return value of c, otherwise, return 0
 map.put(c, 0); // set key c's value as 0
 map.remove(key); // remove key
+map.computeIfAbsent(arr[i], v -> new LinkedList<>()).add(i); // give default value, then update the value
+map.get(arr[cur]).clear(); // clear key
 
 // ======= Math =======
 Math.abs(-3); // get absolute value of one element
