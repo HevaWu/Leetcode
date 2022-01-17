@@ -12,6 +12,7 @@ str.length(); // size of string
 char[] arr = s.toCharArray(); //string to char array
 s.substring(i) + s.substring(0, i); // substring
 s1.compareTo(s2); // compare 2 strings, 0 means equal, <0 means s1 < s2, >0 means s1 > s2
+s1.equals(str); // check if s1 equal to str
 s.charAt(0); // return char at index
 int charA = 'a'; // convert char to int
 (int)'a'; // convert char to int
@@ -98,6 +99,7 @@ map.put(c, 0); // set key c's value as 0
 map.remove(key); // remove key
 map.computeIfAbsent(arr[i], v -> new LinkedList<>()).add(i); // give default value, then update the value
 map.get(arr[cur]).clear(); // clear key
+map.containsKey(2); // check if key exists in map
 
 // ======= Math =======
 Math.abs(-3); // get absolute value of one element
