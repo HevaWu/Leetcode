@@ -7,7 +7,9 @@ sys.maxsize # int64 max
 2**31-1 # int32 max
 
 # String
-s.split(' ') # split string by space
+s.split(' ') # split string by space\
+c = 'a'
+c.isupper() # is upper case
 
 # List / array
 # https://docs.python.org/3/tutorial/introduction.html#lists
