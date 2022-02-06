@@ -41,47 +41,27 @@ nums is sorted in ascending order.
 */
 
 /*
-Solution 2:
-check from end of array
+Solution 1:
+check from first to end
+use k and i to record which place need to keep, which need to skip
 Time Complexity: O(n)
 Space Complexity: O(1)
 */
 class Solution {
-    func removeDuplicates(_ nums: inout [Int]) -> Int {
-        var n = nums.count
-        guard n >= 2 else { return n }
-        for i in stride(from: n-3, through: 0, by: -1) {
-            if nums[i] == nums[i+2] {
-                nums.remove(at: i)
+    public int removeDuplicates(int[] nums) {
+        int n = nums.length;
+        if (n <= 1) { return n; }
+        int k = 0;
+        for(int i = 0; i < n; i++) {
+            if (i < n-2 && nums[i] == nums[i+2]) {
+                // remove nums[i]
+                continue;
+            } else {
+                // put nums[i] to nums[k] place
+                nums[k] = nums[i];
+                k += 1;
             }
         }
-        return nums.count
-    }
-}
-
-/*
-Solution 1:
-check sorted array i and i+2, if they are equal, remove item in i
-
-Time Complexity: O(n)
-Memory: O(1)
-*/
-class Solution {
-    func removeDuplicates(_ nums: inout [Int]) -> Int {
-        guard !nums.isEmpty else { return 0 }
-
-		// use while instart for in
-		// use n to help tracking latest nums.count
-        var i = 0
-        var n = nums.count
-        while i < n-2 {
-            if nums[i] == nums[i+2] {
-                nums.remove(at: i)
-                n -= 1
-                continue
-            }
-            i += 1
-        }
-        return nums.count
+        return k;
     }
 }

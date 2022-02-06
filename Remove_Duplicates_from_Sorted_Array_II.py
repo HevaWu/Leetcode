@@ -1,4 +1,4 @@
-/*
+'''
 Given a sorted array nums, remove the duplicates in-place such that duplicates appeared at most twice and return the new length.
 
 Do not allocate extra space for another array; you must do this by modifying the input array in-place with O(1) extra memory.
@@ -38,50 +38,20 @@ Constraints:
 0 <= nums.length <= 3 * 104
 -104 <= nums[i] <= 104
 nums is sorted in ascending order.
-*/
+'''
 
-/*
+'''
 Solution 2:
 check from end of array
 Time Complexity: O(n)
 Space Complexity: O(1)
-*/
-class Solution {
-    func removeDuplicates(_ nums: inout [Int]) -> Int {
-        var n = nums.count
-        guard n >= 2 else { return n }
-        for i in stride(from: n-3, through: 0, by: -1) {
-            if nums[i] == nums[i+2] {
-                nums.remove(at: i)
-            }
-        }
-        return nums.count
-    }
-}
-
-/*
-Solution 1:
-check sorted array i and i+2, if they are equal, remove item in i
-
-Time Complexity: O(n)
-Memory: O(1)
-*/
-class Solution {
-    func removeDuplicates(_ nums: inout [Int]) -> Int {
-        guard !nums.isEmpty else { return 0 }
-
-		// use while instart for in
-		// use n to help tracking latest nums.count
-        var i = 0
-        var n = nums.count
-        while i < n-2 {
-            if nums[i] == nums[i+2] {
-                nums.remove(at: i)
-                n -= 1
-                continue
-            }
-            i += 1
-        }
-        return nums.count
-    }
-}
+'''
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        n = len(nums)
+        i = n-3
+        while i >= 0:
+            if nums[i] == nums[i+2]:
+                nums.pop(i)
+            i -= 1
+        return len(nums)

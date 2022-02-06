@@ -15,6 +15,7 @@ c.isupper() # is upper case
 # https://docs.python.org/3/tutorial/introduction.html#lists
 len(array) # length of array
 dp = [[0 for i in range(n)] for j in range(n)] # 2D array init
+list.pop(i) # remove ith index element from list
 
 # Stack
 stack = [(root, root.val)] # init stack with pair of <TreeNode, Int>
