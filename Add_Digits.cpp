@@ -38,27 +38,3 @@ public:
         return 1+(num-1)%9;
     }
 };
-
-
-
-
-
-/*
-Math --- digital roots
-the digital root of 11 is 2, which means 11 is the second number after 9
-the digital root of 2035 is 1, which means 2035-1 is a multiple of 9
-if a number produces a digital root of exactly 9, then the number is a multiple of 9
-could using floor function
-dr(n) = 0       if n = 0
-        9       if n != 0, n % 9 == 0
-        n mod 9 if n%9 != 0
-dr(n) = 1+(n-1)%9
- */
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-///Java
-public class Solution {
-    public int addDigits(int num) {
-        return 1 + (num-1)%9;
-    }
-}
