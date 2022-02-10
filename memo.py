@@ -37,6 +37,7 @@ for i in range(n):
     else:
         graph[arr[i]] = [i]
 graph[arr[cur]].clear() # remove key from graph
+numMap[numSum] = numMap.get(numSum, 0) + 1 # get or default
 
 # others
 range(1, 10) # range of 1..<10

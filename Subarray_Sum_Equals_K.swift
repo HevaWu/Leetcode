@@ -1,7 +1,7 @@
 /*
 Given an array of integers nums and an integer k, return the total number of continuous subarrays whose sum equals to k.
 
- 
+
 
 Example 1:
 
@@ -11,7 +11,7 @@ Example 2:
 
 Input: nums = [1,2,3], k = 3
 Output: 2
- 
+
 
 Constraints:
 
@@ -23,7 +23,7 @@ Constraints:
 
 /*
 Solution 2:
-map
+map, store [sum-k: count]
 
 [sum_i, number of occurrences of sum_i]
 
@@ -36,14 +36,14 @@ class Solution {
         if n == 1 {
             return nums[0] == k ? 1 : 0
         }
-        
+
         var count = 0
         var sum = 0
-        
+
         // [sum-k, count]
         var map = [Int: Int]()
         map[0] = 1
-        
+
         for i in 0..<n {
             sum += nums[i]
             if let val = map[sum-k] {
@@ -51,7 +51,7 @@ class Solution {
             }
             map[sum, default: 0] += 1
         }
-        
+
         return count
     }
 }
@@ -70,14 +70,14 @@ class Solution {
         if n == 1 {
             return nums[0] == k ? 1 : 0
         }
-        
+
         var sum = Array(repeating: 0, count: n+1)
-        
+
         var count = 0
         for i in 1...n {
             sum[i] = sum[i-1] + nums[i-1]
         }
-        
+
         for i in 0..<n {
             for j in (i+1)...n {
                 if sum[j] - sum[i] == k {
@@ -85,7 +85,7 @@ class Solution {
                 }
             }
         }
-        
+
         return count
     }
 }
