@@ -3,7 +3,7 @@ Given an integer array nums of unique elements, return all possible subsets (the
 
 The solution set must not contain duplicate subsets. Return the solution in any order.
 
- 
+
 
 Example 1:
 
@@ -13,7 +13,7 @@ Example 2:
 
 Input: nums = [0]
 Output: [[],[0]]
- 
+
 
 Constraints:
 
@@ -23,7 +23,7 @@ All the numbers of nums are unique.
 */
 
 /*
-Solution 2
+Solution 3
 lexicographc(binay sorted) subset
 bitmask
 
@@ -39,11 +39,11 @@ class Solution {
     func subsets(_ nums: [Int]) -> [[Int]] {
         var res = [[Int]]()
         let n = nums.count
-        
+
         for i in Int(pow(Double(2), Double(n)))..<Int(pow(Double(2), Double(n+1))) {
             let mask = Array(String(i, radix: 2))
             // print(mask)
-            
+
             var cur = [Int]()
             for j in 0..<n {
                 if mask[j+1] == "1" {
@@ -53,6 +53,38 @@ class Solution {
             res.append(cur)
         }
         return res
+    }
+}
+
+/*
+Solution 2:
+backtrack another writing way
+*/
+class Solution {
+    func subsets(_ nums: [Int]) -> [[Int]] {
+        var sub = [[Int]]()
+        var cur = [Int]()
+        backtrack(0, nums.count, nums, &cur, &sub)
+        return sub
+    }
+
+    func backtrack(_ index: Int,
+                   _ n: Int,
+                   _ nums: [Int],
+                   _ cur: inout [Int],
+                   _ sub: inout [[Int]]) {
+        if index == n {
+            sub.append(cur)
+            return
+        }
+
+        // pick index
+        cur.append(nums[index])
+        backtrack(index+1, n, nums, &cur, &sub)
+
+        // not pick index
+        cur.removeLast()
+        backtrack(index+1, n, nums, &cur, &sub)
     }
 }
 
@@ -73,14 +105,14 @@ class Solution {
         backTrack(&nums, 0, n, &res)
         return res
     }
-    
+
     func backTrack(_ nums: inout [Int], _ left: Int, _ n: Int, _ res: inout [[Int]]) {
         if n == 0 { return }
-        
-        if nums.count == n { 
+
+        if nums.count == n {
             res.append(nums)
         }
-        
+
         for i in left..<n {
             let val = nums[i]
             nums.remove(at: i)

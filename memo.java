@@ -72,6 +72,7 @@ arr.size(); // array list size
 Arrays.asList(1, 2, 3); // convert array to list
 arr.iterator().next(); // iterate over array list
 numsList.add(0, 1); // add 1 at 0 index
+arr.remove(arr.size()-1);; // remove last element int the list
 
 // ======= Queue =======　
 Queue<TreeNode> q = new LinkedList<>(); // offer() insert element, poll return and remove first, peek return but not remove
