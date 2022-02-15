@@ -3,7 +3,7 @@ Given a non-empty array of integers nums, every element appears twice except for
 
 Follow up: Could you implement a solution with a linear runtime complexity and without using extra memory?
 
- 
+
 
 Example 1:
 
@@ -17,7 +17,7 @@ Example 3:
 
 Input: nums = [1]
 Output: 1
- 
+
 
 Constraints:
 
@@ -41,7 +41,7 @@ Space Complexity: O(1)
 class Solution {
     func singleNumber(_ nums: [Int]) -> Int {
         var res = 0
-        
+
         for n in nums {
             res ^= n
         }
@@ -63,10 +63,10 @@ set
 
 each element will only appear 1 or 2 times
 if element appears before, remove it from set
-if element not appears before, insert it 
+if element not appears before, insert it
 
 according to the description,
-at the end, we should only have one elemnt in the st 
+at the end, we should only have one elemnt in the st
 
 Time Complexity: O(n)
 Space Complexity: O(n/2) where n is nums.count
