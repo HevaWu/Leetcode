@@ -1,4 +1,4 @@
-/*
+'''
 Given a string path, which is an absolute path (starting with a slash '/') to a file or directory in a Unix-style file system, convert it to the simplified canonical path.
 
 In a Unix-style file system, a period '.' refers to the current directory, a double period '..' refers to the directory up a level, and any multiple consecutive slashes (i.e. '//') are treated as a single slash '/'. For this problem, any other format of periods such as '...' are treated as file/directory names.
@@ -39,67 +39,29 @@ Constraints:
 1 <= path.length <= 3000
 path consists of English letters, digits, period '.', slash '/' or '_'.
 path is a valid absolute Unix path.
-*/
+'''
 
-/*
+'''
 Solution 2:
 another coding way of solution 1
 
 Time Complexity: O(n)
 Space Complexity: O(n)
-*/
-class Solution {
-    func simplifyPath(_ path: String) -> String {
-        var paths = path.split(separator: "/")
-        if paths.isEmpty { return "/" }
-        var canonical = [String]()
+'''
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        paths = path.split("/")
+        if not paths:
+            return "/"
 
-        for p in paths {
-            switch p {
-            case ".":
-                // ignore
+        canonical = []
+        for p in paths:
+            if p == "." or p == "":
                 continue
-            case "..":
-                if !canonical.isEmpty {
-                    canonical.removeLast()
-                }
-            case "":
-                continue
-            default:
-                canonical.append(String(p))
-            }
-        }
+            elif p == "..":
+                if canonical:
+                    canonical.pop(-1)
+            else:
+                canonical.append(p)
 
-        return "/" + canonical.joined(separator: "/")
-    }
-}
-
-/*
-Solution 1:
-Stack
-
-use stack to store current mapped dir
-use set to control the one we should skiped element
-
-Time Complexity: O(n)
-Space Complexity: O(n)
-*/
-class Solution {
-    func simplifyPath(_ path: String) -> String {
-        if path.count == 1 { return path }
-        var stack = [String.SubSequence]()
-
-        var set: Set<String.SubSequence> = ["..", ".", ""]
-        var path = path.split(separator: "/")
-
-        for p in path {
-            if p == "..", !stack.isEmpty {
-                stack.removeLast()
-            } else if !set.contains(p) {
-                stack.append(p)
-            }
-        }
-
-        return "/" + stack.joined(separator: "/")
-    }
-}
+        return "/" + "/".join(canonical)

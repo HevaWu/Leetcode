@@ -10,12 +10,14 @@ sys.maxsize # int64 max
 s.split(' ') # split string by space\
 c = 'a'
 c.isupper() # is upper case
+str.join(sequence) # join sequence by str
 
 # List / array
 # https://docs.python.org/3/tutorial/introduction.html#lists
 len(array) # length of array
 dp = [[0 for i in range(n)] for j in range(n)] # 2D array init
 list.pop(i) # remove ith index element from list
+pop(-1) # remove last element
 
 # Stack
 stack = [(root, root.val)] # init stack with pair of <TreeNode, Int>

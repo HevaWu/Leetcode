@@ -49,57 +49,28 @@ Time Complexity: O(n)
 Space Complexity: O(n)
 */
 class Solution {
-    func simplifyPath(_ path: String) -> String {
-        var paths = path.split(separator: "/")
-        if paths.isEmpty { return "/" }
-        var canonical = [String]()
+    public String simplifyPath(String path) {
+        String[] paths = path.split("/");
+        if (paths.length == 0) {
+            return "/";
+        }
 
-        for p in paths {
-            switch p {
-            case ".":
-                // ignore
-                continue
-            case "..":
-                if !canonical.isEmpty {
-                    canonical.removeLast()
-                }
-            case "":
-                continue
-            default:
-                canonical.append(String(p))
+        Stack<String> canonical = new Stack<>();
+        for(String p: paths) {
+            switch (p) {
+                case ".":
+                    continue;
+                case "..":
+                    if (canonical.size() > 0) {
+                        canonical.pop();
+                    }
+                case "":
+                    continue;
+                default:
+                    canonical.push(p);
             }
         }
 
-        return "/" + canonical.joined(separator: "/")
-    }
-}
-
-/*
-Solution 1:
-Stack
-
-use stack to store current mapped dir
-use set to control the one we should skiped element
-
-Time Complexity: O(n)
-Space Complexity: O(n)
-*/
-class Solution {
-    func simplifyPath(_ path: String) -> String {
-        if path.count == 1 { return path }
-        var stack = [String.SubSequence]()
-
-        var set: Set<String.SubSequence> = ["..", ".", ""]
-        var path = path.split(separator: "/")
-
-        for p in path {
-            if p == "..", !stack.isEmpty {
-                stack.removeLast()
-            } else if !set.contains(p) {
-                stack.append(p)
-            }
-        }
-
-        return "/" + stack.joined(separator: "/")
+        return "/" + String.join("/", canonical);
     }
 }
