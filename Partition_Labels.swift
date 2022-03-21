@@ -1,7 +1,7 @@
 /*
 A string S of lowercase English letters is given. We want to partition this string into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts.
 
- 
+
 
 Example 1:
 
@@ -11,7 +11,7 @@ Explanation:
 The partition is "ababcbaca", "defegde", "hijhklij".
 This is a partition so that each letter appears in at most one part.
 A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits S into less parts.
- 
+
 
 Note:
 
@@ -33,16 +33,16 @@ class Solution {
     func partitionLabels(_ S: String) -> [Int] {
         var s = Array(S)
         let n = s.count
-        
+
         var last = [Character: Int]()
         for i in 0..<n {
             last[s[i]] = i
         }
-        
+
         var start = 0
         var end = 0
         var parts = [Int]()
-        
+
         for i in 0..<n {
             end = max(end, last[s[i]]!)
             if end == i {
@@ -71,11 +71,11 @@ Space Compexitly: O(n)
 class Solution {
     func partitionLabels(_ S: String) -> [Int] {
         var s = Array(S)
-        
+
         // key is each letter
         // value is [firstAppearIndex, lastAppearIndex]
         var map = [Character: [Int]]()
-        
+
         for i in 0..<s.count {
             if let val = map[s[i]] {
                 map[s[i]] = [val[0], i]
@@ -83,18 +83,18 @@ class Solution {
                 map[s[i]] = [i, i]
             }
         }
-        
+
         var part = [Int]()
-        
-        // sort elements by ascending s, ascending e 
+
+        // sort elements by ascending s, ascending e
         var list = map.values.sorted(by: { first, second -> Bool in
-            return first[0] == second[0] 
+            return first[0] == second[0]
                 ? first[1] < second[1]
                 : first[0] < second[0]
         })
         // print(list)
-        
-        // merge list element if possible 
+
+        // merge list element if possible
         // and put them in part
         var temp = (start: list[0][0], end: list[0][1])
         for i in 1..<list.count {
@@ -107,7 +107,7 @@ class Solution {
         }
 
         // append last checking one
-        part.append(temp.end - temp.start + 1)   
+        part.append(temp.end - temp.start + 1)
 
         return part
     }
