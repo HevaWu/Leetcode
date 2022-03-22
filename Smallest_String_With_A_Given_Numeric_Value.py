@@ -1,4 +1,4 @@
-/*
+'''
 The numeric value of a lowercase character is defined as its position (1-indexed) in the alphabet, so the numeric value of a is 1, the numeric value of b is 2, the numeric value of c is 3, and so on.
 
 The numeric value of a string consisting of lowercase characters is defined as the sum of its characters' numeric values. For example, the numeric value of the string "abe" is equal to 1 + 2 + 5 = 8.
@@ -30,9 +30,9 @@ Think greedily.
 
 Hint 2:
 If you build the string from the end to the beginning, it will always be optimal to put the highest possible character at the current index.
-*/
+'''
 
-/*
+'''
 Solution 2:
 greedy
 
@@ -43,58 +43,15 @@ k -= temp
 
 Time Complexity: O(n)
 Space Complexity: O(n)
-*/
-class Solution {
-    func getSmallestString(_ n: Int, _ k: Int) -> String {
-        let aAscii = Character("a").asciiValue!
-
-        var res: [Character] = Array(repeating: Character("a"), count: n)
-        var k = k - n
-
-        var i = n-1
-        while k > 0 {
-            let temp = min(k, 25)
-            res[i] = Character(UnicodeScalar(UInt8(temp) + aAscii))
-            k -= temp
+'''
+class Solution:
+    def getSmallestString(self, n: int, k: int) -> str:
+        chars = ['a' for i in range(n)]
+        i = n-1
+        k -= n
+        while k > 0:
+            pick = min(25, k)
+            chars[i] = chr(ord('a')+pick)
+            k -= pick
             i -= 1
-        }
-
-        return String(res)
-    }
-}
-
-/*
-Solution 1:
-greedy
-
-1. check (k-n) / 26
-2. if k == n, String(repeating: Character("a"), count: k) + res
-   if k < n, String(repeating: Character("a"), count: n-1) + String(UnicodeScalar(aAscii + UInt8(k-n))) + res
-*/
-class Solution {
-    func getSmallestString(_ n: Int, _ k: Int) -> String {
-        let aAscii = Character("a").asciiValue!
-        var res: String = ""
-
-        var n = n
-        var k = k
-
-        // use k-n to check 26
-        let zVal = (k-n) / 26
-        if zVal > 0 {
-            res += String(repeating: Character("z"), count: zVal)
-            k -= (zVal * 26)
-            n -= zVal
-        }
-
-        if k == n {
-            res = String(repeating: Character("a"), count: k) + res
-        } else {
-            // use aAscii + UInt8(k-n)
-            let next = Character(UnicodeScalar(aAscii + UInt8(k-n)))
-            res = String(repeating: Character("a"), count: n-1) + String(UnicodeScalar(aAscii + UInt8(k-n))) + res
-        }
-
-        return res
-    }
-}
+        return "".join(chars)

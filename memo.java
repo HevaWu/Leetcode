@@ -22,6 +22,11 @@ s.trim().split("\\s+"); //split by multiple whitespace
 String.join(" ", str); // join string from array
 String.valueOf(3); // "3" convert int to string
 Character.isUpperCase(word.charAt(i)); // check if a character is upper/capital letter
+// init repeating character string
+char[] chars = new char[len];
+Arrays.fill(chars, ch);
+String s = new String(chars);
+
 
 // ======= StringBuilder =======
 StringBuilder sb = new StringBuilder();

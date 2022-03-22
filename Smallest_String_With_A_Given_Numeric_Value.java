@@ -45,56 +45,18 @@ Time Complexity: O(n)
 Space Complexity: O(n)
 */
 class Solution {
-    func getSmallestString(_ n: Int, _ k: Int) -> String {
-        let aAscii = Character("a").asciiValue!
+    public String getSmallestString(int n, int k) {
+        char[] chars = new char[n];
+        Arrays.fill(chars, 'a');
+        k -= n;
 
-        var res: [Character] = Array(repeating: Character("a"), count: n)
-        var k = k - n
-
-        var i = n-1
-        while k > 0 {
-            let temp = min(k, 25)
-            res[i] = Character(UnicodeScalar(UInt8(temp) + aAscii))
-            k -= temp
-            i -= 1
+        int i = n-1;
+        while (k > 0) {
+            int pick = Math.min(25, k);
+            chars[i] = (char)('a' + pick);
+            k -= pick;
+            i -= 1;
         }
-
-        return String(res)
-    }
-}
-
-/*
-Solution 1:
-greedy
-
-1. check (k-n) / 26
-2. if k == n, String(repeating: Character("a"), count: k) + res
-   if k < n, String(repeating: Character("a"), count: n-1) + String(UnicodeScalar(aAscii + UInt8(k-n))) + res
-*/
-class Solution {
-    func getSmallestString(_ n: Int, _ k: Int) -> String {
-        let aAscii = Character("a").asciiValue!
-        var res: String = ""
-
-        var n = n
-        var k = k
-
-        // use k-n to check 26
-        let zVal = (k-n) / 26
-        if zVal > 0 {
-            res += String(repeating: Character("z"), count: zVal)
-            k -= (zVal * 26)
-            n -= zVal
-        }
-
-        if k == n {
-            res = String(repeating: Character("a"), count: k) + res
-        } else {
-            // use aAscii + UInt8(k-n)
-            let next = Character(UnicodeScalar(aAscii + UInt8(k-n)))
-            res = String(repeating: Character("a"), count: n-1) + String(UnicodeScalar(aAscii + UInt8(k-n))) + res
-        }
-
-        return res
+        return new String(chars);
     }
 }

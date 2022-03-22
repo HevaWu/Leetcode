@@ -10,7 +10,7 @@ sys.maxsize # int64 max
 s.split(' ') # split string by space\
 c = 'a'
 c.isupper() # is upper case
-str.join(sequence) # join sequence by str
+str.join(sequence) # join sequence by str, could use to join char array
 
 # List / array
 # https://docs.python.org/3/tutorial/introduction.html#lists
