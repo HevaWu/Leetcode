@@ -53,67 +53,16 @@ Time Complexity: O(log Y)
 Space Complexity: O(1)
 */
 class Solution {
-    func brokenCalc(_ X: Int, _ Y: Int) -> Int {
-        var res = 0
-        var Y = Y
-        while Y > X {
-            res += 1
-            if Y % 2 == 1 {
-                Y += 1
+    public int brokenCalc(int startValue, int target) {
+        int res = 0;
+        while (target > startValue) {
+            res += 1;
+            if (target % 2 == 1) {
+                target += 1;
             } else {
-                Y /= 2
+                target /= 2;
             }
         }
-        return res + X - Y
-    }
-}
-
-/*
-Solution 1
-Runtime Error
-
-use cache
-recursively check y/2 & Y+1
-dp[Y] = min(dp[Y/2], dp[Y+1]) + 1
-*/
-class Solution {
-    var cache = [Int: Int]()
-
-    func brokenCalc(_ X: Int, _ Y: Int) -> Int {
-        if X >= Y {
-            return X-Y
-        }
-
-        // possible max val that Y can increased
-        var possible_max = X
-        var step = 0
-
-        cache[X] = 0
-        while possible_max < Y {
-            possible_max *= 2
-            step += 1
-            cache[possible_max] = step
-        }
-
-        if possible_max == Y {
-            return step
-        }
-
-        return calc(X, Y, possible_max)
-    }
-
-    func calc(_ X: Int, _ Y: Int, _ maxVal: Int) -> Int {
-        if let val = cache[Y] { return val }
-        if X >= Y {
-            cache[Y] = X-Y
-            return cache[Y]!
-        }
-
-        guard Y < maxVal else {
-            return cache[maxVal]!
-        }
-
-        cache[Y] = 1 + min(calc(X, Y/2, maxVal), calc(X, Y+1, maxVal))
-        return cache[Y]!
+        return res + startValue - target;
     }
 }
