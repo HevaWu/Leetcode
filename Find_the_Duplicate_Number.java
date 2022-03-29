@@ -54,45 +54,22 @@ Time Complexity: O(n)
 Space Complexity: O(1)
 */
 class Solution {
-    func findDuplicate(_ nums: [Int]) -> Int {
-		// tortoise
-        var t = nums[0]
-
-		// hare
-        var h = nums[0]
-
-        repeat {
-            t = nums[t]
-            h = nums[nums[h]]
-        } while t != h
-
-        // find circle entrance
-        t = nums[0]
-        while t != h {
-            t = nums[t]
-            h = nums[h]
-        }
-
-        return h
-    }
-}
-
-/*
-Solution 1:
-set
-
-Time Complexity: O(n)
-Space Complexity: O(n)
-*/
-class Solution {
-    func findDuplicate(_ nums: [Int]) -> Int {
-        var set = Set<Int>()
-        for n in nums {
-            if set.contains(n) {
-                return n
+    public int findDuplicate(int[] nums) {
+        int t = nums[0];
+        int h = nums[0];
+        while (true) {
+            t = nums[t];
+            h = nums[nums[h]];
+            if (t == h) {
+                break;
             }
-            set.insert(n)
         }
-        return -1
+
+        t = nums[0];
+        while (t != h) {
+            t = nums[t];
+            h = nums[h];
+        }
+        return t;
     }
 }

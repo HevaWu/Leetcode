@@ -1,4 +1,4 @@
-/*
+'''
 Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
 
 There is only one repeated number in nums, return this repeated number.
@@ -37,9 +37,9 @@ How can we prove that at least one duplicate number must exist in nums?
 Can you solve the problem without modifying the array nums?
 Can you solve the problem using only constant, O(1) extra space?
 Can you solve the problem with runtime complexity less than O(n2)?
-*/
+'''
 
-/*
+'''
 Solution 2:
 Floyd's Tortoise and Hare (Cycle Detection)
 
@@ -52,47 +52,20 @@ Floyd's Tortoise and Hare (Cycle Detection)
 
 Time Complexity: O(n)
 Space Complexity: O(1)
-*/
-class Solution {
-    func findDuplicate(_ nums: [Int]) -> Int {
-		// tortoise
-        var t = nums[0]
-
-		// hare
-        var h = nums[0]
-
-        repeat {
+'''
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        t = nums[0]
+        h = nums[0]
+        while True:
             t = nums[t]
             h = nums[nums[h]]
-        } while t != h
+            if t == h:
+                break
 
-        // find circle entrance
         t = nums[0]
-        while t != h {
+        while t != h:
             t = nums[t]
             h = nums[h]
-        }
 
-        return h
-    }
-}
-
-/*
-Solution 1:
-set
-
-Time Complexity: O(n)
-Space Complexity: O(n)
-*/
-class Solution {
-    func findDuplicate(_ nums: [Int]) -> Int {
-        var set = Set<Int>()
-        for n in nums {
-            if set.contains(n) {
-                return n
-            }
-            set.insert(n)
-        }
-        return -1
-    }
-}
+        return t
