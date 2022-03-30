@@ -49,8 +49,6 @@ time log(mn)
 	binary search until the end
 */
 
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
 //Solution 1
 public class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
