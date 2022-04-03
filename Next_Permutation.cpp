@@ -19,14 +19,13 @@ Hide Similar Problems (M) Permutations (M) Permutations II (M) Permutation Seque
 
 /*O(n) time
 permutation 置换
-1.Find the largest index k such that nums[k] < nums[k + 1]. If no such index exists, 
+1.Find the largest index k such that nums[k] < nums[k + 1]. If no such index exists,
 	the permutation is sorted in descending order, just reverse it to ascending order and we are done. For example, the next permutation of [3, 2, 1] is [1, 2, 3].
 2. Find the largest index l greater than k such that nums[k] < nums[l].
 3. Swap the value of nums[k] with that of nums[l].
-4. Reverse the sequence from nums[k + 1] up to and including the final element 
+4. Reverse the sequence from nums[k + 1] up to and including the final element
 	nums[nums.size() - 1]*/
 
-/////////////////////////////////////////////////////////////////////////////////////
 //C++
 class Solution {
 public:
@@ -39,14 +38,14 @@ public:
                 break;
             }
         }
-        
+
         //if k==-1, the permutation is sorted in descending order
         //reverse it into ascending order
         if(k==-1){
             reverse(nums.begin(), nums.end());
             return;
         }
-        
+
         //find the largest index l greater than k, nums[k]<nums[l]
         int l = -1;
         for(int i = nums.size()-1; i > k; --i){
@@ -55,7 +54,7 @@ public:
                 break;
             }
         }
-        
+
         swap(nums[k], nums[l]);
         reverse(nums.begin()+k+1, nums.end());
     }
@@ -64,51 +63,3 @@ public:
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class Solution {
-    public void nextPermutation(int[] nums) {
-        int k = -1;
-        //find the largest index k, that nums[k] < nums[k + 1]
-        for(int i = nums.length-2; i >= 0; --i){
-            if(nums[i] < nums[i+1]){
-                k = i;
-                break;
-            }
-        }
-        
-        //if k==-1, the permutation is sorted in descending order
-        //reverse it into ascending order
-        if(k==-1){
-            reverse(nums, 0, nums.length);
-            return;
-        }
-        
-        //find the largest index l greater than k, nums[k]<nums[l]
-        int l = -1;
-        for(int i = nums.length-1; i > k; --i){
-            if(nums[k]<nums[i]){
-                l = i;
-                break;
-            }
-        }
-        
-        swap(nums, k, l);
-        reverse(nums, k+1, nums.length);
-    }
-    
-    //swap two element in nums
-    public void swap(int[] nums, int i , int j){
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
-    
-    //reverse the nums
-    public void reverse(int[] nums, int start, int end){
-        if(start>end) return;
-        for(int i = start; i < (end+start)/2; ++i){
-            swap(nums, i, start+end-i-1);
-        }
-    }
-}

@@ -18,6 +18,9 @@ len(array) # length of array
 dp = [[0 for i in range(n)] for j in range(n)] # 2D array init
 list.pop(i) # remove ith index element from list
 pop(-1) # remove last element
+arr.reverse() # reverse array in place
+a, b = b, a # swap two element
+nums[index+1:len(nums)] = nums[index+1:len(nums)][::-1] # reverse partial array
 
 # Stack
 stack = [(root, root.val)] # init stack with pair of <TreeNode, Int>
