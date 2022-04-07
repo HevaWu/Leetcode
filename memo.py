@@ -22,6 +22,9 @@ arr.reverse() # reverse array in place
 a, b = b, a # swap two element
 nums[index+1:len(nums)] = nums[index+1:len(nums)][::-1] # reverse partial array
 
+# heap
+heapq.heapify(list) # convert list to heap
+
 # Stack
 stack = [(root, root.val)] # init stack with pair of <TreeNode, Int>
 while stack # can use to check stack is empty or not
