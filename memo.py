@@ -23,7 +23,8 @@ a, b = b, a # swap two element
 nums[index+1:len(nums)] = nums[index+1:len(nums)][::-1] # reverse partial array
 
 # heap
-heapq.heapify(list) # convert list to heap
+import heapq
+heapq.heapify(list) # convert list to heap, heappop, heappush
 
 # Stack
 stack = [(root, root.val)] # init stack with pair of <TreeNode, Int>
