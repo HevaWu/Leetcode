@@ -1,6 +1,7 @@
 # int char
 chr(97) # int to char 'a'
 ord('a') # 97 char to int
+int("12") # convert string to int
 
 sys.maxsize # int64 max
 -sys.maxsize - 1 # int64 min
