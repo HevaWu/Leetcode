@@ -1,4 +1,5 @@
-/*59. Spiral Matrix II Add to List
+/*
+59. Spiral Matrix II Add to List
 Description  Submission  Solutions
 Total Accepted: 74340
 Total Submissions: 193550
@@ -36,8 +37,6 @@ int num = 1;
 according to the order, right down left up
  */
 
-////////////////////////////////////////////////////////////////////////
-//Java
 public class Solution {
     public int[][] generateMatrix(int n) {
         int[][] spiral = new int[n][n];
