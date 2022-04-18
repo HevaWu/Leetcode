@@ -4,7 +4,7 @@ Total Submissions: 153348
 Difficulty: Medium
 Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
 
-Note: 
+Note:
 You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
 
 Follow up:
@@ -51,49 +51,12 @@ public:
             // cout << count << "right ";
             return kthSmallest(root->right, k-1-count);  //remember (k-1-count)
         }
-        
+
         return root->val;
     }
-    
+
     int countNode(TreeNode* node){
         if(node==NULL) return 0;
         return 1 + countNode(node->left) + countNode(node->right);
     }
 };
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public int kthSmallest(TreeNode root, int k) {
-        int count = countNode(root.left);
-        
-        if(k<=count){
-            // System.out.println(count  + "left ");
-            return kthSmallest(root.left, k);
-        } else if(k > count+1){
-            // System.out.println(count  + "right ");
-            return kthSmallest(root.right, k-1-count);
-        }
-        
-        // System.out.println(count  + "return ");
-        return root.val;
-    }
-    
-    public int countNode(TreeNode node){
-        if(node==null) return 0;
-        return 1+countNode(node.left) + countNode(node.right);
-    }
-}
