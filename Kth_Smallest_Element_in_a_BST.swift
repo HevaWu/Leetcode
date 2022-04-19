@@ -1,7 +1,7 @@
 /*
 Given the root of a binary search tree, and an integer k, return the kth (1-indexed) smallest element in the tree.
 
- 
+
 
 Example 1:
 
@@ -13,14 +13,14 @@ Example 2:
 
 Input: root = [5,3,6,2,4,null,null,1], k = 3
 Output: 3
- 
+
 
 Constraints:
 
 The number of nodes in the tree is n.
 1 <= k <= n <= 104
 0 <= Node.val <= 104
- 
+
 
 Follow up: If the BST is modified often (i.e., we can do insert and delete operations) and you need to find the kth smallest frequently, how would you optimize?
 */
@@ -30,7 +30,7 @@ Follow up
 use like LRU cache design
 conbine index structure with double linked list
 
-overall time complexity for insert/delete + search of kth smallest is 
+overall time complexity for insert/delete + search of kth smallest is
 O(h+k)
 Space Complexity: O(n) to keep the linked list
 */
@@ -66,13 +66,13 @@ class Solution {
         var root = root
         var k = k
         var stack = [TreeNode?]()
-        
+
         while true {
             while root != nil {
                 stack.append(root)
                 root = root?.left
             }
-            
+
             root = stack.removeLast()
             k -= 1
             if k == 0 { return root?.val ?? -1 }
