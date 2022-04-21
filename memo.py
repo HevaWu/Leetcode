@@ -18,6 +18,7 @@ str.join(sequence) # join sequence by str, could use to join char array
 len(array) # length of array
 dp = [[0 for i in range(n)] for j in range(n)] # 2D array init
 list.pop(i) # remove ith index element from list
+list.insert(index, element) # insert element at index
 pop(-1) # remove last element
 arr.reverse() # reverse array in place
 a, b = b, a # swap two element
