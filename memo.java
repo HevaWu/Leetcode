@@ -3,6 +3,7 @@ int max = Integer.MAX_VALUE; // java integer's max value
 long a = (long)3; // convert int to long
 rand.nextInt(bound); // return random element in bound
 Integer.parseInt(str); // convert string to int
+Math.round(d * 1000) / 1000; // 3 decimal point int
 
 // ======= Double =======
 Double b = 3; // init Double from int

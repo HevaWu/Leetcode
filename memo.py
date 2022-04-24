@@ -60,6 +60,7 @@ random.randint(0, 3) # random int of 0...3
 @lru_cache(None) # cache function
 "变量1" if a>b else "变量2"
 math.ceil(0.1) # ceil math function
+round(x, 2) # round number to only leave 2 decimal points
 
 # sort by comparator
 def compare(p1, p2) -> bool:
