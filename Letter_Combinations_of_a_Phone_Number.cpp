@@ -30,7 +30,7 @@ public:
     vector<string> letterCombinations(string digits) {
         vector<string> ret;
         if(digits.size()<1) return ret;
-        
+
         vector<string> num = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         queue<string> Q;  //implement FIFO
         Q.push("");
@@ -44,7 +44,7 @@ public:
                 }
             }
         }
-        
+
         //copy from queue to string
         while(Q.size()){
             ret.push_back(Q.front());
@@ -53,30 +53,3 @@ public:
         return ret;
     }
 };
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class Solution {
-    public List<String> letterCombinations(String digits) {
-        LinkedList<String> ret = new LinkedList<>();  //implement FIFO like queue
-        if(digits.length() < 1) return ret;
-        
-        String[] num = {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        ret.add("");
-        
-        for(int i = 0; i < digits.length(); ++i){
-            int x = digits.charAt(i) - '0';  //remember charAt()
-            while(ret.peek().length() == i){
-                String temp = ret.poll();
-                for(char c:num[x].toCharArray()){
-                    ret.add(temp + c);
-                }
-            }
-        }
-        
-        return ret;
-    }
-}
