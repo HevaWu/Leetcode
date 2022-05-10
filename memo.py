@@ -23,6 +23,7 @@ pop(-1) # remove last element
 arr.reverse() # reverse array in place
 a, b = b, a # swap two element
 nums[index+1:len(nums)] = nums[index+1:len(nums)][::-1] # reverse partial array
+list.copy() # make copy of list without reference
 
 # heap
 import heapq
