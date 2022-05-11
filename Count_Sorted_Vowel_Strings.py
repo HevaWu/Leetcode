@@ -1,4 +1,4 @@
-/*
+'''
 Given an integer n, return the number of strings of length n that consist only of vowels (a, e, i, o, u) and are lexicographically sorted.
 
 A string s is lexicographically sorted if for all valid i, s[i] is the same as or comes before s[i+1] in the alphabet.
@@ -35,9 +35,9 @@ Think backtracking. Build a recursive function count(n, last_character) that cou
 
 Hint 3:
 In this recursive function, iterate on the possible characters for the first character, which will be all the vowels not less than last_character, and for each possible value c, increase the answer by count(n-1, c).
-*/
+'''
 
-/*
+'''
 Solution 5:
 		  a  e  i  o  u
     n=1   1  1  1  1  1  /a, e, i, o, u
@@ -46,27 +46,25 @@ Solution 5:
 
 Time Complexity: O(n)
 Space Complexity: O(1)
-*/
-class Solution {
-    func countVowelStrings(_ n: Int) -> Int {
-        var a = 1
-        var e = 1
-        var i = 1
-        var o = 1
-        var u = 1
-        var n = n
-        while n-1 > 0 {
+'''
+class Solution:
+    def countVowelStrings(self, n: int) -> int:
+        a = 1
+        e = 1
+        i = 1
+        o = 1
+        u = 1
+
+        while n-1 > 0:
             o += u
             i += o
             e += i
             a += e
             n -= 1
-        }
-        return a+e+i+o+u
-    }
-}
 
-/*
+        return a+e+i+o+u
+
+'''
 Solution 4:
 Math: Combination number
 Now we have n characters, we are going to insert 4 l inside.
@@ -89,88 +87,8 @@ We get the one result for the original problem.
 
 Time O(1)
 Space O(1)
-*/
-class Solution {
-    func countVowelStrings(_ n: Int) -> Int {
-        return (n+1) * (n+2) * (n+3) * (n+4) / 24
-    }
-}
+'''
+class Solution:
+    def countVowelStrings(self, n: int) -> int:
+        return (n+1) * (n+2) * (n+3) * (n+4) // 24;
 
-/*
-Solution 3:
-1D DP
-
-Time Complexity: O(5n)
-Space Complexity: O(5)
-*/
-class Solution {
-    func countVowelStrings(_ n: Int) -> Int {
-        // dp[n+1][6]
-        var dp = [0, 1, 1, 1, 1, 1]
-
-        for i in 1...n {
-            for j in 1...5 {
-                dp[j] += dp[j-1]
-            }
-        }
-
-        return dp[5]
-    }
-}
-
-/*
-Solution 2:
-DP
-
-dp[i][j] = dp[i][j-1] + (i > 1 ? dp[i-1][j] : 1)
-return dp[n][5]
-
-Time Complexity: O(5n)
-Space Complexity: O(5n)
-*/
-class Solution {
-    func countVowelStrings(_ n: Int) -> Int {
-        // dp[n+1][6]
-        var dp = Array(repeating: Array(repeating: 0, count: 6),
-                       count: n+1)
-
-        for i in 1...n {
-            for j in 1...5 {
-                dp[i][j] = dp[i][j-1] + (i>1 ? dp[i-1][j] : 1)
-            }
-        }
-
-        return dp[n][5]
-    }
-}
-
-/*
-Solution 1:
-BackTrack
-
-Time Complexity: O(5^n)
-Space Complexity: O(1)
-*/
-class Solution {
-    func countVowelStrings(_ n: Int) -> Int {
-        var res = 0
-
-        // append case of a,e,i,o,u is 5,4,3,2,1
-        // vowel a, have 5 possible append cases, aeiou
-        // vowel e, have 4 possible append cases, eiou
-        // backTrack lastCharIndex...4 would be enough
-        func _count(_ remain: Int, _ lastCharIndex: Int) {
-            if remain == 0 {
-                res += 1
-                return
-            }
-
-            for i in lastCharIndex...4 {
-                _count(remain-1, i)
-            }
-        }
-
-        _count(n, 0)
-        return res
-    }
-}
