@@ -112,6 +112,7 @@ map.remove(key); // remove key
 map.computeIfAbsent(arr[i], v -> new LinkedList<>()).add(i); // give default value, then update the value
 map.get(arr[cur]).clear(); // clear key
 map.containsKey(2); // check if key exists in map
+Map.Entry<Integer, Integer> entry: map.entrySet(); // return entry, can use getKey() and getValue() from it later
 
 // ======= Math =======
 Math.abs(-3); // get absolute value of one element
