@@ -70,6 +70,7 @@ Arrays.sort(points, (p1, p2) -> {
         return Integer.compare(p1[0], p2[0]);
     }
 });
+boolean[] b = new boolean[3]; // init boolean array
 
 // ======= ArrayList =======　
 List<Integer> arr = new ArrayList<Integer>();
