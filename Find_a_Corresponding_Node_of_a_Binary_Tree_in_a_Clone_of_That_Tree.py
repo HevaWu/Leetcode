@@ -1,4 +1,4 @@
-/*
+'''
 Given two binary trees original and cloned and given a reference to a node target in the original tree.
 
 The cloned tree is a copy of the original tree.
@@ -44,23 +44,22 @@ Constraints:
 The number of nodes in the tree is in the range [1, 10^4].
 The values of the nodes of the tree are unique.
 target node is a node from the original tree and is not null.
-*/
+'''
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+class Solution:
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        def inorder(o, c):
+            if o:
+                inorder(o.left, c.left)
+                if o is target:
+                    self.res = c
+                inorder(o.right, c.right)
 
-class Solution {
-public:
-    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
-        if (original == NULL) { return NULL; }
-        if (original == target) { return cloned; }
-        return getTargetCopy(original->left, cloned->left, target) ?: getTargetCopy(original->right, cloned->right, target);
-    }
-};
+        inorder(original, cloned)
+        return self.res

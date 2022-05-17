@@ -46,21 +46,33 @@ The values of the nodes of the tree are unique.
 target node is a node from the original tree and is not null.
 */
 
+
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
  */
 
 class Solution {
-public:
-    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
-        if (original == NULL) { return NULL; }
-        if (original == target) { return cloned; }
-        return getTargetCopy(original->left, cloned->left, target) ?: getTargetCopy(original->right, cloned->right, target);
+    TreeNode res, target;
+
+    public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+        this.target = target;
+        inorder(original, cloned);
+        return res;
     }
-};
+
+    public void inorder(TreeNode o, TreeNode c) {
+        if (o != null) {
+            inorder(o.left, c.left);
+            if (o == target) {
+                res = c;
+            }
+            inorder(o.right, c.right);
+        }
+    }
+}
