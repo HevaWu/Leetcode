@@ -49,7 +49,7 @@ public:
         int rows = matrix.size();
         if(!rows) return 0;
         int cols = matrix[0].size();
-        
+
         vector<vector<int> > longPath(rows, vector<int>(cols,0) );  //vector<vector<int> >
         std::function<int(int,int) > increasePath = [&](int x, int y)  //definition of a function increasePath
         {
@@ -61,12 +61,12 @@ public:
                 int yy = y + dir[1];
                 if(xx<0 || xx>=rows || yy<0 || yy>=cols) continue;
                 if(matrix[xx][yy] <= matrix[x][y]) continue;
-                
+
                 longPath[x][y] = max(longPath[x][y], increasePath(xx,yy));
             }
             return ++longPath[x][y];
         };  // do not forget ";"
-        
+
         int retu=0; //remember initiate retu
         for(int i = 0; i < rows; i++)
         {
@@ -76,57 +76,7 @@ public:
             }
         }
         return retu;
-      
+
     }
 };
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//java
-public class Solution {
-    public int longestIncreasingPath(int[][] matrix) {
-        int rows = matrix.length;
-        if(rows == 0) return 0;
-        int cols = matrix[0].length;
-        
-        int[][] longPath = new int[rows][cols];
-        int res = 0;
-        for(int i = 0; i < rows; i++){
-            for(int j = 0; j < cols; j++){
-                res = Math.max(res, 
-                        increasePath(matrix, longPath, rows, cols, i, j));
-            }
-        }
-        return res;
-        
-    }
-    public int increasePath(int[][] matrix, int[][] longPath, int rows, int cols, int x, int y){
-        if(longPath[x][y] != 0) return longPath[x][y];
-        int[][] choos = {{-1,0}, {1,0}, {0,1}, {0,-1}}; //define four directions
-        // for(int i = 0; i < choos.length; i++){
-        //     int xx = x + choos[i][0];
-        //     int yy = y + choos[i][1];
-        //     if(xx<0 || xx>=rows || yy<0 || yy>=cols)
-        //         continue;
-        //     if(matrix[xx][yy] <= matrix[x][y])
-        //         continue;
-        //     longPath[x][y] = Math.max(longPath[x][y], increasePath(matrix, longPath, rows, cols, xx, yy));
-        // }
-        for(int[] dir:choos){
-            int xx = x + dir[0];
-            int yy = y + dir[1];
-            
-            if(xx<0 || xx>=rows || yy<0 || yy>=cols){
-                continue;
-            }
-            if(matrix[xx][yy] <= matrix[x][y]){
-                continue;
-            }
-            
-            longPath[x][y] = Math.max(longPath[x][y], 
-                            increasePath(matrix, longPath, rows, cols, xx, yy));
-        }
-        return ++longPath[x][y];
-    }
-}

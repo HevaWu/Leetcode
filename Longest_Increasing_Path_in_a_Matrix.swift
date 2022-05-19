@@ -1,33 +1,37 @@
-// Given an integer matrix, find the length of the longest increasing path.
+/*
+Given an integer matrix, find the length of the longest increasing path.
 
-// From each cell, you can either move to four directions: left, right, up or down. You may NOT move diagonally or move outside of the boundary (i.e. wrap-around is not allowed).
+From each cell, you can either move to four directions: left, right, up or down. You may NOT move diagonally or move outside of the boundary (i.e. wrap-around is not allowed).
 
-// Example 1:
+Example 1:
 
-// Input: nums =
-// [
-//   [9,9,4],
-//   [6,6,8],
-//   [2,1,1]
-// ]
-// Output: 4
-// Explanation: The longest increasing path is [1, 2, 6, 9].
-// Example 2:
+Input: nums =
+[
+  [9,9,4],
+  [6,6,8],
+  [2,1,1]
+]
+Output: 4
+Explanation: The longest increasing path is [1, 2, 6, 9].
+Example 2:
 
-// Input: nums =
-// [
-//   [3,4,5],
-//   [3,2,6],
-//   [2,2,1]
-// ]
-// Output: 4
-// Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
+Input: nums =
+[
+  [3,4,5],
+  [3,2,6],
+  [2,2,1]
+]
+Output: 4
+Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
+*/
 
-// Solution 1: DFS
-// for each cell, find its longest path, and compare it with previous result
+/*
+Solution 1: DFS
+for each cell, find its longest path, and compare it with previous result
 //
-// Time complexity : O(2^(m+n). The search is repeated for each valid increasing path. In the worst case we can have O(2^{m+n}) calls.
-// Space complexity : O(mn)O(mn). For each DFS we need O(h)O(h) space used by the system stack, where hh is the maximum depth of the recursion. In the worst case, O(h) = O(mn)O(h)=O(mn).
+Time complexity : O(2^(m+n). The search is repeated for each valid increasing path. In the worst case we can have O(2^{m+n}) calls.
+Space complexity : O(mn)O(mn). For each DFS we need O(h)O(h) space used by the system stack, where hh is the maximum depth of the recursion. In the worst case, O(h) = O(mn)O(h)=O(mn).
+*/
 class Solution1 {
     var directions = [(0,-1), (0,1), (-1,0), (1,0)]
 
@@ -58,12 +62,14 @@ class Solution1 {
     }
 }
 
-// Solution 2: DFS + memorization
-// Cache the results for the recursion so that any subproblem will be calculated only once.
-// use a set to prevent the repeat visit in one DFS search. This optimization will reduce the time complexity for each DFS to O(mn)O(mn) and the total algorithm to O(m^2n^2)
+/*
+Solution 2: DFS + memorization
+Cache the results for the recursion so that any subproblem will be calculated only once.
+use a set to prevent the repeat visit in one DFS search. This optimization will reduce the time complexity for each DFS to O(mn)O(mn) and the total algorithm to O(m^2n^2)
 //
-// Time complexity : O(mn). Each vertex/cell will be calculated once and only once, and each edge will be visited once and only once. The total time complexity is then O(V+E). V is the total number of vertices and E is the total number of edges. In our problem, O(V) = O(mn), O(E) = O(4V) = O(mn).
-// Space complexity : O(mn). The cache dominates the space complexity.
+Time complexity : O(mn). Each vertex/cell will be calculated once and only once, and each edge will be visited once and only once. The total time complexity is then O(V+E). V is the total number of vertices and E is the total number of edges. In our problem, O(V) = O(mn), O(E) = O(4V) = O(mn).
+Space complexity : O(mn). The cache dominates the space complexity.
+*/
 class Solution2 {
     var directions = [(0,1),(0,-1),(-1,0),(1,0)]
     var m = 0
@@ -129,14 +135,14 @@ class Solution3 {
         if visited[i][j] > 0 { return visited[i][j] }
         visited[i][j] = 1
 
-        // start from 1
+        start from 1
         var temp = 1
         for d in 0..<dir.count-1 {
             let x = i + dir[d]
             let y = j + dir[d+1]
             if x < 0 || x >= n || y < 0 || y >= m { continue }
             if matrix[x][y] > matrix[i][j] {
-                // + 1 at here, to count current element into the path
+                + 1 at here, to count current element into the path
                 temp = max(temp, dfs(x, y)+1)
             }
         }
@@ -145,7 +151,9 @@ class Solution3 {
     }
 }
 
-// Solution 3: Dynamic programming
-// We have to perform the topological sort explicitly as a preprocess. After that, we can solve the problem dynamically using our transition function following the stored topological order.
-// Time complexity : O(mn)O(mn). The the topological sort is O(V+E) = O(mn)O(V+E)=O(mn). Here, VV is the total number of vertices and EE is the total number of edges. In our problem, O(V) = O(mn)O(V)=O(mn), O(E) = O(4V) = O(mn)O(E)=O(4V)=O(mn).
-// Space complexity : O(mn)O(mn). We need to store the out degrees and each level of leaves.
+/*
+Solution 3: Dynamic programming
+We have to perform the topological sort explicitly as a preprocess. After that, we can solve the problem dynamically using our transition function following the stored topological order.
+Time complexity : O(mn)O(mn). The the topological sort is O(V+E) = O(mn)O(V+E)=O(mn). Here, VV is the total number of vertices and EE is the total number of edges. In our problem, O(V) = O(mn)O(V)=O(mn), O(E) = O(4V) = O(mn)O(E)=O(4V)=O(mn).
+Space complexity : O(mn)O(mn). We need to store the out degrees and each level of leaves.
+*/
