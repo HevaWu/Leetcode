@@ -22,23 +22,12 @@ Special thanks to @jianchao.li.fighter for adding this problem and creating all 
 Hide Tags Dynamic Programming
 */
 
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-
-
-
-
 /*DP Dynamic Programming
 O(n*amount) time --- n is the number of coins
 bottom-up manner
 counts the minimum coins used to composed to sum
 the check the minimum coins used to composed for sum+1*/
 
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
 public class Solution {
     public int coinChange(int[] coins, int amount) {
         if(amount < 1) return 0; //check if there is the result;
