@@ -35,7 +35,6 @@ expand from center
 Time Complexity: O(n^2)
 Space Complexity: O(1)
 */
-
 class Solution {
     func countSubstrings(_ s: String) -> Int {
         if s.isEmpty { return 0 }
