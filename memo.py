@@ -24,6 +24,7 @@ arr.reverse() # reverse array in place
 a, b = b, a # swap two element
 nums[index+1:len(nums)] = nums[index+1:len(nums)][::-1] # reverse partial array
 list.copy() # make copy of list without reference
+bisect.bisect_left(a, x, lo=0, hi=len(a), *, key=None) # binary search, locate insertion point at left
 
 # heap
 import heapq

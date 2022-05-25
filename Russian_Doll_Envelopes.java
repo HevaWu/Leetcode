@@ -25,49 +25,45 @@ Time complexity : O(NlogN), where N is the length of the input. Both sorting the
 Space complexity : O(N). Our lis function requires an array dp which goes up to size N. Also the sorting algorithm we use may also take additional space.
 */
 class Solution {
-    func maxEnvelopes(_ envelopes: [[Int]]) -> Int {
-        guard !envelopes.isEmpty else { return 0 }
+    public int maxEnvelopes(int[][] envelopes) {
+        // sort by ascending width, descending height
+        Arrays.sort(envelopes, (e1, e2) -> {
+           return e1[0] == e2[0]
+               ? Integer.compare(e2[1], e1[1])
+               : Integer.compare(e1[0], e2[0]);
+        });
 
-        var envelopes = envelopes.sorted(by: { first, second -> Bool in
-            return first[0] < second[0] || (first[0] == second[0] && first[1] > second[1])
-        })
-
-        var hightDim = [Int]()
-        for e in envelopes {
-            hightDim.append(e[1])
+        int n = envelopes.length;
+        int[] height = new int[n];
+        for(int i = 0; i < n; i++) {
+            height[i] = envelopes[i][1];
         }
-        return LIS(hightDim)
+        return LIS(height);
     }
 
-    // longest increasing subsequence problem
-    func LIS(_ nums: [Int]) -> Int {
-        // dp[i] is the smallest element that ends an increasing subsequence of length i+1
-        var dp = Array(repeating: 0, count: nums.count)
-        var len = 0
-        for i in 0..<nums.count {
-            var temp = binarySearch(dp, 0, len, nums[i])
-            dp[temp] = nums[i]
-            if temp == len {
-                len += 1
+    public int LIS(int[] height) {
+        int n = height.length;
+        int[] dp = new int[n];
+        int len = 0;
+        for(int i = 0; i < n; i++) {
+            int index = binarySearch(dp, 0, len, height[i]);
+            dp[index] = height[i];
+            if (index == len) {
+                len += 1;
             }
         }
-        return len
+        return len;
     }
 
-    func binarySearch(_ arr: [Int], _ start: Int, _ end: Int, _ target: Int) -> Int {
-        var start = start
-        var end = end
-        while start < end {
-            var mid = (start + end)/2
-            if arr[mid] == target {
-                return mid
-            }
-            if arr[mid] < target {
-                start = mid + 1
+    public int binarySearch(int[] arr, int s, int e, int target) {
+        while (s < e) {
+            int mid = s + (e-s)/2;
+            if (arr[mid] < target) {
+                s = mid+1;
             } else {
-                end = mid
+                e = mid;
             }
         }
-        return start
+        return s;
     }
 }
