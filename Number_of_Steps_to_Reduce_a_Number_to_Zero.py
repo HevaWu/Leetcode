@@ -1,4 +1,4 @@
-/*
+'''
  Given a non-negative integer num, return the number of steps to reduce it to zero. If the current number is even, you have to divide it by 2, otherwise, you have to subtract 1 from it.
 
 
@@ -32,37 +32,21 @@
  Constraints:
 
  0 <= num <= 10^6
-*/
+'''
 
-/*
+'''
  Soluton 1:
  calculate by logic, init step variable, might take some space
  time complexity: O(1)
-*/
-class Solution {
-    func numberOfSteps (_ num: Int) -> Int {
-        var step = 0
-        var num = num
-        while num != 0 {
-            if num % 2 == 0 {
-                num /= 2
-            } else {
+'''
+class Solution:
+    def numberOfSteps(self, num: int) -> int:
+        step = 0
+        while num != 0:
+            if num % 2 == 0:
+                num >>= 1
+            else:
                 num -= 1
-            }
             step += 1
-        }
-        return step
-    }
-}
 
-/*
- solution 2: recursive
- save space
- time complexity: O(1)
-*/
-class Solution {
-    func numberOfSteps (_ num: Int) -> Int {
-        if num == 0 { return 0 }
-        return 1 + (num % 2 == 0 ? numberOfSteps(num/2) : numberOfSteps(num-1))
-    }
-}
+        return step
