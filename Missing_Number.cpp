@@ -21,9 +21,6 @@ Subscribe to see which companies asked this question*/
 constant extra space complexity
 initialize the ret as the size of nums
 use ^ XOR operation to delete each number, the final number is the missing number */
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
 class Solution {
 public:
     int missingNumber(vector<int>& nums) {
@@ -37,21 +34,3 @@ public:
         return ret;
     }
 };
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class Solution {
-    public int missingNumber(int[] nums) {
-        int ret = nums.length;
-        int i = 0;//start from 0
-        for(int n:nums){
-            ret ^= n;
-            ret ^= i;
-            i++;
-        }
-        return ret;
-    }
-}
