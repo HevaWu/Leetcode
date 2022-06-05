@@ -3,19 +3,19 @@ The n-queens puzzle is the problem of placing n queens on an n x n chessboard su
 
 Given an integer n, return the number of distinct solutions to the n-queens puzzle.
 
- 
+
 
 Example 1:
 
 
 Input: n = 4
 Output: 2
-Explanation: There are two distinct solutions to the 4-queens puzzle as shown.
+Explanation: There are two distinct solutions to the 4-queens puzzle as shown
 Example 2:
 
 Input: n = 1
 Output: 1
- 
+
 
 Constraints:
 
@@ -31,14 +31,14 @@ class Solution {
     var visitedC = Set<Int>()
     var visitedDale = Set<Int>()
     var visitedHill = Set<Int>()
-    
+
     func totalNQueens(_ n: Int) -> Int {
         self.n = n
         var res = 0
         backTrack(0, &res)
         return res
     }
-    
+
     func backTrack(_ row: Int, _ res: inout Int) {
         if row == n {
             res += 1
@@ -49,7 +49,7 @@ class Solution {
             if visitedDale.contains(dale) { continue }
             let hill = row + col
             if visitedHill.contains(hill) { continue }
-            
+
             // place queen
             visitedC.insert(col)
             visitedDale.insert(dale)
@@ -87,12 +87,12 @@ class Solution {
     var visitedC = Set<Int>()
     var visitedDale = Set<Int>()
     var visitedHill = Set<Int>()
-    
+
     func totalNQueens(_ n: Int) -> Int {
         self.n = n
         return backTrack(0, 0)
     }
-    
+
     func backTrack(_ row: Int, _ count: Int) -> Int {
         var count = count
         for col in 0..<n {
@@ -101,7 +101,7 @@ class Solution {
             if visitedDale.contains(dale) { continue }
             let hill = row + col
             if visitedHill.contains(hill) { continue }
-            
+
             if row == n-1 {
                 count += 1
             } else {
@@ -109,10 +109,10 @@ class Solution {
                 visitedC.insert(col)
                 visitedDale.insert(dale)
                 visitedHill.insert(hill)
-                
+
                 // move to next row
                 count = backTrack(row+1, count)
-                
+
                 // recover
                 visitedC.remove(col)
                 visitedDale.remove(dale)

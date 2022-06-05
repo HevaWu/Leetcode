@@ -103,6 +103,7 @@ stack.isEmpty(); // check empty
 // ======= Set =======
 Set<Integer> set = new HashSet<Integer>();
 set.size(); // return size of set
+set.contains(2); // check if hashset contains element
 
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map

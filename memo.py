@@ -39,6 +39,8 @@ stack.append((node, 23)) # push element into stack
 # Set
 startSet = set([0])
 startSet.add(3) # add into set
+startSet.discard(3) # if element exist in set, remove, otherwise do nothing
+3 in startSet # check if element in set
 if len(startSet) > len(endSet):
     startSet, endSet = endSet, startSet # quick switch element
 
@@ -64,6 +66,7 @@ random.randint(0, 3) # random int of 0...3
 "变量1" if a>b else "变量2"
 math.ceil(0.1) # ceil math function
 round(x, 2) # round number to only leave 2 decimal points
+nonlocal res, a #  bind to the nearest non-global variable also called res, a
 
 # sort by comparator
 def compare(p1, p2) -> bool:
