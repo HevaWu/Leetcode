@@ -1,4 +1,4 @@
-/*
+'''
 Write a program to find the node at which the intersection of two singly linked lists begins.
 
 For example, the following two linked lists:
@@ -40,9 +40,9 @@ The linked lists must retain their original structure after the function returns
 You may assume there are no cycles anywhere in the entire linked structure.
 Each value on each linked list is in the range [1, 10^9].
 Your code should preferably run in O(n) time and use only O(1) memory.
-*/
+'''
 
-/*
+'''
 Solution 1:
 2 pointer
 
@@ -54,32 +54,21 @@ Solution 1:
 
 Time Complexity: O(m+n)
 Space Complexity: O(1)
-*/3
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     public var val: Int
- *     public var next: ListNode?
- *     public init(_ val: Int) {
- *         self.val = val
- *         self.next = nil
- *     }
- * }
- */
+'''
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-class Solution {
-    func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -> ListNode? {
-        var pA = headA
-        var pB = headB
-
-        // use !== to check equatable
-        while pA !== pB {
-            pA = pA?.nex
-            pB = pB?.next
-            if pA === pB { return pA }
-            if pA === nil { pA = headB }
-            if pB === nil { pB = headA }
-        }
-        return pA
-    }
-}
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        hA = headA
+        hB = headB
+        while hA != hB:
+            hA = hA.next
+            hB = hB.next
+            if hA is hB: return hA
+            if hA is None: hA = headB
+            if hB is None: hB = headA
+        return hA

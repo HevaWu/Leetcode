@@ -54,32 +54,95 @@ Solution 1:
 
 Time Complexity: O(m+n)
 Space Complexity: O(1)
-*/3
+*/
+
+/*
+Solution 1: 3 ms/ 42 test
+O(m+n) time O(1) space
+keep check if there is an intersection between listA and listB
+once one of the list is end, point it to another list
+
+Solution 2: 3 ms/ 42 test
+O(m+n) time O(1) space
+count the length of two list
+if lenA > lenB, move curA
+if lenB > lenA, move curB
+until two list have same length
+then, find the intersection part
+ */
+
+//Solution 1:
 /**
  * Definition for singly-linked list.
  * public class ListNode {
- *     public var val: Int
- *     public var next: ListNode?
- *     public init(_ val: Int) {
- *         self.val = val
- *         self.next = nil
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
  *     }
  * }
  */
-
-class Solution {
-    func getIntersectionNode(_ headA: ListNode?, _ headB: ListNode?) -> ListNode? {
-        var pA = headA
-        var pB = headB
-
-        // use !== to check equatable
-        while pA !== pB {
-            pA = pA?.nex
-            pB = pB?.next
-            if pA === pB { return pA }
-            if pA === nil { pA = headB }
-            if pB === nil { pB = headA }
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA==null || headB==null) return null;
+        ListNode curA = headA;
+        ListNode curB = headB;
+        while(curA != curB){
+            curA = curA!=null ? curA.next : headB;  //to the list B
+            curB = curB!=null ? curB.next : headA;  //to the list A
         }
-        return pA
+        return curA;
+    }
+}
+
+
+
+
+//Solution 2
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA == null || headB == null) return null;
+
+        ListNode curA = headA;
+        ListNode curB = headB;
+        int lenA = getLength(curA);
+        int lenB = getLength(curB);
+
+        while(lenA > lenB){
+            curA = curA.next;
+            lenA--;
+        }
+        while(lenB > lenA){
+            curB = curB.next;
+            lenB--;
+        }
+
+        while(curA != curB){
+            curA = curA.next;
+            curB = curB.next;
+        }
+
+        return curA;
+    }
+
+    public int getLength(ListNode cur){
+        int len = 0;
+        while(cur != null){
+            cur = cur.next;
+            len++;
+        }
+        return len;
     }
 }
