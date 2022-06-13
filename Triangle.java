@@ -21,15 +21,6 @@ Bonus point if you are able to do this using only O(n) extra space, where n is t
 Hide Tags Array Dynamic Programming
 */
 
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-
-
-
-
 /*Bottom-up DP
 space O(n)
 in k th row:
@@ -38,8 +29,6 @@ simply set the path as a 1D array, and each time iteratively update itself
 path[i] = min(path[i], path[k+1]) + triangle[k][i]
  */
 
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
 public class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
         int len = triangle.get(triangle.size()-1).size();
