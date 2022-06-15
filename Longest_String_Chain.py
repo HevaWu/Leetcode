@@ -1,4 +1,4 @@
-/*
+'''
 Given a list of words, each word consists of English lowercase letters.
 
 Let's say word1 is a predecessor of word2 if and only if we can add exactly one letter anywhere in word1 to make it equal to word2.  For example, "abc" is a predecessor of "abac".
@@ -24,9 +24,9 @@ words[i] only consists of English lowercase letters.
 
 hint
 For each word in order of length, for each word2 which is word with one character removed, length[word2] = max(length[word2], length[word] + 1).
-*/
+'''
 
-/*
+'''
 Solution 1: DP
 Sort the words by word's length. (also can apply bucket sort)
 For each word, loop on all possible previous word with 1 letter missing.
@@ -35,49 +35,21 @@ Finally return the longest word chain.
 
 Time complexity: O(nlogn + n*word.len)
 Space complexity: O(n)
-*/
-class Solution {
-    func longestStrChain(_ words: [String]) -> Int {
-        var words = words.sorted(by: { first, second -> Bool in
-            return first.count < second.count
-        })
+'''
+class Solution:
+    def longestStrChain(self, words: List[str]) -> int:
+        def compare(w1, w2) -> bool:
+            return len(w1) - len(w2)
+        words.sort(key=cmp_to_key(compare))
 
-        var len = 0
-        var dp = [String: Int]()
-
-        for word in words {
-            var temp = 0
-            for i in word.indices {
-                var str = word
-                str.remove(at: i)
-                temp = max(temp, dp[str, default: 0] + 1)
-            }
+        # dp[word] is longest str chain length with end of word
+        dp = {}
+        longest = 0
+        for word in words:
+            temp = 0
+            for i in range(len(word)):
+                substr = word[0:i:] + word[i+1::]
+                temp = max(temp, dp.get(substr, 0) + 1)
             dp[word] = temp
-            len = max(len, temp)
-        }
-        return len
-    }
-}
-
-class Solution {
-    func longestStrChain(_ words: [String]) -> Int {
-        var words = words.sorted(by: { first, second -> Bool in
-            return first.count < second.count
-        })
-
-        var dp = [String: Int]()
-        var maxLen = 0
-        for word in words {
-            for i in word.indices {
-                var temp = word
-                temp.remove(at: i)
-                if dp[temp] != nil {
-                    dp[word] = max(dp[word, default: 1], dp[temp]! + 1)
-                }
-            }
-            if dp[word] == nil { dp[word] = 1 }
-            maxLen = max(maxLen, dp[word]!)
-        }
-        return maxLen
-    }
-}
+            longest = max(longest, temp)
+        return longest

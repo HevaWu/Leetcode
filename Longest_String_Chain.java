@@ -37,47 +37,31 @@ Time complexity: O(nlogn + n*word.len)
 Space complexity: O(n)
 */
 class Solution {
-    func longestStrChain(_ words: [String]) -> Int {
-        var words = words.sorted(by: { first, second -> Bool in
-            return first.count < second.count
-        })
+    public int longestStrChain(String[] words) {
+        Arrays.sort(words, (w1, w2) -> {
+           return Integer.compare(w1.length(), w2.length());
+        });
 
-        var len = 0
-        var dp = [String: Int]()
+        // dp[word] is longest string chain until word
+        Map<String, Integer> dp = new HashMap<>();
+        int longest = 0;
+        for(String word : words) {
+            StringBuilder sb = new StringBuilder(word);
+            int temp = 1;
+            for(int i = 0; i < word.length(); i++) {
+                Character c = sb.charAt(i);
+                sb.deleteCharAt(i);
+                temp = Math.max(
+                    temp,
+                    dp.getOrDefault(sb.toString(), 0) + 1
+                );
 
-        for word in words {
-            var temp = 0
-            for i in word.indices {
-                var str = word
-                str.remove(at: i)
-                temp = max(temp, dp[str, default: 0] + 1)
+                // put character back for next remove checking
+                sb.insert(i, c);
             }
-            dp[word] = temp
-            len = max(len, temp)
+            dp.put(word, temp);
+            longest = Math.max(longest, temp);
         }
-        return len
-    }
-}
-
-class Solution {
-    func longestStrChain(_ words: [String]) -> Int {
-        var words = words.sorted(by: { first, second -> Bool in
-            return first.count < second.count
-        })
-
-        var dp = [String: Int]()
-        var maxLen = 0
-        for word in words {
-            for i in word.indices {
-                var temp = word
-                temp.remove(at: i)
-                if dp[temp] != nil {
-                    dp[word] = max(dp[word, default: 1], dp[temp]! + 1)
-                }
-            }
-            if dp[word] == nil { dp[word] = 1 }
-            maxLen = max(maxLen, dp[word]!)
-        }
-        return maxLen
+        return longest;
     }
 }

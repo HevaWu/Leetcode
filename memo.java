@@ -36,7 +36,8 @@ sb.append(s.substring(i+1, end+1)).append(" "); // append string
 sb.toString(); // convert stringbuilder to string
 sb.reverse(); // reverse string by stringBuilder
 sb.charAt(i); // access stringBuilder character
-sb.insert(0, char) // insert char at 0 index
+sb.insert(0, char); // insert char at 0 index
+sb.deleteCharAt(0); // delete character at index 0
 
 // ======= StringBuilder =======
 Character.isDigit(c); // check if c is digit number
