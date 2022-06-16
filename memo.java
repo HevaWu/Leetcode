@@ -33,7 +33,7 @@ String s = new String(chars);
 // ======= StringBuilder =======
 StringBuilder sb = new StringBuilder();
 sb.append(s.substring(i+1, end+1)).append(" "); // append string
-sb.toString(); // convert stringbuilder to string
+sb.toString(); // convert stringbuilder to string, can also convert substring to string
 sb.reverse(); // reverse string by stringBuilder
 sb.charAt(i); // access stringBuilder character
 sb.insert(0, char); // insert char at 0 index

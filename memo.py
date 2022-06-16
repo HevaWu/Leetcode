@@ -13,6 +13,7 @@ c = 'a'
 c.isupper() # is upper case
 str.join(sequence) # join sequence by str, could use to join char array
 str[::-1] # reverse string
+str[i:j:] # return substring of s[i..<j]
 
 # List / array
 # https://docs.python.org/3/tutorial/introduction.html#lists
