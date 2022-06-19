@@ -78,6 +78,7 @@ List<Integer> arr = new ArrayList<Integer>();
 arr.get(0); // array list get element in the index
 arr.add(0); // array list add element
 arr.size(); // array list size
+arr.subList(3, 4); // sublist of [3..<4]
 Arrays.asList(1, 2, 3); // convert array to list
 arr.iterator().next(); // iterate over array list
 numsList.add(0, 1); // add 1 at 0 index
