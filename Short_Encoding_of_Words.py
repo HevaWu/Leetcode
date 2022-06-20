@@ -1,4 +1,4 @@
-/*
+'''
 A valid encoding of an array of words is any reference string s and array of indices indices such that:
 
 words.length == indices.length
@@ -29,9 +29,9 @@ Constraints:
 1 <= words.length <= 2000
 1 <= words[i].length <= 7
 words[i] consists of only lowercase letters.
-*/
+'''
 
-/*
+'''
 Solution 2:
 make words set
 remove suffix substring to be sure remove duplicate suffix string there
@@ -39,26 +39,24 @@ remove suffix substring to be sure remove duplicate suffix string there
 Time Complexity: O(n * 7)
 - n is length of words
 Space Complexity: O(n)
-*/
-class Solution {
-    func minimumLengthEncoding(_ words: [String]) -> Int {
-        var words = Set(words)
-        for word in words {
-            var temp = Array(word)
-            for i in word.indices where i != word.startIndex {
-                words.remove(String(word[i...]))
-            }
-        }
+'''
+class Solution:
+    def minimumLengthEncoding(self, words: List[str]) -> int:
+        # new remain variable to help avoid directly remove words
+        # need to be sure removing will not change words's length
+        remain = set(words)
+        for word in words:
+            for i in range(1, len(word)):
+                remain.discard(word[i::])
 
-        var minLen = 0
-        for word in words {
-            minLen += word.count + 1
-        }
+        minLen = 0
+        for word in remain:
+            minLen += len(word) + 1
+
         return minLen
-    }
-}
 
-/*
+
+'''
 Solution 1:
 trie
 
@@ -70,56 +68,45 @@ for get length part, check each childNode would be enough
 
 Time Complexity: O(nm) n is word.count, m is maximum word[i].count
 Space Complexity: O(nm)
-*/
-class Solution {
-    func minimumLengthEncoding(_ words: [String]) -> Int {
-        if words.count == 1 { return words[0].count+1 }
-        return Trie(words).getEncodingLength()
-    }
-}
+'''
+class Solution:
+    def minimumLengthEncoding(self, words: List[str]) -> int:
+        trie = Trie(words)
+        return trie.getEncodingLength()
 
-class TrieNode {
-    var child = [Character: TrieNode]()
-    var wordLen: Int = 0
-}
+class Trie:
+    def __init__(self, words: List[str]):
+        self.root = TrieNode()
+        for word in words:
+            self.insert(word)
 
-class Trie {
-    var root = TrieNode()
-    init(_ words: [String]) {
-        for word in words {
-            insert(word)
-        }
-    }
+    def insert(self, word: str):
+        node = self.root
+        for i in range(len(word)-1, -1, -1):
+            index = ord(word[i]) - ord('a')
+            if not node.children[index]:
+                node.children[index] = TrieNode()
+            node = node.children[index]
+        node.wordLen = len(word)
 
-    // insert word from endIndex to startIndex
-    func insert(_ word: String) {
-        var word = Array(word)
-        let n = word.count
+    def getEncodingLength(self) -> int:
+        total = 0
+        def check(node: TrieNode):
+            nonlocal total
 
-        var node = root
-        for i in stride(from: n-1, through: 0, by: -1) {
-            if node.child[word[i]] == nil {
-                node.child[word[i]] = TrieNode()
-            }
-            node = node.child[word[i]]!
-        }
-        node.wordLen = n
-    }
+            hasChildren = False
+            for i in range(26):
+                if node.children[i]:
+                    check(node.children[i])
+                    hasChildren = True
 
-    func getEncodingLength() -> Int {
-        var len = 0
-        _countLength(root, &len)
-        return len
-    }
+            if hasChildren == False:
+                total += node.wordLen + 1
 
-    func _countLength(_ node: TrieNode, _ len: inout Int) {
-        if node.child.keys.isEmpty {
-            len += (node.wordLen + 1)
-            return
-        }
+        check(self.root)
+        return total
 
-        for next in node.child.keys {
-            _countLength(node.child[next]!, &len)
-        }
-    }
-}
+class TrieNode:
+    def __init__(self):
+        self.children = [None for i in range(26)]
+        self.wordLen = 0

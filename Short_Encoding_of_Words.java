@@ -41,22 +41,21 @@ Time Complexity: O(n * 7)
 Space Complexity: O(n)
 */
 class Solution {
-    func minimumLengthEncoding(_ words: [String]) -> Int {
-        var words = Set(words)
-        for word in words {
-            var temp = Array(word)
-            for i in word.indices where i != word.startIndex {
-                words.remove(String(word[i...]))
-            }
+    public int minimumLengthEncoding(String[] words) {
+        Set<String> remain = new HashSet(Arrays.asList(words));
+        for (String word: words) {
+            for (int k = 1; k < word.length(); ++k)
+                remain.remove(word.substring(k));
         }
 
-        var minLen = 0
-        for word in words {
-            minLen += word.count + 1
+        int len = 0;
+        for (String word: remain) {
+            len += word.length() + 1;
         }
-        return minLen
+        return len;
     }
 }
+
 
 /*
 Solution 1:
@@ -72,54 +71,54 @@ Time Complexity: O(nm) n is word.count, m is maximum word[i].count
 Space Complexity: O(nm)
 */
 class Solution {
-    func minimumLengthEncoding(_ words: [String]) -> Int {
-        if words.count == 1 { return words[0].count+1 }
-        return Trie(words).getEncodingLength()
+    public int minimumLengthEncoding(String[] words) {
+        Trie trie = new Trie(words);
+        return trie.getEncodingLength();
+    }
+}
+
+class Trie {
+    TrieNode root;
+    public Trie(String[] words) {
+        this.root = new TrieNode();
+        for(String word: words) {
+            insert(word);
+        }
+    }
+
+    public void insert(String word) {
+        TrieNode node = root;
+        for(int i = word.length()-1; i >= 0; i--) {
+            int index = word.charAt(i) - 'a';
+            if (node.children[index] == null) {
+                node.children[index] = new TrieNode();
+            }
+            node = node.children[index];
+        }
+        node.wordLen = word.length();
+    }
+
+    public int getEncodingLength() {
+        return check(root);
+    }
+
+    public int check(TrieNode node) {
+        int len = 0;
+        for (int i = 0; i < 26; i++) {
+            if (node.children[i] != null) {
+                len += check(node.children[i]);
+            }
+        }
+
+        if (len == 0) {
+            return node.wordLen + 1;
+        } else {
+            return len;
+        }
     }
 }
 
 class TrieNode {
-    var child = [Character: TrieNode]()
-    var wordLen: Int = 0
-}
-
-class Trie {
-    var root = TrieNode()
-    init(_ words: [String]) {
-        for word in words {
-            insert(word)
-        }
-    }
-
-    // insert word from endIndex to startIndex
-    func insert(_ word: String) {
-        var word = Array(word)
-        let n = word.count
-
-        var node = root
-        for i in stride(from: n-1, through: 0, by: -1) {
-            if node.child[word[i]] == nil {
-                node.child[word[i]] = TrieNode()
-            }
-            node = node.child[word[i]]!
-        }
-        node.wordLen = n
-    }
-
-    func getEncodingLength() -> Int {
-        var len = 0
-        _countLength(root, &len)
-        return len
-    }
-
-    func _countLength(_ node: TrieNode, _ len: inout Int) {
-        if node.child.keys.isEmpty {
-            len += (node.wordLen + 1)
-            return
-        }
-
-        for next in node.child.keys {
-            _countLength(node.child[next]!, &len)
-        }
-    }
+    TrieNode[] children = new TrieNode[26];
+    int wordLen = 0;
 }
