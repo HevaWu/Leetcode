@@ -30,16 +30,14 @@ input: [[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]
 subarray after step 1: [[7,0], [7,1]]
 subarray after step 2: [[7,0], [6,1], [7,1]]*/
 
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
 class Solution {
 public:
     vector<pair<int, int>> reconstructQueue(vector<pair<int, int>>& people) {
         sort(people.begin(), people.end(), [](pair<int,int> p1, pair<int,int> p2){
-            return p1.first > p2.first 
-                || (p1.first==p2.first && p1.second < p2.second); 
+            return p1.first > p2.first
+                || (p1.first==p2.first && p1.second < p2.second);
         });
-        
+
         vector<pair<int,int> > ret;
         for(auto p:people){
             ret.insert(ret.begin() + p.second, p);
@@ -47,28 +45,3 @@ public:
         return ret;
     }
 };
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class Solution {
-    public int[][] reconstructQueue(int[][] people) {
-        //pick up the tallest guy first
-        //when insert the next tall guy, just need to insert him into kth position
-        //repeat until all people are inserted into list
-        Arrays.sort(people, new Comparator<int[]>(){
-            public int compare(int[] p1, int[] p2){
-                return p1[0]==p2[0] ? p1[1]-p2[1] : p2[0]-p1[0];
-            }
-        });
-        //Arrays.sort(people, (a, b) -> a[0] != b[0] ? b[0] - a[0] : a[1] - b[1]);
-        
-        List<int[]> ret = new ArrayList<>();
-        for(int[] p:people){
-            ret.add(p[1], p);
-        }
-        return ret.toArray(new int[0][0]);
-    }
-}
