@@ -124,6 +124,7 @@ Math.abs(-3); // get absolute value of one element
 Math.sqrt(4); // sqrt value
 Math.cell(0.3); // ceil number
 (int)Math.floor(0.4); // floor number and convert to int, return 0
+(int)(1e9+7); // convert to int
 
 // ======= Random =======
 Random rand = new Random();

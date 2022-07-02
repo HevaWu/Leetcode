@@ -1,4 +1,4 @@
-/*
+'''
 Given a rectangular cake with height h and width w, and two arrays of integers horizontalCuts and verticalCuts where horizontalCuts[i] is the distance from the top of the rectangular cake to the ith horizontal cut and similarly, verticalCuts[j] is the distance from the left of the rectangular cake to the jth vertical cut.
 
 Return the maximum area of a piece of cake after you cut at each horizontal and vertical position provided in the arrays horizontalCuts and verticalCuts. Since the answer can be a huge number, return this modulo 10^9 + 7.
@@ -38,9 +38,9 @@ It is guaranteed that all elements in verticalCuts are distinct.
 Sort the arrays, then compute the maximum difference between two consecutive elements for horizontal cuts and vertical cuts.
    Hide Hint #2
 The answer is the product of these maximum values in horizontal cuts and vertical cuts.
-*/
+'''
 
-/*
+'''
 Solution 2:
 optimize Solution 1
 
@@ -50,69 +50,20 @@ optimize Solution 1
 
 Time Complexity: O(nlong + mlogm)
 Space Complexity: O(n+m)
-*/
-class Solution {
-    func maxArea(_ h: Int, _ w: Int, _ horizontalCuts: [Int], _ verticalCuts: [Int]) -> Int {
-        var hCut = horizontalCuts.sorted()
-        hCut.append(h)
-        var wCut = verticalCuts.sorted()
-        wCut.append(w)
+'''
+class Solution:
+    def maxArea(self, h: int, w: int, horizontalCuts: List[int], verticalCuts: List[int]) -> int:
+        horizontalCuts.sort()
+        horizontalCuts.append(h)
 
-        // maximum distinct value of hDis[i]-hDis[i-1]
-        var hDis = hCut[0]
+        verticalCuts.sort()
+        verticalCuts.append(w)
 
-        // maximum distinct value of wDis[i]-wDis[i-1]
-        var wDis = wCut[0]
+        hDis = horizontalCuts[0]
+        wDis = verticalCuts[0]
+        for i in range(1, len(horizontalCuts)):
+            hDis = max(hDis, horizontalCuts[i] - horizontalCuts[i-1])
+        for i in range(1, len(verticalCuts)):
+            wDis = max(wDis, verticalCuts[i] - verticalCuts[i-1])
 
-        for i in 1..<hCut.count {
-            hDis = max(hDis, hCut[i]-hCut[i-1])
-        }
-        for i in 1..<wCut.count {
-            wDis = max(wDis, wCut[i]-wCut[i-1])
-        }
-
-        return (hDis * wDis) % Int(1e9+7)
-    }
-}
-
-/*
-Solution 1:
-
-Idea:
-- sort horizontalCuts , verticalCuts
-- find maxCut area after each cuts
-- return (mh*mv) % mod
-
-Time Complexity: O(cuts.count)
-Space Complexity: O(cuts.count)
-*/
-class Solution {
-    func maxArea(_ h: Int, _ w: Int, _ horizontalCuts: [Int], _ verticalCuts: [Int]) -> Int {
-        let mod = Int(1e9 + 7)
-
-        var horizontalCuts = horizontalCuts.sorted()
-        var verticalCuts = verticalCuts.sorted()
-
-        var mh = countMax(horizontalCuts, h)
-        var mv = countMax(verticalCuts, w)
-
-        return (mh*mv) % mod
-    }
-
-    func countMax(_ arr: [Int], _ total: Int) -> Int {
-        let n = arr.count
-
-        var maxCut = 0
-        var cut = Array(repeating: 0, count: n+1)
-        for i in 0..<n {
-            cut[i] = i > 0 ? (arr[i]-arr[i-1]) : arr[i]
-            cut[i+1] = total-arr[i]
-
-            maxCut = max(maxCut, cut[i])
-        }
-        maxCut = max(maxCut, cut[n])
-
-        // print(maxCut, cut)
-        return maxCut
-    }
-}
+        return (hDis * wDis) % int(1e9+7)

@@ -52,67 +52,24 @@ Time Complexity: O(nlong + mlogm)
 Space Complexity: O(n+m)
 */
 class Solution {
-    func maxArea(_ h: Int, _ w: Int, _ horizontalCuts: [Int], _ verticalCuts: [Int]) -> Int {
-        var hCut = horizontalCuts.sorted()
-        hCut.append(h)
-        var wCut = verticalCuts.sorted()
-        wCut.append(w)
+    public int maxArea(int h, int w, int[] horizontalCuts, int[] verticalCuts) {
+        Arrays.sort(horizontalCuts);
+        Arrays.sort(verticalCuts);
 
-        // maximum distinct value of hDis[i]-hDis[i-1]
-        var hDis = hCut[0]
+        long hDis = countMaxDistinct(h, horizontalCuts);
+        long wDis = countMaxDistinct(w, verticalCuts);
 
-        // maximum distinct value of wDis[i]-wDis[i-1]
-        var wDis = wCut[0]
-
-        for i in 1..<hCut.count {
-            hDis = max(hDis, hCut[i]-hCut[i-1])
-        }
-        for i in 1..<wCut.count {
-            wDis = max(wDis, wCut[i]-wCut[i-1])
-        }
-
-        return (hDis * wDis) % Int(1e9+7)
-    }
-}
-
-/*
-Solution 1:
-
-Idea:
-- sort horizontalCuts , verticalCuts
-- find maxCut area after each cuts
-- return (mh*mv) % mod
-
-Time Complexity: O(cuts.count)
-Space Complexity: O(cuts.count)
-*/
-class Solution {
-    func maxArea(_ h: Int, _ w: Int, _ horizontalCuts: [Int], _ verticalCuts: [Int]) -> Int {
-        let mod = Int(1e9 + 7)
-
-        var horizontalCuts = horizontalCuts.sorted()
-        var verticalCuts = verticalCuts.sorted()
-
-        var mh = countMax(horizontalCuts, h)
-        var mv = countMax(verticalCuts, w)
-
-        return (mh*mv) % mod
+        long mod = (long)1e9+7;
+        return (int)((hDis * wDis) % mod);
     }
 
-    func countMax(_ arr: [Int], _ total: Int) -> Int {
-        let n = arr.count
-
-        var maxCut = 0
-        var cut = Array(repeating: 0, count: n+1)
-        for i in 0..<n {
-            cut[i] = i > 0 ? (arr[i]-arr[i-1]) : arr[i]
-            cut[i+1] = total-arr[i]
-
-            maxCut = max(maxCut, cut[i])
+    public long countMaxDistinct(int size, int[] arr) {
+        long dis = arr[0];
+        int n = arr.length;
+        for(int i = 1; i < n; i++) {
+            dis = Math.max(dis, arr[i]-arr[i-1]);
         }
-        maxCut = max(maxCut, cut[n])
-
-        // print(maxCut, cut)
-        return maxCut
+        dis = Math.max(dis, size - arr[n-1]);
+        return dis;
     }
 }
