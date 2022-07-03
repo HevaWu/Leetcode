@@ -1,4 +1,5 @@
-/*376. Wiggle Subsequence  QuestionEditorial Solution  My Submissions
+/*
+376. Wiggle Subsequence  QuestionEditorial Solution  My Submissions
 Total Accepted: 10129 Total Submissions: 29550 Difficulty: Medium
 A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.
 
@@ -29,10 +30,10 @@ Subscribe to see which companies asked this question*/
 
 /*
 mark a variable larger to check if the next element should larger than current element
-1,7,8,4,5,2   
+1,7,8,4,5,2
 1, larger mark: true, 7  list:1,7
 7, larger mark: false, 8 list: 1,8   change the list
-8, larger mark: false, 4 list:1,8,4 
+8, larger mark: false, 4 list:1,8,4
 to each element, check if this element is satisfy larger mark, if it is, push into the list
 else, update the last element in the list
 we can directly update the original nums array*/
@@ -43,12 +44,12 @@ class Solution {
 public:
     int wiggleMaxLength(vector<int>& nums) {
         if(nums.size()==0 || nums.size()==1) return nums.size();
-        
+
         int k = 1;
         while(k<nums.size()-1 && nums[k]==nums[k-1]){
             k++;
         }
-        
+
         if(k==nums.size()-1) return 1;
         int ret = 2;
         bool larger = nums[k]>nums[k-1];
@@ -65,7 +66,7 @@ public:
                 nums[ret-1] = nums[i];
             }
         }
-        
+
         return ret;
     }
 };
@@ -78,14 +79,14 @@ public:
 public class Solution {
     public int wiggleMaxLength(int[] nums) {
         if(nums.length==0 || nums.length==1) return nums.length;
-        
-        int k = 1;//check if the first element is equal to the next one 
+
+        int k = 1;//check if the first element is equal to the next one
         while(k<nums.length-1 && nums[k]==nums[k-1]){
             k++;
         }
-        
+
         if(k == nums.length-1) return 1;
-        
+
         int ret = 2;
         boolean larger = nums[k]>nums[k-1];
         for(int i = k+1; i < nums.length; ++i){
@@ -101,11 +102,11 @@ public class Solution {
                 nums[ret-1] = nums[i];
             }
         }
-        
+
         // for(int i = 0; i < ret; ++i){
         //     System.out.print(nums[i] + " ");
         // }
-        
+
         return ret;
     }
 }
