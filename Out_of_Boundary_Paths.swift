@@ -40,7 +40,6 @@ class Solution {
         if N == 0 { return 0 }
 
         let mod = Int(1e9 + 7)
-        let dir = [0, 1, 0, -1, 0]
 
         var dp = Array(
             repeating: Array(repeating: 0, count: n),
