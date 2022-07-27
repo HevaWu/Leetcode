@@ -30,6 +30,60 @@ Follow up: Can you flatten the tree in-place (with O(1) extra space)?
 */
 
 /*
+Solution 2:
+iterative
+
+Stack to track root, right, left
+build from top to bottom
+
+Time Complexity: O(n)
+Space Complexity: O(logn)
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init() { self.val = 0; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+ *         self.val = val
+ *         self.left = left
+ *         self.right = right
+ *     }
+ * }
+ */
+class Solution {
+    func flatten(_ root: TreeNode?) {
+        guard let root = root else { return }
+        var cur = root
+        var stack = [TreeNode]()
+
+        if let r = cur.right {
+            stack.append(r)
+        }
+        if let l = cur.left {
+            stack.append(l)
+        }
+
+        while !stack.isEmpty {
+            let node = stack.removeLast()
+            if let r = node.right {
+                stack.append(r)
+            }
+            if let l = node.left {
+                stack.append(l)
+            }
+            // add node to cur
+            cur.left = nil
+            cur.right = node
+            cur = node
+        }
+    }
+}
+
+/*
 Solution 1:
 traverse
 
