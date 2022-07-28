@@ -88,6 +88,7 @@ class Solution {
 
     var fact = [Double]()
     let mod: Double = 1e9 + 7
+    // (n, k) = n! / (k! * (n-k)!)
     func C(_ n: Int, _ k: Int) -> Double {
         let b = (fact[k] * fact[n-k]).truncatingRemainder(dividingBy: mod)
         let a = fact[n]
