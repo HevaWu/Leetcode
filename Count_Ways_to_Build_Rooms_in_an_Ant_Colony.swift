@@ -101,3 +101,50 @@ class Solution {
         return val
     }
 }
+
+/*
+without consider Double
+*/
+class Solution {
+    func waysToBuildRooms(_ prevRoom: [Int]) -> Int {
+        let n = prevRoom.count
+        countFact(n)
+        // print(fact)
+
+        var pre = Array(repeating: [Int](), count: n)
+        // skip 0 room, its prev is -1
+        for i in 1..<n {
+            pre[prevRoom[i]].append(i)
+        }
+
+        func dfs(_ cur: Int) -> (ways: Int, next: Int) {
+            if pre[cur].isEmpty {
+                return (1, 1)
+            }
+            var ways = 1
+            var left = 0
+            for next in pre[cur] {
+                let (temp, right) = dfs(next)
+                ways = (ways * temp * C(left+right, right)) % mod
+                left += right
+            }
+            return (ways, left+1)
+        }
+
+        return dfs(0).ways
+    }
+
+    func countFact(_ n: Int) {
+        fact = Array(repeating: 0, count: n+1)
+        fact[0] = 1
+        for i in 1...n {
+            fact[i] = fact[i-1] * i
+        }
+    }
+
+    var fact = [Int]()
+    let mod = Int(1e9 + 7)
+    func C(_ n: Int, _ k: Int) -> Int {
+        return fact[n] / (fact[k] * fact[n-k])
+    }
+}

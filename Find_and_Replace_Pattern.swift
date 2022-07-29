@@ -28,6 +28,47 @@ pattern and words[i] are lowercase English letters.
 */
 
 /*
+Solution 2:
+2 arrays
+
+because the input will only be lowercase English letters
+it is possible to hold 2 arrays to help check pattern
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+class Solution {
+    func findAndReplacePattern(_ words: [String], _ pattern: String) -> [String] {
+        return words.filter { matchPattern($0, Array(pattern)) }
+    }
+
+    let ascii_a = Character("a").asciiValue!
+    func matchPattern(_ word: String,
+                      _ pattern: [Character]) -> Bool  {
+        if word.count != pattern.count { return false }
+        let n = word.count
+
+        var word = Array(word)
+
+        var pw = Array(repeating: -1, count: 26)
+        var wp = Array(repeating: -1, count: 26)
+        for i in 0..<n {
+            let cp = Int(pattern[i].asciiValue! - ascii_a)
+            let cw = Int(word[i].asciiValue! - ascii_a)
+
+            if (pw[cp] != -1 && pw[cp] != cw)
+            || (wp[cw] != -1 && wp[cw] != cp) {
+                return false
+            }
+
+            pw[cp] = cw
+            wp[cw] = cp
+        }
+        return true
+    }
+}
+
+/*
 Solution 1:
 2 maps
 
