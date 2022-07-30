@@ -89,3 +89,42 @@ class Solution {
         return res
     }
 }
+
+// === Another coding style ===
+
+class Solution {
+    func wordSubsets(_ words1: [String], _ words2: [String]) -> [String] {
+        // record char's most appearance time in each word
+        var arr2 = Array(repeating: 0, count: 26)
+        for b in words2 {
+            // record char's freq in b
+            var temp = Array(repeating: 0, count: 26)
+            for c in b {
+                temp[getIndex(c)] += 1
+            }
+            for i in 0..<26 {
+                arr2[i] = max(arr2[i], temp[i])
+            }
+        }
+
+        return words1.filter { isUniversal($0, arr2) }
+    }
+
+    func getIndex(_ c: Character) -> Int {
+        let ascii_a = Character("a").asciiValue!
+        return Int(c.asciiValue! - ascii_a)
+    }
+
+    func isUniversal(_ a: String, _ arr2: [Int]) -> Bool {
+        var arr = Array(repeating: 0, count: 26)
+        for c in a {
+            let index = getIndex(c)
+            arr[index] += 1
+        }
+
+        for i in 0..<26 {
+            if arr2[i] > arr[i] { return false }
+        }
+        return true
+    }
+}
