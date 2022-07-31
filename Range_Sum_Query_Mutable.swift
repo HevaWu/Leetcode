@@ -38,27 +38,33 @@ At most 3 104 calls will be made to update and sumRange.
 Solution 2:
 binary index tree
 
-Example: given an array a[0]...a[7], we use a array BIT[9] to
-represent a tree, where index [2] is the parent of [1] and [3], [6]
-is the parent of [5] and [7], [4] is the parent of [2] and [6], and
+Example: given an array a[0]...a[7], n=8, we use a array BIT[9] to
+represent a tree,
+where index [2] is the parent of [1] and [3],
+[6] is the parent of [5] and [7],
+[4] is the parent of [2] and [6], and
 [8] is the parent of [4]. I.e.,
 
 BIT[] as a binary tree:
-           ______________*
-           ______*
-           __    __*
-           *   *   *   *
-indices: 0 1 2 3 4 5 6 7 8
+               ______________*
+               ______*
+               __*     __*
+               *   *   *   *
+bit indices: 0 1 2 3 4 5 6 7 8
 
 BIT[i] = (
-    [i] is a left child)
+    [i] is a left child
     ? the partial sum from its left most descendant to itself
     : the partial sum from its parent (exclusive) to itself. (check the range of "__"
 ).
 
-Eg. BIT[1]=a[0], BIT[2]=a[1]+BIT[1]=a[1]+a[0], BIT[3]=a[2],
+Eg. BIT[1]=a[0],
+BIT[2]=a[1]+BIT[1]=a[1]+a[0],
+BIT[3]=a[2],
 BIT[4]=a[3]+BIT[3]+BIT[2]=a[3]+a[2]+a[1]+a[0],
+BIT[5]=a[4]
 BIT[6]=a[5]+BIT[5]=a[5]+a[4],
+BIT[7]=a[6]
 BIT[8]=a[7]+BIT[7]+BIT[6]+BIT[4]=a[7]+a[6]+...+a[0], ...
 
 Thus, to update a[1]=BIT[2], we shall update BIT[2], BIT[4], BIT[8],
@@ -86,7 +92,7 @@ class NumArray {
 
     init(_ nums: [Int]) {
         self.nums = nums
-        n = nums.count
+        n = nums.cou
         BIT = Array(repeating: 0, count: n+1)
         for i in 0..<n {
             insertBIT(i, nums[i])
