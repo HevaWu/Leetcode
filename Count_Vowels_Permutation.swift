@@ -33,6 +33,43 @@ Constraints:
 */
 
 /*
+Solution 3:
+1D DP
+instead of array, directly pick 5 variables to count it
+
+Time Complexity: O(5n)
+Space Complexity: O(1)
+*/
+class Solution {
+    func countVowelPermutation(_ n: Int) -> Int {
+        if n == 1 { return 5 }
+        let mod = Int(1e9 + 7)
+
+        var ca = 1
+        var ce = 1
+        var ci = 1
+        var co = 1
+        var cu = 1
+
+        for i in 2...n {
+            let ta = ce
+            let te = (ca + ci) % mod
+            let ti = ((ca + ce) % mod + (co + cu) % mod) % mod
+            let to = (ci + cu) % mod
+            let tu = ca
+
+            ca = ta
+            ce = te
+            ci = ti
+            co = to
+            cu = tu
+        }
+
+        return (((ca + ce) % mod + (ci + co) % mod) % mod + cu) % mod
+    }
+}
+
+/*
 Solution 2:
 1D DP
 
