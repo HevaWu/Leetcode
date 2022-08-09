@@ -5,7 +5,7 @@ We make a binary tree using these integers, and each number may be used for any 
 
 Return the number of binary trees we can make. The answer may be too large so return the answer modulo 109 + 7.
 
- 
+
 
 Example 1:
 
@@ -17,7 +17,7 @@ Example 2:
 Input: arr = [2,4,5,10]
 Output: 7
 Explanation: We can make these trees: [2], [4], [5], [10], [4, 2, 2], [10, 2, 5], [10, 5, 2].
- 
+
 
 Constraints:
 
@@ -26,10 +26,12 @@ Constraints:
 */
 
 /*
-Solution 2:
-DP
+Solution 3:
+another coding style other than Solution 2
 
-Time Complexity: O(n^2)
+sorted array to help quick find the factors
+
+Time Complexity: O(nlogn + n^2)
 Space Complexity: O(n)
 */
 class Solution {
@@ -37,13 +39,55 @@ class Solution {
         let mod = Int(1e9 + 7)
         let n = arr.count
         var arr = arr.sorted()
-        
+
+        var val = [Int: Int]()
+        for (i, v) in arr.enumerated() {
+            val[v] = i
+        }
+
+        // dp[i] is number of binary tree with arr[i] is root
+        var dp = Array(repeating: 1, count: n)
+
+        var tree = 0
+        for i in 0..<n {
+            for j in 0..<i {
+                if arr[i] % arr[j] == 0 {
+                    // number arr[j] could be left children
+                    let r = arr[i] / arr[j]
+                    if let index = val[r] {
+                        dp[i] += dp[j] * dp[index]
+                    }
+                }
+            }
+            tree = (tree + dp[i]) % mod
+        }
+        // print(dp)
+
+        return tree
+    }
+}
+
+/*
+Solution 2:
+DP
+
+sorted array to help quick find the factors
+
+Time Complexity: O(nlogn + n^2)
+Space Complexity: O(n)
+*/
+class Solution {
+    func numFactoredBinaryTrees(_ arr: [Int]) -> Int {
+        let mod = Int(1e9 + 7)
+        let n = arr.count
+        var arr = arr.sorted()
+
         var dp = Array(repeating: 1, count: n)
         var val = [Int: Int]()
         for (i, v) in arr.enumerated() {
             val[v] = i
         }
-        
+
         for i in 0..<n {
             for j in 0..<i {
                 if arr[i] % arr[j] == 0 {
@@ -55,7 +99,7 @@ class Solution {
                 }
             }
         }
-        
+
         return dp.reduce(into: 0) { res, next in
             res += next
         } % mod
@@ -83,7 +127,7 @@ class Solution {
         var set = Set(arr)
         var sortArr = arr.sorted()
         let n = arr.count
-        
+
         // key is arr[i]
         // value is [a,b] where a*b == arr[i], a,b in arr, a < b
         var factor = [Int: [(Int, Int)]]()
@@ -94,59 +138,59 @@ class Solution {
                     factor[sortArr[i], default: [(Int, Int)]()]
                     .append((sortArr[j], sortArr[j]))
                 }
-                
+
                 let another = sortArr[i]/sortArr[j]
-                if another * sortArr[j] == sortArr[i], 
-                another < sortArr[j], 
+                if another * sortArr[j] == sortArr[i],
+                another < sortArr[j],
                 set.contains(another) {
                     // [sortArr[j], another] is product factor pair
                     factor[sortArr[i], default: [(Int, Int)]()]
                     .append((sortArr[j], another))
-                    
+
                     factor[sortArr[i], default: [(Int, Int)]()]
                     .append((another, sortArr[j]))
                 }
             }
         }
-        
+
         // print(n, factor)
-        
+
         let mod = Int(1e9 + 7)
-        
+
         var treeCount = n - factor.keys.count
-        
+
         if factor.keys.isEmpty {
             // no product factor pair exist in arr
             // only single element BT
             return treeCount % mod
         }
-        
+
         // key is root of tree
         // value is number of BT that root is key
         var memo = [Int: Int]()
-        
+
         // find contains children BT with root of factor[key]
         for key in factor.keys {
             treeCount += findBT(factor, key, &memo)
         }
         return treeCount % mod
     }
-    
-    func findBT(_ factor: [Int: [(Int, Int)]], 
+
+    func findBT(_ factor: [Int: [(Int, Int)]],
                 _ root: Int,
                 _ memo: inout [Int: Int]) -> Int {
 //         defer {
 //             print("return", root, memo[root]!)
 //         }
-        
+
 //         print("start find", root, memo[root])
-        
+
         if let val = memo[root] {
             return val
         }
-        
+
         var list = factor[root]!
-        
+
         // single root can be valid BST
         var temp = 1
         for (first, second) in list {
@@ -154,7 +198,7 @@ class Solution {
             if factor[first] != nil {
                 left = findBT(factor, first, &memo)
             }
-            
+
             var right = (first == second ? left : 1)
             if factor[second] != nil, first != second {
                 right = findBT(factor, second, &memo)
@@ -163,7 +207,7 @@ class Solution {
             temp += (left * right)
         }
         memo[root] = temp
-                
+
         return temp
     }
 }
