@@ -3,7 +3,7 @@ Given a binary search tree (BST), find the lowest common ancestor (LCA) of two g
 
 According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
 
- 
+
 
 Example 1:
 
@@ -21,7 +21,7 @@ Example 3:
 
 Input: root = [2,1], p = 2, q = 1
 Output: 2
- 
+
 
 Constraints:
 
@@ -32,10 +32,47 @@ p != q
 p and q will exist in the BST.
 */
 
+/*
+Solution 3:
+recursive go through the tree
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.left = nil
+ *         self.right = nil
+ *     }
+ * }
+ */
+
+class Solution {
+    func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
+        guard root != nil else { return nil }
+        if root?.val == p?.val { return p }
+        if root?.val == q?.val { return q }
+        let l = lowestCommonAncestor(root?.left, p, q)
+        let r = lowestCommonAncestor(root?.right, p, q)
+        if l != nil, r != nil {
+            return root
+        } else if l != nil {
+            return l
+        } else {
+            return r
+        }
+    }
+}
 
 /*
 Solution 2:
-binary search 
+binary search
 iterative
 
 Time Complexity: O(n)
@@ -59,7 +96,7 @@ class Solution {
     func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
         guard let node = root, let p = p, let q = q else { return nil }
         if node.val == p.val || node.val == q.val { return node }
-        
+
         var cur: TreeNode? = node
         while cur != nil {
             if cur!.val > q.val, cur!.val > p.val {
@@ -70,7 +107,7 @@ class Solution {
                 return cur
             }
         }
-        
+
         return cur
     }
 }
@@ -109,14 +146,14 @@ class Solution {
         if node.val == p.val || node.val == q.val { return node }
         var l: TreeNode = p
         var r: TreeNode  = q
-        
+
         // always keep l.val < r.val
         if l.val > r.val {
             let temp = r
             r = l
             l = temp
         }
-        
+
         if node.val > l.val, node.val < r.val {
             return node
         } else if node.val > r.val {
@@ -124,7 +161,7 @@ class Solution {
         } else if node.val < l.val {
             return lowestCommonAncestor(node.right, l, r)
         }
-        
+
         return nil
     }
 }
