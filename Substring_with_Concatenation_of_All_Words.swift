@@ -30,6 +30,14 @@ s consists of lower-case English letters.
 words[i] consists of lower-case English letters.
 */
 
+/*
+Solution 1:
+build words frequency map, requireWords
+check all possible start indices, check if start+nw range words contains all words or not, if contains, add index to indices
+
+Time Complexity: O(ns * nw)
+Space Complexity: O(nw)
+*/
 class Solution {
     func findSubstring(_ s: String, _ words: [String]) -> [Int] {
         var s = Array(s)
