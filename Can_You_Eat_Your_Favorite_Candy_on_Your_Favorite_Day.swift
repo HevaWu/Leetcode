@@ -52,25 +52,34 @@ Space Complexity: O(n)
 class Solution {
     func canEat(_ candiesCount: [Int], _ queries: [[Int]]) -> [Bool] {
         let n = candiesCount.count
-        var prefix = Array(repeating: 0, count: n+1)
-        for i in 0..<n {
-            prefix[i+1] = prefix[i] + candiesCount[i]
+
+        // candiesSum[i] is sum of candies[0...i]
+        var candiesSum = candiesCount
+        for i in 1..<n {
+            candiesSum[i] += candiesSum[i-1]
         }
-        return queries.map { canFind(prefix, $0) }
+
+        return queries.map { isPossible($0, candiesSum) }
     }
 
-    func canFind(_ prefix: [Int], _ query: [Int]) -> Bool {
-        let type = query[0]
-        let day = query[1]
+    // query[i] is [favoriteType, favoriteDay, dailyCap]
+    // check if it is possible to eat favoriteType candy at
+    // favoriteDay, with eat 1...dailyCap candies each day
+    func isPossible(_ query: [Int], _ candiesSum: [Int]) -> Bool {
+        // if possible to eat at favoriteDay,
+        // earliestDay <= favoriteDay <= latestDay
+        let favoriteType = query[0]
+        let favoriteDay = query[1]
         let dailyCap = query[2]
 
-        let earliestDay = prefix[type]/dailyCap
-        let lastPossibleDay = prefix[type+1]-1
+        // each day only eat one candy
+        let latestDay = candiesSum[favoriteType]-1
 
-        if day >= earliestDay, day <= lastPossibleDay {
-            return true
-        } else {
-            return false
-        }
+        // each day eat dailyCap candies
+        let earliestDay = (favoriteType > 0
+        ? candiesSum[favoriteType-1]
+        : 0) / dailyCap
+
+        return favoriteDay >= earliestDay && favoriteDay <= latestDay
     }
 }
