@@ -34,6 +34,126 @@ All the words in wordList are unique.
 */
 
 /*
+Solution 3:
+BFS + backtrack
+
+BFS to build the ladders(word level in shortest paths)
+then backtrack from endWord to beginWord, build the list
+
+Time Complexity: O(5n + n^5 + n)
+- n = wordList.count
+Space Complexity: O(5n)
+*/
+class Solution {
+    func findLadders(_ beginWord: String, _ endWord: String, _ wordList: [String]) -> [[String]] {
+        var shortest = [[String]]()
+
+        var wordSet = Set(wordList)
+        if !wordSet.contains(endWord) {
+            return shortest
+        }
+        // to make sure all word in transformation is in wordSet
+        wordSet.insert(beginWord)
+
+        var dict: [String: Set<String>] = getPatterns(wordSet)
+
+        // key is word, value is level in shortest path
+        var ladders = [String: Int]()
+
+        // help do BFS to find shortest path
+        var queue = [String]()
+
+        queue.append(beginWord)
+        ladders[beginWord] = 0
+
+        var isFind = false
+        while !queue.isEmpty {
+            // to make sure it is shortest path
+            let len = queue.count
+
+            for index in 0..<len {
+                let word = queue.removeFirst()
+                let wordLevel = ladders[word]!
+
+                // check word and find its next transformation
+                for i in word.indices {
+                    var key = word
+                    key.remove(at: i)
+                    key.insert("*", at: i)
+
+                    // check this key's possible transformations
+                    guard let nextList = dict[key] else { continue }
+                    if nextList.contains(endWord) {
+                        ladders[endWord] = wordLevel + 1
+                        isFind = true
+                    } else {
+                        for next in nextList {
+                            // if next is not be visited yet
+                            // push to the queue
+                            if ladders[next] == nil {
+                                ladders[next] = wordLevel + 1
+                                queue.append(next)
+                            }
+                        }
+                    }
+                }
+            }
+
+            if isFind {
+                break
+            }
+        }
+
+        // print(ladders)
+        if !isFind { return shortest }
+        build(endWord, beginWord, ladders, dict, &shortest, [endWord])
+        return shortest
+    }
+
+    // backtrack build the shortest paths list
+    func build(_ endWord: String, _ beginWord: String,
+               _ ladders: [String: Int], _ dict: [String: Set<String>],
+               _ shortest: inout [[String]], _ curList: [String]) {
+        if endWord == beginWord {
+            shortest.append(curList)
+            return
+        }
+
+        let level = ladders[endWord]!
+        // print(endWord, curList)
+
+        // find level-1 word and put it into curList
+        for i in endWord.indices {
+            var key = endWord
+            key.remove(at: i)
+            key.insert("*", at: i)
+
+            guard let nextList = dict[key] else { continue }
+            for next in nextList {
+                if let val = ladders[next], val == level-1 {
+                    build(next, beginWord, ladders, dict, &shortest, [next]+curList)
+                }
+            }
+        }
+    }
+
+    // create pattern map
+    // key is pattern, value is set of word list
+    func getPatterns(_ wordList: Set<String>) -> [String: Set<String>] {
+        var dict = [String: Set<String>]()
+        for word in wordList {
+            for i in word.indices {
+                var key = word
+                key.remove(at: i)
+                key.insert("*", at: i)
+                dict[key, default: Set<String>()].insert(word)
+            }
+        }
+        return dict
+    }
+}
+
+/*
 Solution 2:
 optimize solution 1 by using Set<String> as map.values
 
