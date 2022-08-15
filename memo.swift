@@ -27,6 +27,7 @@ str[str.index(str.startIndex, offsetBy: 2)] // string index str[2]
 String("abc").hash // hash return a fixed int value, can be used in a hashTable
 str.append(String(repeating: "c", count: 3)) // string append list of char
 str.hasSuffix(str1.prefix(3)) // check if str suffix as str1[0..<3] prefix
+str.replacingOccurrences(of: ".", with: "[.]") // replace "." in string to "[.]"
 
 // ===== int =====
 0^1 // xor 1
