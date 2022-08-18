@@ -74,3 +74,29 @@ class Solution {
         return res
     }
 }
+
+// optimize
+class Solution {
+    func minSetSize(_ arr: [Int]) -> Int {
+        let n = arr.count
+        let half = n/2
+
+        // key is element, val is frequency of this element in arr
+        var freq = [Int: Int]()
+        for num in arr {
+            freq[num, default: 0] += 1
+        }
+
+        // get decreasing values array
+        var values = freq.values.sorted(by: >)
+        // count the current picked elements total number
+        var cur = 0
+        for i in 0..<values.count {
+            cur += values[i]
+            if cur >= half {
+                return i+1
+            }
+        }
+        return values.count
+    }
+}
