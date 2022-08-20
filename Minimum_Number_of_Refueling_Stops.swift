@@ -69,7 +69,14 @@ class Solution {
         dp[0] = startFuel
 
         for i in 0..<n {
+            // update from i...0 to be sure only add current fuel once for each station
+            // if update from 0 to i, it might plus current fuel multiple times
             for j in stride(from: i, through: 0, by: -1) {
+                // with refuel in i stops,
+                // car could reach this station
+                // if refuel at this station
+                // in i+1 stops,
+                // the farthest distance can be updated
                 if dp[j] >= stations[i][0] {
                     dp[j+1] = max(dp[j+1], dp[j]+stations[i][1])
                 }
