@@ -33,6 +33,99 @@ stamp and target only contain lowercase letters.
 */
 
 /*
+Solution 2:
+backward
+
+use only todo set to help tracking each window's not matched index
+
+Time Complexity: O(m * (n-m))
+Space Complexity: O(m * (n-m))
+*/
+class Solution {
+    func movesToStamp(_ stamp: String, _ target: String) -> [Int] {
+        let n = target.count
+        let m = stamp.count
+
+        var target = Array(target)
+        var stamp = Array(stamp)
+
+        // backward target to see if we can
+        // re-build the stamp index array
+        // convert target to ???..??
+
+        // stamps move index array
+        var move = [Int]()
+
+        // record the index which can be stamped
+        var queue = [Int]()
+
+        var nodeArr = [Node]()
+
+        // init loop over all m windows
+        // find initial can be replaced windows
+        for i in 0...(n-m) {
+            // check each i..<(i+m) window
+
+            // use node to
+            // help check the character match stamp character
+            var node = Node()
+            for j in 0..<m {
+                if stamp[j] != target[i+j] {
+                    node.todo.insert(i+j)
+                }
+            }
+
+            nodeArr.append(node)
+
+            if node.todo.isEmpty {
+                // current i..<(i+m) window could be set as last stamp
+                queue.append(i)
+            }
+        }
+
+        // backward target
+        while !queue.isEmpty {
+            let index = queue.removeFirst()
+            move.insert(index, at: 0)
+
+            // for index..<index+m will be put the stamp
+            // update index..<index+m to ?
+            for i in index..<index+m {
+                target[i] = "?"
+                // the i replace could effect all windows
+                // who contains this i in their todo node
+                for j in max(0, i-m+1)...min(n-m, i) {
+                    if nodeArr[j].todo.contains(i) {
+                        nodeArr[j].todo.remove(i)
+                        if nodeArr[j].todo.isEmpty {
+                            queue.append(j)
+                        }
+                    }
+                }
+            }
+        }
+
+        return isAllConverted(target) ? move : []
+    }
+
+    // check if all character in target have been updated to ?
+    func isAllConverted(_ target: [Character]) -> Bool {
+        for c in target {
+            if c != "?" {
+                return false
+            }
+        }
+        return true
+    }
+}
+
+// hold match result for m window
+class Node {
+    // record the index which match the stamp character
+    var todo = Set<Int>()
+}
+
+/*
 Solution 1:
 backwards
 - Imagine we stamped the sequence with moves m_1, m_2,⋯. Now, from the final position target, we will make those moves in reverse order.
