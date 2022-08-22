@@ -14,30 +14,16 @@ Special thanks to @yukuairoy for adding this problem and creating all test cases
 
 Subscribe to see which companies asked this question*/
 
-
-
 /*the power of 4 numbers have three features:
 1. greater than 0
 2. only have one 1 'bit' in their binary notation, use x&(x-1) to delete the lowest '1', if the result is 0, this number only have one bit
-3. the only '1' bit shoul locate at the odd location, use '0x55555555' to check, or use 
+3. the only '1' bit should locate at the odd location, use '0x55555555' to check, or use
 (x-1)%3==0 to check*/
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-class Solution {
+class Solution
+{
 public:
-    bool isPowerOfFour(int num) {
-        return (num!=0) && (num&(num-1))==0 && (num&0x55555555)!=0;
+    bool isPowerOfFour(int num)
+    {
+        return (num != 0) && (num & (num - 1)) == 0 && (num & 0x55555555) != 0;
     }
 };
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class Solution {
-    public boolean isPowerOfFour(int num) {
-        return (num!=0) && (num&(num-1))==0 && (num-1)%3==0;
-    }
-}

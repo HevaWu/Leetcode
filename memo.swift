@@ -30,6 +30,8 @@ str.hasSuffix(str1.prefix(3)) // check if str suffix as str1[0..<3] prefix
 str.replacingOccurrences(of: ".", with: "[.]") // replace "." in string to "[.]"
 
 // ===== int =====
+// 2^64 1e19 ~
+// 2^32 1e9 - 1e10
 0^1 // xor 1
 1^1  // xor return 0
 Int(4).leadingZeroBitCount // leading zero bit count 61
