@@ -47,10 +47,10 @@ Solution 2:
 math
 
 Let us look at string cabbcdba for simplicity. We need to find how many string there is before this string in lexicographcal order.
-- Strings, start with a or b should be OK for sure, so what we need to do is to find how many symbols less than c we have. Total number of strings is 2 * 7!, because we have two options for the first place and others we can put whatever we want. Also, we have b 3, a 2 times and c 2 times. So, we need to divide total number of options by 2! * 3! * 3!. Google multinomial coefficients for more details. So, total number of options here is 2 * 7!/2!/2!/3!.
-- Now look at strings starts with c. There is not symbols, less than a, so here answer is 0.
-- Now look at strings starts with ca, next symbols should be a and we have only one options here. So, total number of options is 1 * 5!/3!, because we have b 3 times among the rest symbols we did not used yet.
-- And so on
+Strings, start with a or b should be OK for sure, so what we need to do is to find how many symbols less than c we have. Total number of strings is 5 * 7!, because we have 5 options for the first place and others we can put whatever we want. Also, we have b 3, a 2 times and c 2 times. So, we need to divide total number of options by 2! * 3! * 3!. Google multinomial coefficients for more details. So, total number of options here is 5 * 7!/2!/2!/3!.
+Now look at strings starts with c. There is not symbols, less than a, so here answer is 0.
+Now look at strings starts with ca, next symbols should be a and we have only one options here. So, total number of options is 1 * 5!/3!, because we have b 3 times among the rest symbols we did not used yet.
+And so on
 
 To achieve good complexity we will use the fact that our string consist only 26 letters. Also we start our process from the end: in this way it will be possible to keep cnt array of frequencies and update it and calculate sum(cnt[:ind]): number of elements smaller than given one. Also, we need to work with 10^9 + 7 module, which is hopefully prime, so we can use Fermat little theorem to make fast divisions given this module. To divide number by q is the same as multiply it by q^(N-2) % N.
 

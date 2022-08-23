@@ -58,9 +58,7 @@ class Solution {
 
         // always a <= b
         let mod = Int(1e9 + 7)
-
-        // least common multiple
-        let L = a / gcd(a, b) * b
+let L = a / gcd(a, b) * b
 
         var left = 0
         var right = n * min(a, b)
