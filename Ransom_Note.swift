@@ -26,6 +26,36 @@ ransomNote and magazine consist of lowercase English letters.
 */
 
 /*
+Solution 2:
+use charArr
+
+Time Complexity: O(n)
+- n is max(magazine.count, ransomNote.count)
+Space Complexity: O(1)
+*/
+class Solution {
+    func canConstruct(_ ransomNote: String, _ magazine: String) -> Bool {
+        if ransomNote.count > magazine.count { return false }
+
+        let asciia = Character("a").asciiValue!
+        var arr = Array(repeating: 0, count: 26)
+        for c in magazine {
+            let index = Int(c.asciiValue! - asciia)
+            arr[index] += 1
+         }
+
+        for c in ransomNote {
+            let index = Int(c.asciiValue! - asciia)
+            arr[index] -= 1
+            if arr[index] < 0 {
+                return false
+            }
+        }
+        return true
+    }
+}
+
+/*
 Solution 1:
 use map to record if there is any char out of limit
 
