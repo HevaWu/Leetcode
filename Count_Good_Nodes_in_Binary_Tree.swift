@@ -37,6 +37,65 @@ Each node's value is between [-10^4, 10^4].
 */
 
 /*
+Solution 2:
+iterative DFS
+
+Time Complexity: O(n)
+Space Complexity: O(logn)
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init() { self.val = 0; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+ *         self.val = val
+ *         self.left = left
+ *         self.right = right
+ *     }
+ * }
+ */
+class Solution {
+    func goodNodes(_ root: TreeNode?) -> Int {
+        guard let root = root else { return 0 }
+
+        var num = 0
+
+        // dfs
+        var stack: [Node] = [Node(root, root.val)]
+
+        while !stack.isEmpty {
+            let cur = stack.removeLast()
+            if cur.node.val >= cur.maxVal {
+                num += 1
+            }
+
+            if let l = cur.node.left {
+                stack.append(Node(l, max(cur.node.val, cur.maxVal)))
+            }
+
+            if let r = cur.node.right {
+                stack.append(Node(r, max(cur.node.val, cur.maxVal)))
+            }
+        }
+
+        return num
+    }
+}
+
+class Node {
+    var node: TreeNode
+    var maxVal: Int
+    init(_ node: TreeNode, _ maxVal: Int) {
+        self.node = node
+        self.maxVal = maxVal
+    }
+}
+
+/*
 Solution 1:
 recursively traverse the tree, and count good node numbers
 
