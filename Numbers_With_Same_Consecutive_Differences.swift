@@ -42,8 +42,8 @@ f(n, d) means n digit number, with last digit is d and satisfy adjacent 2 digit 
 we can build f(n,d) from f(n-1,d-k) and f(n-1,d+k)
 the base case is n==2
 
-Time Complexity: O(9(n-2))
-Space Complexity: O(10 * (n+1) * resArrSpace)
+Time Complexity: O(9*2^n)
+Space Complexity: O(9*2^n)
 */
 class Solution {
     func numsSameConsecDiff(_ n: Int, _ k: Int) -> [Int] {
@@ -111,5 +111,38 @@ class Solution {
         }
         cache[n][d] = val
         return val
+    }
+}
+
+/*
+Another coding way
+backtrack without memorization
+
+Time Complexity: O(9*2^n)
+Space Complexity: O(9*2^n)
+*/
+class Solution {
+    func numsSameConsecDiff(_ n: Int, _ k: Int) -> [Int] {
+        var diff = [Int]()
+        for i in 1...9 {
+            check(i, n-1, i, k, &diff)
+        }
+        return diff
+    }
+
+    func check(_ curDigit: Int, _ remain: Int,
+               _ curNum: Int, _ k: Int,
+               _ diff: inout [Int]) {
+        if remain == 0 {
+            diff.append(curNum)
+            return
+        }
+
+        if curDigit + k >= 0, curDigit + k <= 9 {
+            check(curDigit+k, remain - 1, curNum * 10 + curDigit + k, k, &diff)
+        }
+        if k != 0, curDigit - k >= 0, curDigit - k <= 9 {
+            check(curDigit-k, remain - 1, curNum * 10 + curDigit - k, k, &diff)
+        }
     }
 }
