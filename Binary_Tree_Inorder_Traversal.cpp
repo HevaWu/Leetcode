@@ -22,14 +22,10 @@ Hide Tags Tree Hash Table Stack
 Hide Similar Problems (M) Validate Binary Search Tree (M) Binary Tree Preorder Traversal (H) Binary Tree Postorder Traversal (M) Binary Search Tree Iterator (M) Kth Smallest Element in a BST (H) Closest Binary Search Tree Value II (M) Inorder Successor in BST
 */
 
-
-
 /*Use Stack to store the Tree node
 always push the left node of the root into the stack, then add the left into the list/vector
 then push the right node */
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
+// C++
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -39,15 +35,19 @@ then push the right node */
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+class Solution
+{
 public:
-    vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> inorderTraversal(TreeNode *root)
+    {
         vector<int> ret;
-        TreeNode* cur = root;
-        stack<TreeNode*> S;
+        TreeNode *cur = root;
+        stack<TreeNode *> S;
 
-        while(cur || !S.empty()){
-            while(cur){
+        while (cur || !S.empty())
+        {
+            while (cur)
+            {
                 S.push(cur);
                 cur = cur->left;
             }
@@ -60,75 +60,3 @@ public:
         return ret;
     }
 };
-
-
-
-/*Use Stack to store the Tree node
-always push the left node of the root into the stack, then add the left into the list/vector
-then push the right node */
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> ret = new LinkedList<>();
-        TreeNode cur = root;
-        Stack<TreeNode> S = new Stack<>();
-
-        while(cur!=null || !S.empty()){
-            while(cur!=null){
-                S.add(cur);
-                cur = cur.left;
-            }
-            cur = S.pop();
-            ret.add(cur.val);
-            cur = cur.right;
-        }
-
-        return ret;
-    }
-}
-
-
-
-
-//use recursive
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> inlist = new ArrayList<>();
-        if(root==null){
-            return inlist;
-        }
-        inorderTree(root, inlist);
-        return inlist;
-    }
-
-    public void inorderTree(TreeNode root, List<Integer> inlist){
-        if(root==null) return;
-        if(root.left!=null){
-            inorderTree(root.left, inlist);
-        }
-        inlist.add(root.val);
-        if(root.right!=null){
-            inorderTree(root.right, inlist);
-        }
-    }
-}
