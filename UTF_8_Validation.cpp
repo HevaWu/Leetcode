@@ -38,8 +38,6 @@ Hide Company Tags Google
 Hide Tags Bit Manipulation
 */
 
-
-
 /*seperately check the start of the number, using a count to control the last n-1 numbers
 if (d>>5)==0b110, this number should be 2 bytes character ,count = 1
 if (d>>4)==0b1110, this number should be 3 bytes character ,count = 2
@@ -50,47 +48,32 @@ when count!=0, means we need to continue check if it is a perfect characer numbe
     if (d>>6)!=0b10, this number is not perfect, return false
     else count--. check the next number, until count==0
 */
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-class Solution {
+class Solution
+{
 public:
-    bool validUtf8(vector<int>& data) {
+    bool validUtf8(vector<int> &data)
+    {
         int count = 0;
-        for(auto d: data){
-            if(count==0){
-                if((d>>5)==0b110) count = 1;
-                else if((d>>4)==0b1110) count = 2;
-                else if((d>>3)==0b11110) count = 3;
-                else if((d>>7)) return false;
-            } else {
-                if((d>>6)!=0b10) return false;
+        for (auto d : data)
+        {
+            if (count == 0)
+            {
+                if ((d >> 5) == 0b110)
+                    count = 1;
+                else if ((d >> 4) == 0b1110)
+                    count = 2;
+                else if ((d >> 3) == 0b11110)
+                    count = 3;
+                else if ((d >> 7))
+                    return false;
+            }
+            else
+            {
+                if ((d >> 6) != 0b10)
+                    return false;
                 count--;
             }
         }
-        return !count;  //check if count == 0
+        return !count; // check if count == 0
     }
 };
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class Solution {
-    public boolean validUtf8(int[] data) {
-        int count = 0;//help check which bytes are this number
-        for(int d:data){
-            if(count==0){
-                if((d>>5)==0b110) count = 1; //2 bytes
-                else if((d>>4)==0b1110) count = 2; //3 bytes
-                else if((d>>3)==0b11110) count = 3;//4 bytes
-                else if((d>>7)!=0) return false;   //not 1 bytes, remember != 
-            } else {
-                if((d>>6)!=0b10) return false;
-                count--;
-            }
-        }
-        return count==0;
-    }
-}
