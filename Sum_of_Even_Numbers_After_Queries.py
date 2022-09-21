@@ -1,4 +1,4 @@
-/*
+'''
 We have an array nums of integers, and an array queries of queries.
 
 For the i-th query val = queries[i][0], index = queries[i][1], we add val to nums[index].  Then, the answer to the i-th query is the sum of the even values of A.
@@ -28,74 +28,30 @@ Note:
 1 <= queries.length <= 10000
 -10000 <= queries[i][0] <= 10000
 0 <= queries[i][1] < nums.length
-*/
+'''
 
-/*
+'''
 Solution 1:
 iterate array, keep evenSum as record
 
 Time Complexity: O(n + m)
 Space Complexity: O(n)
-*/
-class Solution {
-    func sumEvenAfterQueries(_ nums: [Int], _ queries: [[Int]]) -> [Int] {
-        var evenSum = 0
-        for num in nums {
-            if num % 2 == 0 {
-                evenSum += num
-            }
-        }
-
-        var nums = nums
-        return queries.map { q -> Int in
-            let index = q[1]
-            let val = q[0]
-
-            let original = nums[index]
-            let newVal = nums[index] + val
-            if original % 2 == 0 {
-                evenSum -= original
-            }
-            if newVal % 2 == 0 {
-                evenSum += newVal
-            }
-
-            nums[index] = newVal
-            return evenSum
-        }
-    }
-}
-
-// another coding style
-class Solution {
-    func sumEvenAfterQueries(_ nums: [Int], _ queries: [[Int]]) -> [Int] {
-        // sum of even values
-        var even = 0
-        var nums = nums
-        for num in nums {
-            if num % 2 == 0 {
+'''
+class Solution:
+    def sumEvenAfterQueries(self, nums: List[int], queries: List[List[int]]) -> List[int]:
+        even = 0
+        for num in nums:
+            if num % 2 == 0:
                 even += num
-            }
-        }
 
-        var after = [Int]()
-        for query in queries {
-            // check prev is even or not
-            if nums[query[1]] % 2 == 0 {
+        after = []
+
+        for query in queries:
+            if nums[query[1]] % 2 == 0:
                 even -= nums[query[1]]
-            }
-
-            // update nums
             nums[query[1]] += query[0]
-
-            // check cur is even or not
-            if nums[query[1]] % 2 == 0 {
+            if nums[query[1]] % 2 == 0:
                 even += nums[query[1]]
-            }
-
             after.append(even)
-        }
-
         return after
-    }
-}
+
