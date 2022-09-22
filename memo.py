@@ -12,6 +12,7 @@ s.split(' ') # split string by space\
 c = 'a'
 c.isupper() # is upper case
 str.join(sequence) # join sequence by str, could use to join char array
+''.join(list(reversed(word))) # reverse string
 str[::-1] # reverse string
 str[i:j:] # return substring of s[i..<j]
 max(str) # return its maximum digit, if str = "32", it will return 3
