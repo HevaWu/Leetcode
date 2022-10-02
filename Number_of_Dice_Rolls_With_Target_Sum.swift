@@ -46,6 +46,45 @@ Constraints:
 */
 
 /*
+Solution 2:
+bottom up dp
+dp[current dices][current sum target]
+
+Time Complexity: O(n*target*k)
+Space Complexity: O(n*target)
+*/
+class Solution {
+    func numRollsToTarget(_ n: Int, _ k: Int, _ target: Int) -> Int {
+        if n == 1 {
+            return k >= target ? 1 : 0
+        }
+
+        var dp = Array(
+            repeating: Array(repeating: 0,  count: target+1),
+            count: n+1
+        )
+
+        // init dp[1]
+        for k1 in 1...min(target, k) {
+            dp[1][k1] = 1
+        }
+
+        let mod = Int(1e9 + 7)
+        // bottom up dp
+        for i in 2...n {
+            // increase dice, and check its possible reachable sum
+            for t in i...min(target, i*k) {
+                // this dice face-up number can be 1...k
+                for k1 in 1...min(t-1, k) {
+                    dp[i][t] = (dp[i][t] + dp[i-1][t-k1]) % mod
+                }
+            }
+        }
+        return dp[n][target]
+    }
+}
+
+/*
 Solution 1:
 DP
 dp[remain dices][remain target]
