@@ -13,15 +13,13 @@ Given the below binary tree and sum = 22,
 return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 */
 
+/*
+each time sum-root.val, if the leafnode.val == sum then return true
+if this leafnode does not exist, return false
 
-
-
-
-
-/*each time sum-root.val, if the leafnode.val == sum then return true
-if this leafnode does not exist, return false*/
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -31,37 +29,16 @@ if this leafnode does not exist, return false*/
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-class Solution {
+class Solution
+{
 public:
-    bool hasPathSum(TreeNode* root, int sum) {
-        if(root == NULL) return false;
-        
-        if(root->val==sum && root->left==NULL && root->right==NULL) return true;
-        return hasPathSum(root->left, sum-root->val) || hasPathSum(root->right, sum-root->val);
+    bool hasPathSum(TreeNode *root, int sum)
+    {
+        if (root == NULL)
+            return false;
+
+        if (root->val == sum && root->left == NULL && root->right == NULL)
+            return true;
+        return hasPathSum(root->left, sum - root->val) || hasPathSum(root->right, sum - root->val);
     }
 };
-
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-public class Solution {
-    public boolean hasPathSum(TreeNode root, int sum) {
-        if(root==null) return false;
-        if(root.left==null && root.right==null && root.val==sum) return true;
-        return hasPathSum(root.left, sum-root.val) || hasPathSum(root.right, sum-root.val);
-    }
-}
