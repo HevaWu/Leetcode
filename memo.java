@@ -4,6 +4,7 @@ long a = (long)3; // convert int to long
 rand.nextInt(bound); // return random element in bound
 Integer.parseInt(str); // convert string to int
 Math.round(d * 1000) / 1000; // 3 decimal point int
+Integer(3).intValue(); // convert Integer to int
 
 // ======= Double =======
 Double b = 3; // init Double from int
