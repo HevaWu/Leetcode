@@ -36,7 +36,51 @@ root is guaranteed to be a valid binary search tree.
 */
 
 /*
-Solution 1:
+Solution 3:
+DFS iterative Stack
+
+Time Complexity: O(n)
+Space Complexity: O(logn)
+*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init() { self.val = 0; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+ *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+ *         self.val = val
+ *         self.left = left
+ *         self.right = right
+ *     }
+ * }
+ */
+class Solution {
+    func findTarget(_ root: TreeNode?, _ k: Int) -> Bool {
+        guard let root = root else { return false }
+        var arrSet = Set<Int>()
+        var nodeStack: [TreeNode] = [root]
+        while !nodeStack.isEmpty {
+            let cur = nodeStack.removeLast()
+            if arrSet.contains(k-cur.val) {
+                return true
+            }
+            arrSet.insert(cur.val)
+            if let l = cur.left {
+                nodeStack.append(l)
+            }
+            if let r = cur.right {
+                nodeStack.append(r)
+            }
+        }
+        return false
+    }
+}
+
+/*
+Solution 2:
 recursively check tree node's k-node.val exist or not.
 
 Time Complexity: O(n)
