@@ -13,6 +13,7 @@ Double b = 3; // init Double from int
 String str = "abc";
 str.length(); // size of string
 char[] arr = s.toCharArray(); //string to char array
+String.valueOf(arr); // convert char array to String
 s.substring(i) + s.substring(0, i); // substring
 s1.compareTo(s2); // compare 2 strings, 0 means equal, <0 means s1 < s2, >0 means s1 > s2
 s1.equals(str); // check if s1 equal to str
