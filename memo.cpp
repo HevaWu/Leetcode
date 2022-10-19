@@ -23,6 +23,9 @@ for (auto& word : words) {
     freq[word] = 0;
   }
 }
+unordered_map<string, int> mp;
+// Load Map
+for (string& word : words) mp[word]++;
 map<int, std::string> mapPerson;
 mapPerson.insert(pair<int, string>(1, "Jim"));
 mapPerson[3] = "Jerry";
