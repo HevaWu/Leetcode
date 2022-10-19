@@ -1,12 +1,18 @@
 {
-    "files.associations": {
-        "*.tt": "html",
-        "iosfwd": "cpp",
-        "vector": "cpp",
-        "algorithm": "cpp",
-        "chrono": "cpp",
-        "limits": "cpp",
-        "random": "cpp",
-        "iterator": "cpp"
-    }
+  "files.associations": {
+    "*.tt": "html",
+    "*.json": "json",
+    "iosfwd": "cpp",
+    "vector": "cpp",
+    "algorithm": "cpp",
+    "chrono": "cpp",
+    "limits": "cpp",
+    "random": "cpp",
+    "iterator": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp",
+    "utility": "cpp",
+    "string": "cpp",
+    "filesystem": "cpp"
+  }
 }

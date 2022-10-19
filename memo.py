@@ -59,6 +59,7 @@ graph.keys() # get all keys from graph
 numMap[numSum] = numMap.get(numSum, 0) + 1 # get or default
 if key in mydict # check key exist or not
 Counter(nums) # convert nums to counter
+sortedFreq = sorted(freq.items(), key=lambda x:(-x[1],x[0])) # sort map by descending value, ascending key
 
 # others
 range(1, 10) # range of 1..<10

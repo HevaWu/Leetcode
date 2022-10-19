@@ -121,6 +121,13 @@ map.computeIfAbsent(arr[i], v -> new LinkedList<>()).add(i); // give default val
 map.get(arr[cur]).clear(); // clear key
 map.containsKey(2); // check if key exists in map
 Map.Entry<Integer, Integer> entry: map.entrySet(); // return entry, can use getKey() and getValue() from it later
+final List<Map.Entry<String, Integer>> list = new ArrayList<>(size);
+list.addAll(freq.entrySet()); // add map to list
+Collections.sort(list, (m1, m2) -> { // sort map by value
+    return m1.getValue() == m2.getValue()
+    ? m1.getKey().compareTo(m2.getKey())
+    : m2.getValue().compareTo(m1.getValue());
+});
 
 // ======= Math =======
 Math.abs(-3); // get absolute value of one element
