@@ -1,5 +1,9 @@
 to_string(1);  // convert int to string
 
+// array
+
+int arr[7] = {1, 5, 10, 50, 100, 500, 1000};
+
 // vector
 
 for (auto it = begin(vector); it != end(vector); ++it) {
@@ -23,8 +27,6 @@ for (auto& word : words) {
     freq[word] = 0;
   }
 }
-unordered_map<string, int> mp;
-// Load Map
 for (string& word : words) mp[word]++;
 map<int, std::string> mapPerson;
 mapPerson.insert(pair<int, string>(1, "Jim"));
