@@ -6,6 +6,7 @@ int arr[7] = {1, 5, 10, 50, 100, 500, 1000};
 
 // vector
 
+vector<int> result{duplicate, missing};  // init
 for (auto it = begin(vector); it != end(vector); ++it) {
   it->doSomething();
 }
