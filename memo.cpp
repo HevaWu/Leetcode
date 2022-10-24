@@ -1,5 +1,9 @@
 to_string(1);  // convert int to string
 
+int i = 3;
+int* ptr = &i;  // A pointer to variable i or "stores the address of i"
+int& ref = i;   // A reference (or alias) for i.
+
 // array
 
 int arr[7] = {1, 5, 10, 50, 100, 500, 1000};
