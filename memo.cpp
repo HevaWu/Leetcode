@@ -32,6 +32,7 @@ for (auto& word : words) {
     freq[word] = 0;
   }
 }
+freq.count(key);  // if (freq.count(key)) {key exists}
 for (string& word : words) mp[word]++;
 map<int, std::string> mapPerson;
 mapPerson.insert(pair<int, string>(1, "Jim"));
