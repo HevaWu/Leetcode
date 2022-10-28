@@ -1,8 +1,14 @@
-to_string(1);  // convert int to string
+// pointer
 
 int i = 3;
 int* ptr = &i;  // A pointer to variable i or "stores the address of i"
 int& ref = i;   // A reference (or alias) for i.
+
+// int
+to_string(1);  // convert int to string
+
+// string
+sort(str.begin(), str.end());  // sort string
 
 // array
 
@@ -39,4 +45,9 @@ mapPerson.insert(pair<int, string>(1, "Jim"));
 mapPerson[3] = "Jerry";
 it = mapPerson.begin();
 itEnd = mapPerson.end();
-iterator erase（iterator first，iterator last）；  //删除一个范围
+iterator erase(iterator first, iterator last);  //删除一个范围
+vector<vector<string>> group;                   // group all values in map
+for (unordered_map<string, vector<string>>::iterator it = anagram.begin();
+     it != anagram.end(); it++) {
+  group.push_back(it->second);
+}

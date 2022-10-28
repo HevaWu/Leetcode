@@ -30,7 +30,9 @@ Character.isUpperCase(word.charAt(i)); // check if a character is upper/capital 
 char[] chars = new char[len];
 Arrays.fill(chars, ch);
 String s = new String(chars);
-
+char charArr[] = str.toCharArray(); // sort string
+Arrays.sort(charArr);
+new String(charArr);
 
 // ======= StringBuilder =======
 StringBuilder sb = new StringBuilder();
