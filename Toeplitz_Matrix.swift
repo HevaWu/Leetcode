@@ -39,6 +39,33 @@ What if the matrix is so large that you can only load up a partial row into the 
 */
 
 /*
+Solution 2:
+iterate by row
+for matrix[i][j]
+- if j>=i, compare it with matrix[0][j-i]
+- if i>j, compare it with matrix[i-j][0]
+
+Time Complexity: O(mn)
+Space Complexity: O(1)
+*/
+class Solution {
+    func isToeplitzMatrix(_ matrix: [[Int]]) -> Bool {
+        let m = matrix.count
+        let n = matrix[0].count
+
+        for i in 0..<m {
+            for j in 0..<n {
+                if (j >= i && matrix[i][j] != matrix[0][j-i])
+                || (i > j && matrix[i][j] != matrix[i-j][0]) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+}
+
+/*
 Solution 1:
 iterate matrix by frist column, first row
 try to check if element in diagonal start from this cell is equal to each other or not
