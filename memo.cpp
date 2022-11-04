@@ -27,13 +27,14 @@ sort(list.begin(), list.end(), cmp);  // sort with compare
 static bool cmp(pair<string, int>& a, pair<string, int>& b) {
   return a.second == b.second ? a.first < b.first : a.second > b.second;
 }
-vector<pair<int, int>> seeds; // sort pair
-for(int i = 0; i < n; i++) {
-    seeds.push_back({plantTime[i], growTime[i]});
+vector<pair<int, int>> seeds;  // sort pair
+for (int i = 0; i < n; i++) {
+  seeds.push_back({plantTime[i], growTime[i]});
 }
-sort(seeds.begin(), seeds.end(), [](pair<int, int>& s1, pair<int, int>& s2) -> bool {
-    return s1.second > s2.second;
-});
+sort(seeds.begin(), seeds.end(),
+     [](pair<int, int>& s1, pair<int, int>& s2) -> bool {
+       return s1.second > s2.second;
+     });
 
 // map
 
