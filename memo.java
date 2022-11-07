@@ -80,6 +80,7 @@ boolean[] b = new boolean[3]; // init boolean array
 // ======= ArrayList =======　
 List<Integer> arr = new ArrayList<Integer>();
 arr.get(0); // array list get element in the index
+numArr.set(i, 9); // set arraylist
 arr.add(0); // array list add element
 arr.size(); // array list size
 arr.subList(3, 4); // sublist of [3..<4]

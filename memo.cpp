@@ -20,6 +20,7 @@ vector<int> result{duplicate, missing};  // init
 for (auto it = begin(vector); it != end(vector); ++it) {
   it->doSomething();
 }
+numArr.insert(numArr.begin(), num % 10);  // insert into vector
 for (auto& it : freq) {
   list.push_back(it);
 }
