@@ -10,6 +10,10 @@ to_string(1);  // convert int to string
 // string
 sort(str.begin(), str.end());  // sort string
 
+// char
+islower(c1);  // check if character is lowercase
+tolower(c1);  // convert to lower char
+
 // array
 
 int arr[7] = {1, 5, 10, 50, 100, 500, 1000};
@@ -60,3 +64,10 @@ for (unordered_map<string, vector<string>>::iterator it = anagram.begin();
      it != anagram.end(); it++) {
   group.push_back(it->second);
 }
+
+// stack
+
+stack<char> st;
+st.top();      // return top element
+st.pop();      // just remove top element, return void
+st.push(ele);  // add element to stack

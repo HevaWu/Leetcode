@@ -11,6 +11,8 @@ sys.maxsize # int64 max
 s.split(' ') # split string by space\
 c = 'a'
 c.isupper() # is upper case
+c1.islower()
+c1.lower() # convert to lower char
 str.join(sequence) # join sequence by str, could use to join char array
 ''.join(list(reversed(word))) # reverse string
 str[::-1] # reverse string

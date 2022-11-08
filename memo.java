@@ -43,9 +43,12 @@ sb.charAt(i); // access stringBuilder character
 sb.insert(0, char); // insert char at 0 index
 sb.deleteCharAt(0); // delete character at index 0
 
-// ======= StringBuilder =======
+// ======= Character =======
 Character.isDigit(c); // check if c is digit number
 (s.charAt(i)-'0'); // convert char to int
+Character.isLowerCase(c1); // check if c is lowercase
+Character.toLowerCase(c1); // convert c to lowercase char
+
 
 // ======= Arrays =======　
 int[] dir = new int[] {0, 1, 0, -1, 0}; // array initialization
