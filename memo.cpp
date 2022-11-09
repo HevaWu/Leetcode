@@ -65,6 +65,12 @@ for (unordered_map<string, vector<string>>::iterator it = anagram.begin();
   group.push_back(it->second);
 }
 
+// pair
+
+pair<int, int> newPair;
+int firstVal = newPair.first;
+int secondVal = newPair.second;
+
 // stack
 
 stack<char> st;
