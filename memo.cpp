@@ -9,6 +9,9 @@ to_string(1);  // convert int to string
 
 // string
 sort(str.begin(), str.end());  // sort string
+str.substr(3, 2); // substring start from index 3, with length 2
+str.substr(3); // substring after index 3
+s.substr(i) + s.substr(0, i);
 
 // char
 islower(c1);  // check if character is lowercase

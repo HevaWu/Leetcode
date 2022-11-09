@@ -28,6 +28,48 @@ s consist of lowercase English letters.
 */
 
 /*
+Solution 2:
+optimize solution 1
+use smallestIndex to help quick find smallest begin char
+
+Time Complexity: O(n * n)
+Space Complexity: O(n)
+*/
+class Solution {
+    func orderlyQueue(_ s: String, _ k: Int) -> String {
+        if k == 1 {
+            // equal to rotate s, until smallest char in the begin
+            var smallestIndex = 0
+            var smallest = s
+            var s = Array(s)
+            let n = s.count
+            for i in 0..<n {
+                if s[i] < s[smallestIndex] {
+                    smallestIndex = i
+                    smallest = getRotateString(s, i)
+                } else if s[i] == s[smallestIndex] {
+                    let temp = getRotateString(s, i)
+                    if temp < smallest {
+                        smallest = temp
+                        smallestIndex = i
+                    }
+                }
+            }
+            return smallest
+        } else {
+            // sort s
+            return String(s.sorted())
+        }
+    }
+
+    // rotate charArr to make index as beginning char
+    // return rotated string
+    func getRotateString(_ charArr: [Character], _ index: Int) -> String {
+        return String(Array(charArr[index...] + charArr[..<index]))
+    }
+}
+
+/*
 Solution 1:
 If k = 1, only rotations of s are possible, and the answer is the lexicographically smallest rotation.
 
