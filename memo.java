@@ -42,6 +42,8 @@ sb.reverse(); // reverse string by stringBuilder
 sb.charAt(i); // access stringBuilder character
 sb.insert(0, char); // insert char at 0 index
 sb.deleteCharAt(0); // delete character at index 0
+sb.length();
+sb.isEmpty(); // check if is empty
 
 // ======= Character =======
 Character.isDigit(c); // check if c is digit number

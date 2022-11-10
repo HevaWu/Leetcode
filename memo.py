@@ -18,6 +18,7 @@ str.join(sequence) # join sequence by str, could use to join char array
 str[::-1] # reverse string
 str[i:j:] # return substring of s[i..<j]
 max(str) # return its maximum digit, if str = "32", it will return 3
+res = res[:-1] # drop last character
 
 # List / array
 # https://docs.python.org/3/tutorial/introduction.html#lists
