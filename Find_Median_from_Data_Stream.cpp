@@ -4,7 +4,7 @@ Total Submissions: 94825
 Difficulty: Hard
 Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. So the median is the mean of the two middle value.
 
-Examples: 
+Examples:
 [2,3,4] , the median is 3
 
 [2,3], the median is (2 + 3) / 2 = 2.5
@@ -18,7 +18,7 @@ For example:
 add(1)
 add(2)
 findMedian() -> 1.5
-add(3) 
+add(3)
 findMedian() -> 2
 
 Credits:
@@ -45,12 +45,10 @@ Supporting both min- and max-heap is more or less cumbersome, depending on the l
 Using larger integer types also prevents an overflow error when taking the mean of the two middle numbers. I think almost all solutions posted previously have that bug.
 */
 
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
 class MedianFinder {
 private:
     priority_queue<long> small, large;
-    
+
 public:
 
     // Adds a number into the data structure.
@@ -72,37 +70,5 @@ public:
 
 // Your MedianFinder object will be instantiated and called as such:
 // MedianFinder mf;
-// mf.addNum(1);
-// mf.findMedian();
-
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-public class MedianFinder {
-    private Queue<Long> small = new PriorityQueue();
-    private Queue<Long> large = new PriorityQueue();
-
-    // Adds a number into the data structure.
-    public void addNum(int num) {
-        large.add((long) num); //remember (long)
-        small.add(-large.poll());
-        if(large.size() < small.size()){
-            large.add(-small.poll());
-        }
-    }
-
-    // Returns the median of current data stream
-    public double findMedian() {
-        return large.size() > small.size() ? large.peek() : (large.peek()-small.peek())/2.0;
-    }
-};
-
-// Your MedianFinder object will be instantiated and called as such:
-// MedianFinder mf = new MedianFinder();
 // mf.addNum(1);
 // mf.findMedian();
