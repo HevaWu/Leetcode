@@ -66,8 +66,12 @@ class Solution {
 
         var tSet = Set<[Int]>()
         var left_most = 0
+
+        // find left most and lowest point
         for i in 0..<n {
-            if trees[i][0] < trees[left_most][0] {
+            if (trees[i][0] < trees[left_most][0])
+            || (trees[i][0] == trees[left_most][0]
+            && trees[i][1] < trees[left_most][1]) {
                 left_most = i
             }
         }
