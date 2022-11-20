@@ -12,6 +12,7 @@ s.split(' ') # split string by space\
 c = 'a'
 c.isupper() # is upper case
 c1.islower()
+c.isnumeric()
 c1.lower() # convert to lower char
 str.join(sequence) # join sequence by str, could use to join char array
 ''.join(list(reversed(word))) # reverse string
