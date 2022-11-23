@@ -11,14 +11,17 @@ low = low->next; // point to its next variable
 
 // int
 to_string(1);  // convert int to string
+char a = '4';
+int ia = a - '0'; /* check here if ia is bounded by 0 and 9 */
 
 // string
 sort(str.begin(), str.end());  // sort string
-str.substr(3, 2); // substring start from index 3, with length 2
-str.substr(3); // substring after index 3
+str.substr(3, 2);              // substring start from index 3, with length 2
+str.substr(3);                 // substring after index 3
 s.substr(i) + s.substr(0, i);
 size_t pos;
-(pos = s.find(' ')) != string::npos; // check if can find related position in string
+(pos = s.find(
+     ' ')) != string::npos;  // check if can find related position in string
 
 // char
 islower(c1);  // check if character is lowercase
