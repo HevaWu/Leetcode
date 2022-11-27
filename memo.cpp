@@ -3,6 +3,8 @@
 int i = 3;
 int* ptr = &i;  // A pointer to variable i or "stores the address of i"
 int& ref = i;   // A reference (or alias) for i.
+INT_MIN; // min integer value
+INT_MAX; // max integer value
 
 // int
 to_string(1);  // convert int to string
@@ -55,6 +57,8 @@ for (auto& word : words) {
   } else {
     freq[word] = 0;
   }
+  // above equal to bellow, default value will auto set as 0
+  freq[word] = freq[word] + 1;
 }
 freq.count(key);  // if (freq.count(key)) {key exists}
 for (string& word : words) mp[word]++;

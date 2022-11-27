@@ -6,6 +6,7 @@ int("12") # convert string to int
 sys.maxsize # int64 max
 -sys.maxsize - 1 # int64 min
 2**31-1 # int32 max
+-2**31-1 #int32 min
 
 # String
 s.split(' ') # split string by space\
