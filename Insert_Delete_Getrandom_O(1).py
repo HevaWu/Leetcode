@@ -1,4 +1,4 @@
-/*
+'''
 Implement the RandomizedSet class:
 
 RandomizedSet() Initializes the RandomizedSet object.
@@ -33,57 +33,9 @@ Constraints:
 -231 <= val <= 231 - 1
 At most 2 * 105 calls will be made to insert, remove, and getRandom.
 There will be at least one element in the data structure when getRandom is called.
-*/
+'''
 
-/*
-Solution 1: default set
-
-Time complexity: O(1) for each operation
-Space complexity: O(n) where n is size of the input
-*/
-class RandomizedSet {
-    var set = Set<Int>()
-
-    /** Initialize your data structure here. */
-    init() {
-
-    }
-
-    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
-    func insert(_ val: Int) -> Bool {
-        if set.contains(val) {
-            return false
-        } else {
-            set.insert(val)
-            return true
-        }
-    }
-
-    /** Removes a value from the set. Returns true if the set contained the specified element. */
-    func remove(_ val: Int) -> Bool {
-        if set.contains(val) {
-            set.remove(val)
-            return true
-        } else {
-            return false
-        }
-    }
-
-    /** Get a random element from the set. */
-    func getRandom() -> Int {
-        return set.randomElement()!
-    }
-}
-
-/**
- * Your RandomizedSet object will be instantiated and called as such:
- * let obj = RandomizedSet()
- * let ret_1: Bool = obj.insert(val)
- * let ret_2: Bool = obj.remove(val)
- * let ret_3: Int = obj.getRandom()
- */
-
-/*
+'''
 Solution 2: hashmap & arr
 
 Insert
@@ -100,44 +52,37 @@ GetRandom could be implemented in O(1) time with the help of standard random.cho
 
 Time complexity. GetRandom is always O(1). Insert and Delete both have O(1) average time complexity, and \mathcal{O}(N)O(N) in the worst-case scenario when the operation exceeds the capacity of currently allocated array/hashmap and invokes space reallocation.
 Space complexity: O(N), to store N elements.
-*/
-class RandomizedSet {
-    var arr = [Int]()
-    var map = [Int: Int]()
+'''
+class RandomizedSet:
 
-    /** Initialize your data structure here. */
-    init() {
+    def __init__(self):
+        self.mymap = {}
+        self.arr = []
 
-    }
+    def insert(self, val: int) -> bool:
+        if val in self.mymap: return False
+        self.arr.append(val)
+        self.mymap[val] = len(self.arr)-1
+        return True
 
-    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
-    func insert(_ val: Int) -> Bool {
-        guard map[val] == nil else { return false }
-        arr.append(val)
-        map[val] = arr.count - 1
-        return true
-    }
+    def remove(self, val: int) -> bool:
+        if val not in self.mymap: return False
+        # put last element into val element position
+        lastEle = self.arr[-1]
+        valIndex = self.mymap[val]
+        self.mymap[lastEle] = valIndex
+        self.arr[valIndex] = lastEle
+        # remove last element
+        self.arr.pop(-1)
+        self.mymap.pop(val)
+        return True
 
-    /** Removes a value from the set. Returns true if the set contained the specified element. */
-    func remove(_ val: Int) -> Bool {
-        guard let index = map[val], let last = arr.last else { return false }
-        arr[index] = last
-        arr.removeLast()
-        map[last] = index
-        map[val] = nil
-        return true
-    }
+    def getRandom(self) -> int:
+        return self.arr[randint(0, len(self.arr)-1)]
 
-    /** Get a random element from the set. */
-    func getRandom() -> Int {
-        return arr.randomElement() ?? 0
-    }
-}
 
-/**
- * Your RandomizedSet object will be instantiated and called as such:
- * let obj = RandomizedSet()
- * let ret_1: Bool = obj.insert(val)
- * let ret_2: Bool = obj.remove(val)
- * let ret_3: Int = obj.getRandom()
- */
+# Your RandomizedSet object will be instantiated and called as such:
+# obj = RandomizedSet()
+# param_1 = obj.insert(val)
+# param_2 = obj.remove(val)
+# param_3 = obj.getRandom()

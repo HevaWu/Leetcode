@@ -47,6 +47,8 @@ sort(seeds.begin(), seeds.end(),
      [](pair<int, int>& s1, pair<int, int>& s2) -> bool {
        return s1.second > s2.second;
      });
+result.back(); // last element in vector
+result.pop_back(); // remove last element
 
 // map
 
@@ -73,6 +75,7 @@ for (unordered_map<string, vector<string>>::iterator it = anagram.begin();
      it != anagram.end(); it++) {
   group.push_back(it->second);
 }
+freq.erase(key); // remove a key in map
 
 // pair
 
@@ -86,3 +89,17 @@ stack<char> st;
 st.top();      // return top element
 st.pop();      // just remove top element, return void
 st.push(ele);  // add element to stack
+
+// set
+
+unordered_set<int> newset; // init hashset
+newset.insert(val); // insert val to set
+if (newset.find(val) == newset.end()) {
+  // not contains val in set
+}
+newset.erase(val); // remove val from set
+
+// get random element from 0..<arr.size()
+int getRandom() {
+  return arr[rand() % arr.size()];
+}
