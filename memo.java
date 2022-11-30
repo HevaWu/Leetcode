@@ -118,11 +118,13 @@ set.size(); // return size of set
 set.contains(2); // check if hashset contains element
 set.remove(ele); // remove element in set
 set.add(2); // add element
+Set<Integer> set = new HashSet<>(array); // init set from an array
 
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
 map.getOrDefault(c, 0); // if key c exist, return value of c, otherwise, return 0
 map.keySet(); // get map's keys
+map.values(); // return map's values, it will be a collections
 map.put(c, 0); // set key c's value as 0
 map.remove(key); // remove key
 map.computeIfAbsent(arr[i], v -> new LinkedList<>()).add(i); // give default value, then update the value

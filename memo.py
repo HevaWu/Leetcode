@@ -65,6 +65,7 @@ for i in range(n):
         graph[arr[i]] = [i]
 graph[arr[cur]].clear() # remove key from graph
 graph.keys() # get all keys from graph
+graph.values() # get all values from graph
 numMap[numSum] = numMap.get(numSum, 0) + 1 # get or default
 if key in mydict # check key exist or not
 Counter(nums) # convert nums to counter
