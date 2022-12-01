@@ -119,6 +119,7 @@ set.contains(2); // check if hashset contains element
 set.remove(ele); // remove element in set
 set.add(2); // add element
 Set<Integer> set = new HashSet<>(array); // init set from an array
+Set<Character> vowelSet = new HashSet<>(Arrays.asList('a', 'e'));
 
 // ======= Map =======
 Map<Integer, Integer>[] f = new Map[n]; // array of dictionary/map
