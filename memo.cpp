@@ -28,6 +28,7 @@ int arr[7] = {1, 5, 10, 50, 100, 500, 1000};
 // vector
 
 vector<int> result{duplicate, missing};  // init
+vector<int> freq1(26, 0); // init with len is 26, all default is 0
 for (auto it = begin(vector); it != end(vector); ++it) {
   it->doSomething();
 }
