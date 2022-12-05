@@ -5,6 +5,9 @@ int* ptr = &i;  // A pointer to variable i or "stores the address of i"
 int& ref = i;   // A reference (or alias) for i.
 INT_MIN; // min integer value
 INT_MAX; // max integer value
+ListNode* low = head;
+if (fast != nullptr) {} // check if pointer is null
+low = low->next; // point to its next variable
 
 // int
 to_string(1);  // convert int to string
