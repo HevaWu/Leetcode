@@ -39,40 +39,33 @@ For the recursion return the max gain the node and one/zero of its subtrees coul
 Time complexity : O(N) where N is number of nodes, since we visit each node not more than 2 times.
 Space complexity : \mathcal{O}(\log(N))O(log(N)). We have to keep a recursion stack of the size of the tree height, which is \mathcal{O}(\log(N))O(log(N)) for the binary tree.
 */
+
+
+/*A recursive method maxPath(TreeNode node)
+(1) computes the maximum path sum with highest node is the input node, update maximum if necessary (2) returns the maximum sum of the path that can be extended to input node's parent.*/
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     public var val: Int
- *     public var left: TreeNode?
- *     public var right: TreeNode?
- *     public init(_ val: Int) {
- *         self.val = val
- *         self.left = nil
- *         self.right = nil
- *     }
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution {
-    var maxValue = Int.min
+public class Solution {
+    private int maxValue;
 
-    func maxPathSum(_ root: TreeNode?) -> Int {
-        maxCheck(in: root)
-        return maxValue
+    public int maxPathSum(TreeNode root) {
+        maxValue = Integer.MIN_VALUE;
+        maxPath(root);
+        return maxValue;
     }
 
-    func maxCheck(in node: TreeNode?) -> Int {
-        guard node != nil else { return 0 }
-
-        let left = max(maxCheck(in: node!.left), 0)
-        let right = max(maxCheck(in: node!.right), 0)
-
-        let temp = node!.val + left + right
-
-        if temp > maxValue {
-            maxValue = temp
-        }
-
-        // for recursive, and check the max branch
-        return node!.val + max(left, right)
+    public int maxPath(TreeNode root){
+        if(root == null) return 0;
+        int left = Math.max(0, maxPath(root.left));
+        int right = Math.max(0, maxPath(root.right));
+        maxValue = Math.max(maxValue, left + right + root.val);
+        return Math.max(left, right) + root.val;
     }
 }
