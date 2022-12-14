@@ -1,4 +1,4 @@
-/*
+'''
 You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
 
 Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
@@ -23,9 +23,9 @@ Constraints:
 
 0 <= nums.length <= 100
 0 <= nums[i] <= 400
-*/
+'''
 
-/*
+'''
 Solution 1
 DP
 
@@ -34,21 +34,13 @@ maxSum: exclude this house, max money of pre houses
 
 Time Complexity: O(n)
 Space Complexity: O(1)
-*/
-class Solution {
-    func rob(_ nums: [Int]) -> Int {
-        guard !nums.isEmpty else { return 0 }
-
-        // money of this house + money exclude pre house
-        var pre = 0
-        // max money of pre houses
-        var maxSum = 0
-        for i in 0..<nums.count {
-            let temp = pre
+'''
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        pre = 0
+        maxSum = 0
+        for i in range(len(nums)):
+            temp = pre
             pre = maxSum + nums[i]
             maxSum = max(maxSum, temp)
-        }
-
         return max(maxSum, pre)
-    }
-}
