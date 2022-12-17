@@ -8,6 +8,8 @@ Integer(3).intValue(); // convert Integer to int
 
 // ======= Double =======
 Double b = 3; // init Double from int
+(double)num; // cast int to double
+(int)doubleNum; // cast double to int
 
 // ======= String =======
 String str = "abc";
