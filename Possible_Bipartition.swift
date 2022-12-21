@@ -52,28 +52,36 @@ class Solution {
             graph[d[1]].append(d[0])
         }
 
-        // group[i] == -1, means not be assigned yet
-        // group[i] == 0 / 1 means put it in 0 or 1 group
+        // group == -1 not assigned yet
+        // group == 0 assigned to first group
+        // group == 1 assigned to second group
         var group = Array(repeating: -1, count: n+1)
         for i in 1...n {
             if group[i] == -1 {
                 group[i] = 0
-                if !dfs(i, 0, &group, &graph) { return false }
+                if !canAssign(i, graph, 0, &group) {
+                    return false
+                }
             }
         }
         return true
     }
 
-    func dfs(_ index: Int, _ groupNumber: Int,
-             _ group: inout [Int], _ graph: inout [[Int]]) -> Bool {
-        for dislikePeople in graph[index] {
-            if group[dislikePeople] == -1 {
-                group[dislikePeople] = 1-groupNumber
-                 if !dfs(dislikePeople, 1-groupNumber, &group, &graph) {
+    // check if fine to assign people to groupIndex,
+    // and keep dislike grouph fine
+    func canAssign(_ people: Int, _ graph: [[Int]], _ groupIndex: Int,
+    _ group: inout [Int]) -> Bool {
+        for next in graph[people] {
+            if group[next] == -1 {
+                // next person is not be assigned yet
+                group[next] = 1-groupIndex
+                if !canAssign(next, graph, 1-groupIndex, &group) {
                     return false
                 }
             } else {
-                if group[dislikePeople] != 1-groupNumber {
+                // next person already been assigned,
+                // check if hakve conflict
+                if group[next] != (1-groupIndex) {
                     return false
                 }
             }
