@@ -111,3 +111,40 @@ newset.erase(val);  // remove val from set
 
 // get random element from 0..<arr.size()
 int getRandom() { return arr[rand() % arr.size()]; }
+
+// heap
+// Initializing a vector
+vector<int> v1 = {20, 30, 40, 25, 15};
+// Converting vector into a heap
+// using make_heap(), return 40 30 20 25 15
+make_heap(v1.begin(), v1.end());
+// sorting heap using sort_heap()
+// return 15 20 25 30 40
+sort_heap(v1.begin(), v1.end());
+// using push_back() to enter element
+// in vector
+v1.push_back(50);
+// using push_heap() to reorder elements
+push_heap(v1.begin(), v1.end());
+// using front() heap top element
+v1.front();
+// put top element to last one
+// 30 20 25 15 40
+pop_heap(v.begin(), v.end());
+auto top = v.back();  // 40
+v.pop_back();         // 30 20 25 15
+
+// priority queue
+std::priority_queue<int> q1;  // Max priority queue
+for (int n : data) q1.push(n);
+// Min priority queue
+// std::greater<int> makes the max priority queue act as a min priority queue
+std::priority_queue<int, std::vector<int>, std::greater<int>> minq1(
+    data.begin(), data.end());
+// Second way to define a min priority queue
+std::priority_queue minq2(data.begin(), data.end(), std::greater<int>());
+// Using a custom function object to compare elements.
+struct {
+  bool operator()(const int l, const int r) const { return l > r; }
+} customLess;
+std::priority_queue minq3(data.begin(), data.end(), customLess);

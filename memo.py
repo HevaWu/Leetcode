@@ -37,10 +37,11 @@ bisect.bisect_left(a, x, lo=0, hi=len(a), *, key=None) # binary search, locate i
 
 # heap
 import heapq
-heapq.heapify(list) # convert list to heap, heappop, heappush
+heapq.heapify(list) # convert list to heap (min heap), heappop, heappush,
 heappush(list, 1) # push element in heap
 heappop(list) # pop element from heap
 list[0] # always return the smallest element
+A = [-1 * a for a in A] # max heap
 
 # Stack
 stack = [(root, root.val)] # init stack with pair of <TreeNode, Int>
