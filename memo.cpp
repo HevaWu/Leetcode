@@ -148,3 +148,10 @@ struct {
   bool operator()(const int l, const int r) const { return l > r; }
 } customLess;
 std::priority_queue minq3(data.begin(), data.end(), customLess);
+// Using lambda to compare elements.
+auto cmp = [](int left, int right) { return (left ^ 1) < (right ^ 1); };
+std::priority_queue<int, std::vector<int>, decltype(cmp)> q5(cmp);
+q1.push();   // push element into priority queue
+q1.top();    // return top element
+q1.pop();    // remove top element, return void
+q1.empty();  // check priority queue empty or not

@@ -42,6 +42,19 @@ heappush(list, 1) # push element in heap
 heappop(list) # pop element from heap
 list[0] # always return the smallest element
 A = [-1 * a for a in A] # max heap
+class Node(object):
+    def __init__(self, val: int):
+        self.val = val
+
+    def __repr__(self):
+        return f'Node value: {self.val}'
+
+    def __lt__(self, other):
+        return self.val < other.val
+
+heap = [Node(2), Node(0), Node(1), Node(4), Node(2)]
+heapq.heapify(heap)
+print(heap) # custom heap
 
 # Stack
 stack = [(root, root.val)] # init stack with pair of <TreeNode, Int>

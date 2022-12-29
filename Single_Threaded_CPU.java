@@ -48,75 +48,74 @@ tasks.length == n
 
 /*
 Solution 1:
-Time Limit Exceeded
+use two heap / priority queue
+one for handle enqueue
+another for handle process time
 
-- for each task, append it index
-- sort task by enqueueTime, processingTime
-- each time, track and pick proper available task
+first update tasks to append index
+then make current qpEnqueue as always sort by enqueueTime, then processTime
+use timestamp to track next CPU idle time
+
+everytime when node in enqueue's enqueueTime is <= timestamp
+means node could be next CPU process options
+then add it into process pq(priority queue)
+pick process pq's top (should always be the shortest process time task)
+
+loop this, until process all tasks
+
+Time Complexity: O(nlogn)
+Space Complexity: O(n)
 */
 class Solution {
-    func getOrder(_ tasks: [[Int]]) -> [Int] {
-        let n = tasks.count
-        if n == 1 { return [0] }
+    public int[] getOrder(int[][] tasks) {
+        int n = tasks.length;
 
-        // append index
-        // tasks[i] -> [enqueueTime_i, processingTime_i, i]
-        var tasks = tasks
-        for i in 0..<n {
-            tasks[i].append(i)
-        }
-
-        // sort tasks by enqueueTime, then processingTime
-        tasks.sort(by: { first, second -> Bool in
-            return first[0] == second[0] ? first[1] < second[1] : first[0] < second[0]
-        })
-
-        var available = [[Int]]()
-        available.append(tasks.removeFirst())
-        var time = 0
-
-        var order = [Int]()
-        while !available.isEmpty {
-            let cur = available.removeFirst()
-            order.append(cur[2])
-            time = max(time, cur[0]) + cur[1]
-
-            while !tasks.isEmpty, tasks.first![0] <= time {
-                insert(tasks.removeFirst(), &available)
-            }
-            // print(time)
-        }
-        return order
-    }
-
-    // insert task into available by processingTime, then index
-    func insert(_ task: [Int], _ available: inout [[Int]]) {
-        // defer{
-        //     print("added", task, available)
-        // }
-        if available.isEmpty {
-            available.append(task)
-            return
-        }
-
-        var left = 0
-        var right = available.count-1
-        while left < right {
-            let mid = left + (right-left)/2
-            if available[mid][1] < task[1]
-            || (available[mid][1] == task[1] && available[mid][2] < task[2]) {
-                // first by processingTime, then by index
-                left = mid + 1
+        // compare with processing time, then index
+        PriorityQueue<int[]> pqProcess = new PriorityQueue<int[]>((t1, t2) -> {
+            if (t1[1] == t2[1]) {
+                return Integer.compare(t1[2], t2[2]);
             } else {
-                right = mid
+                return Integer.compare(t1[1], t2[1]);
             }
+        });
+
+        // compare with enqueue time, then processing time
+        PriorityQueue<int[]> pqEnqueue = new PriorityQueue<int[]>((t1, t2) -> {
+            if (t1[0] == t2[0]) {
+                return Integer.compare(t1[1], t2[1]);
+            } else {
+                return Integer.compare(t1[0], t2[0]);
+            }
+        });
+
+        for (int i = 0; i < n; i++) {
+            int[] t = new int[]{tasks[i][0], tasks[i][1], i};
+            pqEnqueue.offer(t);
         }
 
-        if available[left][1] < task[1]
-        || (available[left][1] == task[1] && available[left][2] < task[2]) {
-            available.insert(task, at: left+1)
-        } else {
-            available.insert(task, at: left)
+        List<Integer> order = new ArrayList<>();
+        double timestamp = 0; // next CPU could idle time stamp
+        while (!pqEnqueue.isEmpty() || !pqProcess.isEmpty()) {
+            while (!pqEnqueue.isEmpty() && pqEnqueue.peek()[0] <= timestamp) {
+                pqProcess.offer(pqEnqueue.poll());
+            }
+
+            int[] cur;
+            if (!pqProcess.isEmpty()) {
+                cur = pqProcess.poll();
+            } else if (!pqEnqueue.isEmpty()) {
+                cur = pqEnqueue.poll();
+            } else {
+                break;
+            }
+            order.add(cur[2]);
+            // convert to double to avoid bit overflow
+            timestamp = Math.max(timestamp, (double)cur[0]) + (double)cur[1];
         }
+        int[] orderArr = new int[n];
+        for(int i = 0; i < n; i++) {
+            orderArr[i] = order.get(i);
+        }
+        return orderArr;
     }
 }

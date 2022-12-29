@@ -1,4 +1,4 @@
-/*
+'''
 You are given n​​​​​​ tasks labeled from 0 to n - 1 represented by a 2D integer array tasks, where tasks[i] = [enqueueTimei, processingTimei] means that the i​​​​​​th​​​​ task will be available to process at enqueueTimei and will take processingTimei to finish processing.
 
 You have a single-threaded CPU that can process at most one task at a time and will act in the following way:
@@ -44,79 +44,82 @@ Constraints:
 tasks.length == n
 1 <= n <= 105
 1 <= enqueueTimei, processingTimei <= 109
-*/
+'''
 
-/*
+'''
 Solution 1:
-Time Limit Exceeded
+use two heap / priority queue
+one for handle enqueue
+another for handle process time
 
-- for each task, append it index
-- sort task by enqueueTime, processingTime
-- each time, track and pick proper available task
-*/
-class Solution {
-    func getOrder(_ tasks: [[Int]]) -> [Int] {
-        let n = tasks.count
-        if n == 1 { return [0] }
+first update tasks to append index
+then make current qpEnqueue as always sort by enqueueTime, then processTime
+use timestamp to track next CPU idle time
 
-        // append index
-        // tasks[i] -> [enqueueTime_i, processingTime_i, i]
-        var tasks = tasks
-        for i in 0..<n {
-            tasks[i].append(i)
-        }
+everytime when node in enqueue's enqueueTime is <= timestamp
+means node could be next CPU process options
+then add it into process pq(priority queue)
+pick process pq's top (should always be the shortest process time task)
 
-        // sort tasks by enqueueTime, then processingTime
-        tasks.sort(by: { first, second -> Bool in
-            return first[0] == second[0] ? first[1] < second[1] : first[0] < second[0]
-        })
+loop this, until process all tasks
 
-        var available = [[Int]]()
-        available.append(tasks.removeFirst())
-        var time = 0
+Time Complexity: O(nlogn)
+Space Complexity: O(n)
+'''
+class Solution:
+    def getOrder(self, tasks: List[List[int]]) -> List[int]:
+        n = len(tasks)
 
-        var order = [Int]()
-        while !available.isEmpty {
-            let cur = available.removeFirst()
+        # compare with processing time, then index
+        pqProcess: List[ProcessNode] = []
+        heapq.heapify(pqProcess)
+
+        # compare with enqueue time, then processing time
+        pqEnqueue: List[EnqueueNode] = []
+        heapq.heapify(pqEnqueue)
+
+        for i in range(n):
+            heappush(pqEnqueue, EnqueueNode([tasks[i][0], tasks[i][1], i]))
+
+        order = []
+        timestamp = 0 # the next CPU idle time
+        while pqEnqueue or pqProcess:
+            while pqEnqueue and pqEnqueue[0].task[0] <= timestamp:
+                heappush(pqProcess, ProcessNode(heappop(pqEnqueue).task))
+
+            cur = []
+            if pqProcess:
+                cur = heappop(pqProcess).task
+            elif pqEnqueue:
+                cur = heappop(pqEnqueue).task
+            else:
+                break
+
             order.append(cur[2])
-            time = max(time, cur[0]) + cur[1]
+            timestamp = max(timestamp, cur[0]) + cur[1]
 
-            while !tasks.isEmpty, tasks.first![0] <= time {
-                insert(tasks.removeFirst(), &available)
-            }
-            // print(time)
-        }
         return order
-    }
 
-    // insert task into available by processingTime, then index
-    func insert(_ task: [Int], _ available: inout [[Int]]) {
-        // defer{
-        //     print("added", task, available)
-        // }
-        if available.isEmpty {
-            available.append(task)
-            return
-        }
+# custome heapify -able node
+class ProcessNode(object):
+    def __init__(self, task: List[int]):
+        # enqueueTime, processTime, index
+        self.task = task
 
-        var left = 0
-        var right = available.count-1
-        while left < right {
-            let mid = left + (right-left)/2
-            if available[mid][1] < task[1]
-            || (available[mid][1] == task[1] && available[mid][2] < task[2]) {
-                // first by processingTime, then by index
-                left = mid + 1
-            } else {
-                right = mid
-            }
-        }
+    # override __lt__, heapify use this function as comparator
+    def __lt__(self, other):
+        if self.task[1] == other.task[1]:
+            return self.task[2] < other.task[2]
+        else:
+            return self.task[1] < other.task[1]
 
-        if available[left][1] < task[1]
-        || (available[left][1] == task[1] && available[left][2] < task[2]) {
-            available.insert(task, at: left+1)
-        } else {
-            available.insert(task, at: left)
-        }
-    }
-}
+class EnqueueNode(object):
+    def __init__(self, task: List[int]):
+        # enqueueTime, processTime, index
+        self.task = task
+
+    def __lt__(self, other):
+        if self.task[0] == other.task[0]:
+            return self.task[1] < other.task[1]
+        else:
+            return self.task[0] < other.task[0]

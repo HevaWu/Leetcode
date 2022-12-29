@@ -104,6 +104,9 @@ q.offer(ele); // add element to queue
 q.poll(); //返回第一个元素，并在队列中删除
 q.peek(); //返回第一个元素
 Queue<Integer> queue = new PriorityQueue(Collections.reverseOrder()); // priorityQueue, heap
+PriorityQueue<int[]> pq = new PriorityQueue((a1, a2) -> {
+    // comparator
+});
 
 // ======= Stack =======　
 Stack<Integer> stack = new Stack<>();
