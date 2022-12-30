@@ -50,30 +50,31 @@ Time Complexity: O(n!)
 Space Complexity: O(n)
 */
 class Solution {
-    func allPathsSourceTarget(_ graph: [[Int]]) -> [[Int]] {
-        var paths = [[Int]]()
-        let n = graph.count
-        var visited = Array(repeating: false, count: n)
-        var cur = [0]
-        check(0, n, graph, &cur, &visited, &paths)
-        return paths
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> paths = new ArrayList<>();
+        int n = graph.length;
+        boolean[] visited = new boolean[n];
+        List<Integer> cur = new ArrayList<>();
+        cur.add(0);
+        check(0, n, graph, cur, visited, paths);
+        return paths;
     }
 
     // update paths, to find paths from index to n-1
-    func check(_ index: Int, _ n: Int, _ graph: [[Int]], _ cur: inout [Int],
-    _ visited: inout [Bool], _ paths: inout [[Int]]) {
-        guard index < n else { return }
-        if index == n-1 {
-            paths.append(cur)
-            return
+    void check(int index, int n, int[][] graph,
+    List<Integer> cur, boolean[] visited,
+    List<List<Integer>> paths) {
+        if (index == n-1) {
+            paths.add(new ArrayList<>(cur));
+            return;
         }
-        for next in graph[index] {
-            if !visited[next] {
-                visited[next] = true
-                cur.append(next)
-                check(next, n, graph, &cur, &visited, &paths)
-                cur.removeLast()
-                visited[next] = false
+        for (int next : graph[index]) {
+            if (!visited[next]) {
+                visited[next] = true;
+                cur.add(next);
+                check(next, n, graph, cur, visited, paths);
+                cur.remove(cur.size()-1);
+                visited[next] = false;
             }
         }
     }

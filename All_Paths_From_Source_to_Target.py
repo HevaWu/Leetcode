@@ -1,4 +1,4 @@
-/*
+'''
 Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1, find all possible paths from node 0 to node n - 1, and return them in any order.
 
 The graph is given as follows: graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).
@@ -37,9 +37,9 @@ n == graph.length
 0 <= graph[i][j] < n
 graph[i][j] != i (i.e., there will be no self-loops).
 The input graph is guaranteed to be a DAG.
-*/
+'''
 
-/*
+'''
 Solution 1:
 backTrack
 
@@ -48,33 +48,27 @@ Because this is a acyclic graph, so we don't need to worry about cycle
 
 Time Complexity: O(n!)
 Space Complexity: O(n)
-*/
-class Solution {
-    func allPathsSourceTarget(_ graph: [[Int]]) -> [[Int]] {
-        var paths = [[Int]]()
-        let n = graph.count
-        var visited = Array(repeating: false, count: n)
-        var cur = [0]
-        check(0, n, graph, &cur, &visited, &paths)
-        return paths
-    }
+'''
+class Solution:
+    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        paths = []
+        n = len(graph)
+        visited = [False for _ in range(n)]
+        cur = [0]
+        visited[0] = True
 
-    // update paths, to find paths from index to n-1
-    func check(_ index: Int, _ n: Int, _ graph: [[Int]], _ cur: inout [Int],
-    _ visited: inout [Bool], _ paths: inout [[Int]]) {
-        guard index < n else { return }
-        if index == n-1 {
-            paths.append(cur)
-            return
-        }
-        for next in graph[index] {
-            if !visited[next] {
-                visited[next] = true
-                cur.append(next)
-                check(next, n, graph, &cur, &visited, &paths)
-                cur.removeLast()
-                visited[next] = false
-            }
-        }
-    }
-}
+        def check(index: int):
+            nonlocal n, paths, visited, cur, graph
+            if index == n-1:
+                paths.append(cur.copy())
+                return
+            for next in graph[index]:
+                if visited[next] == False:
+                    visited[next] = True
+                    cur.append(next)
+                    check(next)
+                    cur.pop(-1)
+                    visited[next] = False
+
+        check(0)
+        return paths
