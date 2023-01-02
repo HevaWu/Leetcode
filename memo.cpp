@@ -28,6 +28,7 @@ size_t pos;
 // char
 islower(c1);  // check if character is lowercase
 tolower(c1);  // convert to lower char
+isupper(c1);  // check if character is upppercase
 
 // array
 

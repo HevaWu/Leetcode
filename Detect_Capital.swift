@@ -25,7 +25,7 @@ word consists of lowercase and uppercase English letters.
 */
 
 /*
-Solution 1:
+Solution 2:
 check all of uppercase count in the string
 
 Time Complexity: O(n)
@@ -50,5 +50,23 @@ class Solution {
             return true
         }
         return false
+    }
+}
+
+/*
+Solution 1:
+use swift lowercased function
+
+Time Complexity: O(n)
+Space Complexity: O(n)
+*/
+class Solution {
+    func detectCapitalUse(_ word: String) -> Bool {
+        if word.count == 1 { return true }
+        // check if only first letter in the word is capital
+        let lower = word.lowercased()
+        let onlyFirstArr = Array(lower)
+        let onlyFirstStr = String(onlyFirstArr[0]).uppercased() + String(onlyFirstArr[1...]).lowercased()
+        return onlyFirstStr == word || lower == word || word.uppercased() == word
     }
 }
