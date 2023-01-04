@@ -91,7 +91,8 @@ set.max() // return max element int the set
 // ===== Dictionary =====
 var dic1: [Int: Int] = [:]
 dic1[1, default: 0] += 1 // default value
-dict1.sorted(by: {$0.0 < $1.0}) // sort the dictionay
+dict1.sorted(by: {$0.0 < $1.0}) // sort the dictionary
+dict1.values // return all values in current dictionary
 
 // ===== zip sequence =====
 var str1 = "abcwer"
