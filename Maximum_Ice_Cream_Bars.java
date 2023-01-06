@@ -45,15 +45,15 @@ Time Complexity: O(nlogn)
 Space Complexity: O(n)
 */
 class Solution {
-    func maxIceCream(_ costs: [Int], _ coins: Int) -> Int {
-        var costs = costs.sorted()
-        var i = 0
-        var coins = coins
-        while i < costs.count {
-            coins -= costs[i]
-            if coins < 0 { break }
-            i += 1
+    public int maxIceCream(int[] costs, int coins) {
+        Arrays.sort(costs);
+        int buy = 0;
+        for(int i = 0; i < costs.length; i++) {
+            if (coins >= costs[i]) {
+                coins -= costs[i];
+                buy += 1;
+            }
         }
-        return i
+        return buy;
     }
 }

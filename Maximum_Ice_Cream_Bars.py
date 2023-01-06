@@ -1,4 +1,4 @@
-/*
+'''
 It is a sweltering summer day, and a boy wants to buy some ice cream bars.
 
 At the store, there are n ice cream bars. You are given an array costs of length n, where costs[i] is the price of the ith ice cream bar in coins. The boy initially has coins coins to spend, and he wants to buy as many ice cream bars as possible.
@@ -33,9 +33,9 @@ costs.length == n
 1 <= costs[i] <= 105
 1 <= coins <= 108
 
-*/
+'''
 
-/*
+'''
 Solution 1:
 For hold maximum ice creams,
 sort them first,
@@ -43,17 +43,13 @@ then with updating coins, can track how to buy it
 
 Time Complexity: O(nlogn)
 Space Complexity: O(n)
-*/
-class Solution {
-    func maxIceCream(_ costs: [Int], _ coins: Int) -> Int {
-        var costs = costs.sorted()
-        var i = 0
-        var coins = coins
-        while i < costs.count {
-            coins -= costs[i]
-            if coins < 0 { break }
-            i += 1
-        }
-        return i
-    }
-}
+'''
+class Solution:
+    def maxIceCream(self, costs: List[int], coins: int) -> int:
+        costs.sort()
+        buy = 0
+        for i in range(len(costs)):
+            if coins >= costs[i]:
+                coins -= costs[i]
+                buy += 1
+        return buy
