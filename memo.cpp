@@ -135,6 +135,13 @@ pop_heap(v.begin(), v.end());
 auto top = v.back();  // 40
 v.pop_back();         // 30 20 25 15
 
+// queue
+// https://en.cppreference.com/w/cpp/container/queue
+queue<TreeNode*> pQueue;
+pQueue.push(p);                 // push into queue
+pQueue.empty();                 // check if empty
+TreeNode& curP = pQueue.front;  // return front element
+
 // priority queue
 std::priority_queue<int> q1;  // Max priority queue
 for (int n : data) q1.push(n);
