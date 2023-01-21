@@ -14,21 +14,10 @@ Hide Tags Backtracking String
 */
 
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-
-
-
-
 /*DFS
 check from the start of the string, once it satisfy the IP rules, keep find the next point
 if not, return
 check until the last character*/
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
 public class Solution {
     public List<String> restoreIpAddresses(String s) {
         List<String> ret = new LinkedList<>();
