@@ -50,7 +50,7 @@ class Solution:
                         dp[i+1].append([sub])
                         continue
                     for pre in dp[l]:
-                        temp = pre
+                        temp = pre.copy() # copy to avoid reference miss
                         temp.append(sub)
                         dp[i+1].append(temp)
 
