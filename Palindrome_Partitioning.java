@@ -44,10 +44,6 @@ ret[i] store from the begining until current index i, all possible partitions
 use a pair to check if the substring is a pal, if pair[i][j] is true,
 means the substring from i to j is pal, which means i to j is palindrome.
  */
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
-//Solution 1
 public class Solution {
     private List<List<String>> retList = new ArrayList<List<String>>();
     private List<String> curList = new ArrayList<String>();
