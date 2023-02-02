@@ -31,6 +31,68 @@ All characters in words[i] and order are English lowercase letters.
 */
 
 /*
+Solution 3:
+optimize solution 2
+use function to help checking if two string is in order
+
+Time Complexity: O(mn)
+- n is words.count
+- m is words[i].count
+Space Complexity: O(1)
+*/
+class Solution {
+    let a = Character("a").asciiValue!
+
+    func isAlienSorted(_ words: [String], _ order: String) -> Bool {
+        var charIndex = Array(repeating: 0, count: 26)
+        var i = 0
+        for c in order {
+            charIndex[Int(c.asciiValue! - a)] = i
+            i += 1
+        }
+
+        let n = words.count
+        if n == 1 { return true }
+
+        for i in 0..<(n-1) {
+            let cur = Array(words[i])
+            let next = Array(words[i+1])
+
+            // check if cur <= next
+            if !isInOrder(cur, next, charIndex) {
+                return false
+            }
+        }
+        return true
+    }
+
+    func isInOrder(_ cur: [Character], _ next: [Character], _ charIndex: [Int]) -> Bool {
+        var i1 = 0
+        var i2 = 0
+        var n1 = cur.count
+        var n2 = next.count
+        while i1 < n1, i2 < n2 {
+            let c1 = Int(cur[i1].asciiValue! - a)
+            let c2 = Int(next[i2].asciiValue! - a)
+            if c1 != c2 {
+                if charIndex[c1] > charIndex[c2] {
+                    return false
+                } else if charIndex[c1] < charIndex[c2] {
+                    return true
+                }
+            }
+            i1 += 1
+            i2 += 1
+        }
+        if i2 == n2, i1 < n1 {
+            // ex: world, worl
+            return false
+        }
+        return true
+    }
+}
+
+/*
 Solution 2:
 compare adjacency 2 string in words would be enough
 
