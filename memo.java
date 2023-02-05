@@ -59,6 +59,7 @@ int[] dir = new int[] {0, 1, 0, -1, 0}; // array initialization
 Arrays.sort(arr); // sort array
 Arrays.fill(arr, 1); // fill array
 Arrays.copyOf(arr, newSize); // return a copy of arr
+Arrays.equals(freqS, freqP); // check if two array elements are same or not
 int[] arr = new int[3];
 arr.length; // return arr's size
 arr.isEmpty(); // check arr is empty or not
