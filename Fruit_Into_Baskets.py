@@ -1,4 +1,4 @@
-/*
+'''
 In a row of trees, the i-th tree produces fruit with type tree[i].
 
 You start at any tree of your choice, then repeatedly perform the following steps:
@@ -42,9 +42,9 @@ Note:
 
 1 <= tree.length <= 40000
 0 <= tree[i] < tree.length
-*/
+'''
 
-/*
+'''
 Solution 1: Sliding window
 As in Approach 1, we want the longest subarray with at most two different "types" (values of tree[i]). Call these subarrays valid.
 Say we consider all valid subarrays that end at index j. There must be one with the smallest possible starting index i: lets say opt(j) = i.
@@ -55,43 +55,37 @@ We'll maintain count, the count of all the elements in the subarray. This allows
 
 Time complexity: O(n)
 Space complexity: O(1)
-*/
-class Solution {
-    func totalFruit(_ tree: [Int]) -> Int {
-        guard !tree.isEmpty else { return 0 }
+'''
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        n = len(fruits)
 
-        var total = 0
-        var first = -1
-        var second = -1
-        var temp = 0
-        var lastSwitch = 0
+        total = 0
+        first = -1
+        second = -1
+        temp = 0
+        lastSwitch = 0
 
-        for i in 0..<tree.count {
-            if tree[i] == first || tree[i] == second {
-                if i > 0, tree[i-1] != tree[i] {
+        for i in range(n):
+            if fruits[i] == first or fruits[i] == second:
+                if i > 0 and fruits[i-1] != fruits[i]:
                     lastSwitch = i
-                }
                 continue
-            }
 
-            if first == -1 {
-                first = tree[i]
+            if first == -1:
+                first = fruits[i]
                 lastSwitch = i
                 continue
-            }
 
-            if second == -1 {
-                second = tree[i]
+            if second == -1:
+                second = fruits[i]
                 lastSwitch = i
                 continue
-            }
 
             total = max(total, i - temp)
-            first = tree[i-1]
-            second = tree[i]
+            first = fruits[i-1]
+            second = fruits[i]
             temp = lastSwitch
             lastSwitch = i
-        }
-        return max(total, tree.count - temp)
-    }
-}
+
+        return max(total, n - temp)

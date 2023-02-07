@@ -57,41 +57,41 @@ Time complexity: O(n)
 Space complexity: O(1)
 */
 class Solution {
-    func totalFruit(_ tree: [Int]) -> Int {
-        guard !tree.isEmpty else { return 0 }
+    public int totalFruit(int[] fruits) {
+        int n = fruits.length;
 
-        var total = 0
-        var first = -1
-        var second = -1
-        var temp = 0
-        var lastSwitch = 0
+        int total = 0;
+        int first = -1;
+        int second = -1;
+        int temp = 0;
+        int lastSwitch = 0;
 
-        for i in 0..<tree.count {
-            if tree[i] == first || tree[i] == second {
-                if i > 0, tree[i-1] != tree[i] {
-                    lastSwitch = i
+        for (int i = 0; i < n; i++) {
+            if (fruits[i] == first || fruits[i] == second) {
+                if (i > 0 && fruits[i-1] != fruits[i]) {
+                    lastSwitch = i;
                 }
-                continue
+                continue;
             }
 
-            if first == -1 {
-                first = tree[i]
-                lastSwitch = i
-                continue
+            if (first == -1) {
+                first = fruits[i];
+                lastSwitch = i;
+                continue;
             }
 
-            if second == -1 {
-                second = tree[i]
-                lastSwitch = i
-                continue
+            if (second == -1) {
+                second = fruits[i];
+                lastSwitch = i;
+                continue;
             }
 
-            total = max(total, i - temp)
-            first = tree[i-1]
-            second = tree[i]
-            temp = lastSwitch
-            lastSwitch = i
+            total = Math.max(total, i - temp);
+            first = fruits[i-1];
+            second = fruits[i];
+            temp = lastSwitch;
+            lastSwitch = i;
         }
-        return max(total, tree.count - temp)
+        return Math.max(total, n - temp);
     }
 }
