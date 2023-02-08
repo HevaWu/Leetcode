@@ -20,15 +20,6 @@ You can assume that you can always reach the last index.
 Hide Tags Array Greedy
 */
 
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-
-
-
-
 /*greedy
 O(n) time
 the range of the current jump is [curBegin, curEnd]
@@ -36,9 +27,6 @@ curFarthest is the farthest point that all points in [curBegin, curEnd] can reac
 once the currend point reaches curEnd, trigger another jump, and set the new curEnd
 keep do this
 */
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
 public class Solution {
     public int jump(int[] nums) {
         int curBegin = 0;

@@ -44,6 +44,7 @@ class Solution {
         var farthest = 0
         var curJump = 0
 
+        // NOTE: n-1 here to not count n-1 jump into final
         for i in 0..<n-1 {
             farthest = max(farthest, i+nums[i])
             if curJump == i {
