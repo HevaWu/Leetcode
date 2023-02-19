@@ -44,19 +44,19 @@ class Solution {
         _zigzag(root, 0, &res)
         return res
     }
-    
+
     func _zigzag(_ node: TreeNode?, _ level: Int, _ res: inout [[Int]]) {
         guard let node = node else { return }
         if res.count == level {
             res.append([Int]())
         }
-        
+
         if level % 2 == 0 {
-            res[level].append(node.val)   
+            res[level].append(node.val)
         } else {
             res[level].insert(node.val, at: 0)
         }
-        
+
         _zigzag(node.left, level+1, &res)
         _zigzag(node.right, level+1, &res)
     }
