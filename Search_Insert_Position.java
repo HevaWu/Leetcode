@@ -19,7 +19,13 @@ Hide Tags Array Binary Search
 Hide Similar Problems (E) First Bad Version
 */
 
+/*
+Solution 1:
+binary search
 
+Time Complexity: O(logn)
+Space Complexity: O(1)
+*/
 class Solution {
     public int searchInsert(int[] nums, int target) {
         int left = 0;

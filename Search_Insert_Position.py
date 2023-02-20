@@ -1,4 +1,4 @@
-/*
+'''
 Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
 
 You must write an algorithm with O(log n) runtime complexity.
@@ -34,30 +34,24 @@ Constraints:
 nums contains distinct values sorted in ascending order.
 -104 <= target <= 104
 
-*/
+'''
 
-/*
+'''
 Solution 1:
 binary search
 
 Time Complexity: O(logn)
 Space Complexity: O(1)
-*/
-class Solution {
-    func searchInsert(_ nums: [Int], _ target: Int) -> Int {
-        var left = 0
-        var right = nums.count-1
-
-        while left < right {
-            let mid = left + (right - left)/2
-            if nums[mid] == target {
-                return mid
-            } else if nums[mid] < target {
-                left = mid+1
-            } else {
-                right = mid
-            }
-        }
-        return nums[left] < target ? left+1 : left
-    }
-}
+'''
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l = 0
+        r = len(nums)-1
+        while l < r:
+            mid = l + (r-l)//2
+            if nums[mid] == target: return mid
+            if nums[mid] < target:
+                l = mid+1
+            else:
+                r = mid
+        return l+1 if nums[l] < target else l
