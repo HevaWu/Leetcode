@@ -1,4 +1,4 @@
-/*
+'''
 A conveyor belt has packages that must be shipped from one port to another within D days.
 
 The i-th package on the conveyor belt has a weight of weights[i].  Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship.
@@ -44,9 +44,9 @@ Note:
 
 1 <= D <= weights.length <= 50000
 1 <= weights[i] <= 500
-*/
+'''
 
-/*
+'''
 Solution 1: binary search
 Given the number of bags,
 return the minimum capacity of each bag,
@@ -57,39 +57,34 @@ The right bound is sum(A).
 
 Time complexity: O(n + n* log(right-left))
 Space complexity: O(1)
-*/
-class Solution {
-    func shipWithinDays(_ weights: [Int], _ D: Int) -> Int {
-        var left = 0    // maxWeight
-        var right = 0   // sum
-        for weight in weights {
+'''
+class Solution:
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        left = 0    # maxWeight
+        right = 0   # sum
+        for weight in weights:
             right += weight
             left = max(left, weight)
-        }
 
-        while left < right {
-            var mid = (left+right)/2
+        while left < right:
+            mid = (left+right)//2
 
-            // init day to 1 for get the least weight capacity
-            var day = 1
-            var cur = 0
-            for weight in weights {
-                if cur + weight > mid {
+            # init day to 1 for get the least weight capacity
+            day = 1
+            cur = 0
+            for weight in weights:
+                if cur + weight > mid:
                     day += 1
                     cur = weight
 
-                    if day > D { break }
-                } else {
+                    if day > days:
+                        break
+                else:
                     cur += weight
-                }
-            }
 
-            if day > D {
+            if day > days:
                 left = mid + 1
-            } else {
+            else:
                 right = mid
-            }
-        }
+
         return left
-    }
-}

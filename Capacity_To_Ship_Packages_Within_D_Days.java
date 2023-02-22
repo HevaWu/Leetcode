@@ -1,3 +1,6 @@
+public class Capacity_To_Ship_Packages_Within_D_Days {
+
+}
 /*
 A conveyor belt has packages that must be shipped from one port to another within D days.
 
@@ -59,37 +62,37 @@ Time complexity: O(n + n* log(right-left))
 Space complexity: O(1)
 */
 class Solution {
-    func shipWithinDays(_ weights: [Int], _ D: Int) -> Int {
-        var left = 0    // maxWeight
-        var right = 0   // sum
-        for weight in weights {
-            right += weight
-            left = max(left, weight)
+    public int shipWithinDays(int[] weights, int days) {
+        int left = 0;    // maxWeight
+        int right = 0;   // sum
+        for (int weight : weights) {
+            right += weight;
+            left = Math.max(left, weight);
         }
 
-        while left < right {
-            var mid = (left+right)/2
+        while (left < right) {
+            int mid = (left+right)/2;
 
             // init day to 1 for get the least weight capacity
-            var day = 1
-            var cur = 0
-            for weight in weights {
-                if cur + weight > mid {
-                    day += 1
-                    cur = weight
+            int day = 1;
+            int cur = 0;
+            for (int weight : weights) {
+                if (cur + weight > mid) {
+                    day += 1;
+                    cur = weight;
 
-                    if day > D { break }
+                    if (day > days) { break; }
                 } else {
-                    cur += weight
+                    cur += weight;
                 }
             }
 
-            if day > D {
-                left = mid + 1
+            if (day > days) {
+                left = mid + 1;
             } else {
-                right = mid
+                right = mid;
             }
         }
-        return left
+        return left;
     }
 }
