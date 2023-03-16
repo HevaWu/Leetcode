@@ -47,7 +47,7 @@ class Solution {
     func buildTree(_ inorder: [Int], _ postorder: [Int]) -> TreeNode? {
         var indexIn = inorder.count - 1
         var indexPost = postorder.count - 1
-        
+
         func _build(_ node: TreeNode?) -> TreeNode? {
             if indexPost < 0 { return nil }
 
@@ -63,9 +63,9 @@ class Solution {
                 newNode.left = _build(node)
             }
 
-            return newNode 
+            return newNode
         }
-        
+
         return _build(nil)
     }
 }
