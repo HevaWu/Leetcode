@@ -104,6 +104,7 @@ def compare(p1, p2) -> bool:
     return p1[1] - p2[1]
 points = sorted(points, key=cmp_to_key(compare))
 points.sort(key = lambda x : x[1])
+satisfaction.sort(key = cmp_to_key(lambda s1, s2 : s2-s1))
 
 # map list element's names
 list(map(lambda x: x[0], weaker))
