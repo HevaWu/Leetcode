@@ -5,7 +5,7 @@ Each boat carries at most 2 people at the same time, provided the sum of the wei
 
 Return the minimum number of boats to carry every given person.  (It is guaranteed each person can be carried by a boat.)
 
- 
+
 
 Example 1:
 
@@ -29,7 +29,7 @@ Note:
 */
 
 /*
-Solution 1:
+Solution 2:
 2 pointer
 
 each boat will only be able to seat 2 people
@@ -43,11 +43,11 @@ Space Complexity: O(n)
 class Solution {
     func numRescueBoats(_ people: [Int], _ limit: Int) -> Int {
         var people = people.sorted(by: >)
-        
+
         let n = people.count
         var right = n-1
         var left = 0
-        
+
         while left <= right {
             if people[left] + people[right] <= limit {
                 right -= 1
@@ -55,5 +55,47 @@ class Solution {
             left += 1
         }
         return left
+    }
+}
+
+/*
+Solution 1:
+binary search
+
+Time Complexity: O(nlogn)
+Space Complexity: O(n)
+*/
+class Solution {
+    func numRescueBoats(_ people: [Int], _ limit: Int) -> Int {
+        var people = people.sorted()
+        var boat = 0
+        while people.count > 0 {
+            boat += 1
+            let cur = people.removeLast()
+            removePairOf(limit-cur, from: &people)
+        }
+        return boat
+    }
+
+    // remove larget number that num <= target from people
+    func removePairOf(_ target: Int, from people: inout [Int]) {
+        let n = people.count
+        if n == 0 || people[0] > target {
+            return
+        }
+        var l = 0
+        var r = n-1
+        while l < r {
+            let mid = l + (r-l)/2
+            if people[mid] <= target {
+                l = mid + 1
+            } else {
+                r = mid
+            }
+        }
+        let index = people[l] <= target ? l : l-1
+        if index >= 0, index < n {
+            people.remove(at: index)
+        }
     }
 }
