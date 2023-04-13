@@ -1,4 +1,4 @@
-/*
+'''
 Given two sequences pushed and popped with distinct values, return true if and only if this could have been the result of a sequence of push and pop operations on an initially empty stack.
 
 
@@ -23,33 +23,23 @@ Note:
 0 <= pushed[i], popped[i] < 1000
 pushed is a permutation of popped.
 pushed and popped have distinct values.
-*/
+'''
 
-/*
+'''
 Solution 1: simulate stack
 
 Time complexity: O(2n)
 Space complexity: O(n)
-*/
-class Solution {
-    func validateStackSequences(_ pushed: [Int], _ popped: [Int]) -> Bool {
-        guard !pushed.isEmpty, !popped.isEmpty else { return true }
-        var stack = [Int]()
-
-        var popIndex = 0
-        var pushIndex = 0
-        while popIndex < popped.count {
-            if let last = stack.last, last == popped[popIndex] {
-                pop this element in stack
-                stack.removeLast()
-                popIndex += 1
-            } else {
-                guard pushIndex < pushed.count else { break }
-                push this element in stack
-                stack.append(pushed[pushIndex])
-                pushIndex += 1
-            }
-        }
-        return true
-    }
-}
+'''
+class Solution:
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        stack = []
+        ipop = 0
+        npush = len(pushed)
+        npop = len(popped)
+        for ipush in range(npush):
+            stack.append(pushed[ipush])
+            while stack and ipop < npop and stack[-1] == popped[ipop]:
+                stack.pop(-1)
+                ipop += 1
+        return len(stack) == 0

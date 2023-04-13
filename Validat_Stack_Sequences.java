@@ -1,3 +1,4 @@
+
 /*
 Given two sequences pushed and popped with distinct values, return true if and only if this could have been the result of a sequence of push and pop operations on an initially empty stack.
 
@@ -32,24 +33,18 @@ Time complexity: O(2n)
 Space complexity: O(n)
 */
 class Solution {
-    func validateStackSequences(_ pushed: [Int], _ popped: [Int]) -> Bool {
-        guard !pushed.isEmpty, !popped.isEmpty else { return true }
-        var stack = [Int]()
-
-        var popIndex = 0
-        var pushIndex = 0
-        while popIndex < popped.count {
-            if let last = stack.last, last == popped[popIndex] {
-                pop this element in stack
-                stack.removeLast()
-                popIndex += 1
-            } else {
-                guard pushIndex < pushed.count else { break }
-                push this element in stack
-                stack.append(pushed[pushIndex])
-                pushIndex += 1
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        Stack<Integer> s = new Stack<>();
+        int ipop = 0;
+        int npush = pushed.length;
+        int npop = popped.length;
+        for(int ipush = 0; ipush < npush; ipush++) {
+            s.push(pushed[ipush]);
+            while (!s.empty() && ipop < npop && s.peek() == popped[ipop]) {
+                s.pop();
+                ipop += 1;
             }
         }
-        return true
+        return s.empty();
     }
 }
