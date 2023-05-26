@@ -30,6 +30,50 @@ Constraints:
 */
 
 /*
+Solution 2:
+DP
+use left over sum to calculate maximum stones that current user can get
+
+Time Complexity: O(n * M)
+Space Complexity: O(nM)
+*/
+class Solution {
+    func stoneGameII(_ piles: [Int]) -> Int {
+        let n = piles.count
+        // sumRight[i] is sum of piles[i...]
+        var sumRight = Array(repeating: 0, count: n)
+        sumRight[n-1] = piles[n-1]
+        for i in stride(from: n-2, through: 0, by: -1) {
+            sumRight[i] = sumRight[i+1] + piles[i]
+        }
+        // print(sumRight)
+        var cache = Array(
+            repeating: Array(repeating: -1, count: n/2+2),
+            count: n
+        )
+        return check(0, n, 1, sumRight, &cache)
+    }
+
+    // return max stones can be take
+    func check(_ index: Int, _ n: Int, _ M: Int, _ sumRight: [Int], _ cache: inout [[Int]]) -> Int {
+        guard index < n else { return 0 }
+        if (cache[index][M] != -1) { return cache[index][M] }
+        let largest = index+2*M-1
+        if (largest >= n-1) {
+            // current user can take all of remaining
+            cache[index][M] = sumRight[index]
+            return cache[index][M]
+        }
+        var nextTake = 1_000_001
+        for X in 1...2*M {
+            nextTake = min(nextTake, check(index+X, n, max(M, X), sumRight, &cache))
+        }
+        cache[index][M] = sumRight[index]-nextTake
+        return cache[index][M]
+    }
+}
+
+/*
 Solution 1:
 memorize backtracking DP + DFS
 
