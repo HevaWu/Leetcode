@@ -32,6 +32,55 @@ isConnected[i][j] == isConnected[j][i]
 */
 
 /*
+Solution 2:
+BFS
+
+for each city, bfs find all connected cities as visited
+
+Time Complexity: O(n^2)
+Space Complexity: O(n)
+*/
+class Solution {
+    func findCircleNum(_ isConnected: [[Int]]) -> Int {
+        let n = isConnected.count
+
+        var visited = Array(repeating: false, count: n)
+
+        var provinces = 0
+        for i in 0..<n {
+            // start from i, include itself counting
+            for j in i..<n {
+                if isConnected[i][j] == 1, !visited[i] {
+                    provinces += 1
+                    visited[i] = true
+                    check(i, j, isConnected, &visited, n)
+                }
+            }
+        }
+        return provinces
+    }
+
+    func check(_ i: Int, _ j: Int,
+               _ isConnected: [[Int]], _ visited: inout [Bool],
+               _ n: Int) {
+        // bfs find mark all connected cities as visited
+        var queue: [Int] = [i]
+        while !queue.isEmpty {
+            let cur = queue.removeFirst()
+
+            // need to check all cities here
+            // there might be case that, 1 -> 3 -> 2, but 1->2 is 0
+            for city in 0..<n {
+                if isConnected[cur][city] == 1, !visited[city] {
+                    visited[city] = true
+                    queue.append(city)
+                }
+            }
+        }
+    }
+}
+
+/*
 Solution 1:
 UF
 
