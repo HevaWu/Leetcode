@@ -50,21 +50,21 @@ Time Complexity: O(logn)
 Space Complexity: O(1)
 */
 class Solution {
-    func nextGreatestLetter(_ letters: [Character], _ target: Character) -> Character {
-        if target < letters[0] || target >= letters.last! {
-            return letters[0]
+    public char nextGreatestLetter(char[] letters, char target) {
+        if (target < letters[0] || target >= letters[letters.length-1]) {
+            return letters[0];
         }
 
-        var left = 0
-        var right = letters.count-1
-        while left < right {
-            let mid = left + (right-left)/2
-            if letters[mid] > target {
-                right = mid
+        int left = 0;
+        int right = letters.length-1;
+        while (left < right) {
+            int mid = left + (right-left)/2;
+            if (letters[mid] > target) {
+                right = mid;
             } else {
-                left = mid + 1
+                left = mid + 1;
             }
         }
-        return letters[left]
+        return letters[left];
     }
 }

@@ -1,4 +1,4 @@
-/*
+'''
 Given a list of sorted characters letters containing only lowercase letters, and given a target letter target, find the smallest element in the list that is larger than the given target.
 
 Letters also wrap around. For example, if the target is target = 'z' and letters = ['a', 'b'], the answer is 'a'.
@@ -40,31 +40,27 @@ target is a lowercase letter.
 
 Hint 1:
 Try to find whether each of 26 next letters are in the given string array.
-*/
+'''
 
-/*
+'''
 Solution 1:
 Binary Search
 
 Time Complexity: O(logn)
 Space Complexity: O(1)
-*/
-class Solution {
-    func nextGreatestLetter(_ letters: [Character], _ target: Character) -> Character {
-        if target < letters[0] || target >= letters.last! {
+'''
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        if target < letters[0] or target >= letters[-1]:
             return letters[0]
-        }
 
-        var left = 0
-        var right = letters.count-1
-        while left < right {
-            let mid = left + (right-left)/2
-            if letters[mid] > target {
+        left = 0
+        right = len(letters)-1
+        while left < right:
+            mid = left + (right-left)//2
+            if letters[mid] > target:
                 right = mid
-            } else {
+            else:
                 left = mid + 1
-            }
-        }
+
         return letters[left]
-    }
-}
