@@ -40,16 +40,15 @@ Time Complexity: O(n)
 Space Complexity: O(1)
 */
 class Solution {
-    func maxProfit(_ prices: [Int], _ fee: Int) -> Int {
-        let n = prices.count
-
-        var cash = 0
-        var hold = -prices[0]
-
-        for i in 1..<n {
-            cash = max(cash, hold+prices[i]-fee)
-            hold = max(hold, cash-prices[i])
+public:
+    int maxProfit(vector<int>& prices, int fee) {
+        int n = prices.size();
+        int cash = 0;
+        int hold = -prices[0];
+        for (int i = 1; i < n; i++) {
+            cash = max(cash, hold+prices[i]-fee);
+            hold = max(hold, cash-prices[i]);
         }
-        return cash
+        return cash;
     }
-}
+};

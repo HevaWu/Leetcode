@@ -1,4 +1,4 @@
-/*
+'''
 You are given an array prices where prices[i] is the price of a given stock on the ith day, and an integer fee representing a transaction fee.
 
 Find the maximum profit you can achieve. You may complete as many transactions as you like, but you need to pay the transaction fee for each transaction.
@@ -27,9 +27,9 @@ Constraints:
 
 1 < prices.length <= 5 * 104
 0 < prices[i], fee < 5 * 104
-*/
+'''
 
-/*
+'''
 Solution 1:
 DP
 
@@ -38,18 +38,16 @@ DP
 
 Time Complexity: O(n)
 Space Complexity: O(1)
-*/
-class Solution {
-    func maxProfit(_ prices: [Int], _ fee: Int) -> Int {
-        let n = prices.count
+'''
+class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        n = len(prices)
 
-        var cash = 0
-        var hold = -prices[0]
+        cash = 0
+        hold = -prices[0]
 
-        for i in 1..<n {
+        for i in range(1, n):
             cash = max(cash, hold+prices[i]-fee)
             hold = max(hold, cash-prices[i])
-        }
+
         return cash
-    }
-}
