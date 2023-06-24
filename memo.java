@@ -146,6 +146,7 @@ Collections.sort(list, (m1, m2) -> { // sort map by value
     ? m1.getKey().compareTo(m2.getKey())
     : m2.getValue().compareTo(m1.getValue());
 });
+Map<Integer, Integer> tmp = new HashMap<>(dp); // deep copy from another map
 
 // ======= Math =======
 Math.abs(-3); // get absolute value of one element
