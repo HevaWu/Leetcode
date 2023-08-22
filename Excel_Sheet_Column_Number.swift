@@ -9,7 +9,7 @@ For example:
     ...
     Z -> 26
     AA -> 27
-    AB -> 28 
+    AB -> 28
     ...
 Example 1:
 
@@ -25,7 +25,7 @@ Example 3:
 26^1 * 26 + 26^0 * 25
 Input: "ZY"
 Output: 701
- 
+
 
 Constraints:
 
@@ -47,7 +47,7 @@ class Solution {
     func titleToNumber(_ s: String) -> Int {
         var s = Array(s)
         let n = s.count
-        
+
         var res: Double = 0
         let asciiA = Character("A").asciiValue!
         for i in 0..<n {
