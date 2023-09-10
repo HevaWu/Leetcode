@@ -87,6 +87,9 @@ for (unordered_map<string, vector<string>>::iterator it = anagram.begin();
   group.push_back(it->second);
 }
 freq.erase(key);  // remove a key in map
+vector<pair<char, int>> elems(map.begin(), map.end()); // convert map to pair for sort
+sort(elems.begin(), elems.end(), [](pair<char, int> p1, pair<char, int> p2) { return p1.second > p2.second; }); // sort pair
+
 
 // pair
 

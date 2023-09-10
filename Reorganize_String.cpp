@@ -31,37 +31,36 @@ Time Complexity: O(\mathcal{A}(N + \log{\mathcal{A}}))O(A(N+logA)), where NN is 
 Space Complexity: O(N)O(N). In Java, our implementation is O(N + \mathcal{A})O(N+A).
 */
 class Solution {
-    func reorganizeString(_ S: String) -> String {
-        guard !S.isEmpty else { return String() }
-        let n = S.count
-        var map = [Character: Int]()
-        for c in S {
-            map[c, default: 0] += 100
+public:
+    string reorganizeString(string s) {
+        int n = s.size();
+        if (n==0) { return ""; }
+
+        unordered_map<char, int> map;
+        for(char c : s) {
+            map[c] += 1;
         }
-        
-        let asciia = Character("a").asciiValue!
-        for key in map.keys {
-            map[key] = map[key]! + Int(key.asciiValue! - asciia)
-        }
-        
-        var arr = map.values.sorted(by: >)
-        var charArr: [Character] = Array(repeating: Character("*"), count: n)
-        var indexArr = 0
-        for num in arr {
-            let count = num / 100
-            let char = Character(Unicode.Scalar(asciia + UInt8(num % 100)))
-            
-            if count > (n+1)/2 { 
-                // repeat count larger than half of n, impossible
-                return String() 
-            }
-            for i in 0..<count {
-                if indexArr >= n { indexArr = 1 }
-                charArr[indexArr] = char
-                indexArr += 2
+
+        vector<pair<char, int>> elems(map.begin(), map.end());
+        sort(elems.begin(), elems.end(), [](pair<char, int> p1, pair<char, int> p2) { return p1.second > p2.second; });
+
+        vector<char> charArr(n, '*');
+        int index = 0;
+        for (pair<char, int> ele : elems) {
+            char c = ele.first;
+            int  v = ele.second;
+            if (v > (n+1)/2) { return ""; }
+            for (int i = 0; i < v; i++) {
+                if (index >= n) { index = 1; }
+                charArr[index] = c;
+                index += 2;
             }
         }
-        
-        return String(charArr)
+
+        string res = "";
+        for (char c : charArr) {
+            res += c;
+        }
+        return res;
     }
-}
+};
