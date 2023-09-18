@@ -3,43 +3,43 @@ Given a m * n matrix mat of ones (representing soldiers) and zeros (representing
 
 A row i is weaker than row j, if the number of soldiers in row i is less than the number of soldiers in row j, or they have the same number of soldiers but i is less than j. Soldiers are always stand in the frontier of a row, that is, always ones may appear first and then zeros.
 
- 
+
 
 Example 1:
 
-Input: mat = 
+Input: mat =
 [[1,1,0,0,0],
  [1,1,1,1,0],
  [1,0,0,0,0],
  [1,1,0,0,0],
- [1,1,1,1,1]], 
+ [1,1,1,1,1]],
 k = 3
 Output: [2,0,3]
-Explanation: 
-The number of soldiers for each row is: 
-row 0 -> 2 
-row 1 -> 4 
-row 2 -> 1 
-row 3 -> 2 
-row 4 -> 5 
+Explanation:
+The number of soldiers for each row is:
+row 0 -> 2
+row 1 -> 4
+row 2 -> 1
+row 3 -> 2
+row 4 -> 5
 Rows ordered from the weakest to the strongest are [2,0,3,1,4]
 Example 2:
 
-Input: mat = 
+Input: mat =
 [[1,0,0,0],
  [1,1,1,1],
  [1,0,0,0],
- [1,0,0,0]], 
+ [1,0,0,0]],
 k = 2
 Output: [0,2]
-Explanation: 
-The number of soldiers for each row is: 
-row 0 -> 1 
-row 1 -> 4 
-row 2 -> 1 
-row 3 -> 1 
+Explanation:
+The number of soldiers for each row is:
+row 0 -> 1
+row 1 -> 4
+row 2 -> 1
+row 3 -> 1
 Rows ordered from the weakest to the strongest are [0,2,3,1]
- 
+
 
 Constraints:
 
@@ -49,6 +49,46 @@ n == mat[i].length
 1 <= k <= m
 matrix[i][j] is either 0 or 1.
 */
+
+/*
+Solution 2:
+iterate by column once find 0 in the mat, put current row into weakest rows
+
+Time Complexity: O(mn)
+Space Complexity: O(k + m)
+*/
+class Solution {
+    func kWeakestRows(_ mat: [[Int]], _ k: Int) -> [Int] {
+        var arr = Array(repeating: 0, count: k)
+        var index = 0
+        let m = mat.count
+        let n = mat[0].count
+        // record the rows which already put into weakest rows
+        var visited = Array(repeating: false, count: m)
+        for j in 0..<n {
+            for i in 0..<m {
+                // print(index, i, j, arr)
+                if !visited[i], mat[i][j] == 0 {
+                    visited[i] = true
+                    arr[index] = i
+                    index += 1
+                    if (index == k) {
+                        return arr
+                    }
+                }
+            }
+        }
+        // put all soldiers array into weakest rows
+        for i in 0..<m {
+            if !visited[i] {
+                arr[index] = i
+                index += 1
+                if (index == k) { break }
+            }
+        }
+        return arr
+    }
+}
 
 /*
 Solution 1
@@ -62,11 +102,11 @@ class Solution {
     func kWeakestRows(_ mat: [[Int]], _ k: Int) -> [Int] {
         let m = mat.count
         let n = mat[0].count
-        
+
         let soldiers = Array(0..<m).map {
             countSoldier(mat[$0])
         }
-        
+
         var sorted = soldiers.enumerated()
         .sorted { (first, second) -> Bool in
             return first.element == second.element
@@ -74,10 +114,10 @@ class Solution {
                 : first.element < second.element
         }
         .map { $0.offset }
-        
+
         return Array(sorted[0..<k])
     }
-    
+
     // arr will be first 1, then zero
     // binary search last one
     func countSoldier(_ arr: [Int]) -> Int {
