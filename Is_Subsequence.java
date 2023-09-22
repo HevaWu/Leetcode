@@ -32,26 +32,17 @@ iterate two string, see if can map them until end of s
 Time Complexity: O(max(ns, nt))
 Space Complexity: O(ns + nt)
 */
-class Solution {
-    func isSubsequence(_ s: String, _ t: String) -> Bool {
-        var s = Array(s)
-        var si = 0
-        var sn = s.count
-        if sn == 0, t.count == 0 {
-            return true
-        }
-        if t.count < sn {
-            return false
+public class Solution {
+    public boolean isSubsequence(String s, String t) {
+        if(s.length()==0) return true;
+        int index = 0;
+        for(char c:t.toCharArray()){
+            if(s.charAt(index)==c){
+                index++;
+                if(index==s.length()) return true;
+            }
         }
 
-        for ti in t.indices {
-            if si < sn, s[si] == t[ti] {
-                si += 1
-            }
-            if si == sn {
-                return true
-            }
-        }
-        return false
+        return false;
     }
 }
