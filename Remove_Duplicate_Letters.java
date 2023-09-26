@@ -20,23 +20,11 @@ Subscribe to see which companies asked this question
 Hide Tags Stack Greedy
 */
 
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////
-//C++
-
-
-
-
 /*O(26n)=O(n)
 recursively do this function
 1. record the repeat times of each character
 2. find the position for the smallest s[i]
 3. current s.pos + the remainning string replace all the current s.pos*/
-
-/////////////////////////////////////////////////////////////////////////////////////
-//Java
 public class Solution {
     public String removeDuplicateLetters(String s) {
         int[] str = new int[26];
