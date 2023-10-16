@@ -97,6 +97,7 @@ arr.iterator().next(); // iterate over array list
 numsList.add(0, 1); // add 1 at 0 index
 arr.remove(arr.size()-1); // remove last element int the list
 List<Plant> copy = new ArrayList<>(list); // copy list
+new ArrayList<>(){{add(1);}}; // convert array to list
 
 // ======= Queue =======　
 Queue<TreeNode> q = new LinkedList<>(); // offer() insert element, poll return and remove first, peek return but not remove
