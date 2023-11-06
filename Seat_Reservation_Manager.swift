@@ -1,0 +1,100 @@
+/*
+Design a system that manages the reservation state of n seats that are numbered from 1 to n.
+
+Implement the SeatManager class:
+
+SeatManager(int n) Initializes a SeatManager object that will manage n seats numbered from 1 to n. All seats are initially available.
+int reserve() Fetches the smallest-numbered unreserved seat, reserves it, and returns its number.
+void unreserve(int seatNumber) Unreserves the seat with the given seatNumber.
+
+
+Example 1:
+
+Input
+["SeatManager", "reserve", "reserve", "unreserve", "reserve", "reserve", "reserve", "reserve", "unreserve"]
+[[5], [], [], [2], [], [], [], [], [5]]
+Output
+[null, 1, 2, null, 2, 3, 4, 5, null]
+
+Explanation
+SeatManager seatManager = new SeatManager(5); // Initializes a SeatManager with 5 seats.
+seatManager.reserve();    // All seats are available, so return the lowest numbered seat, which is 1.
+seatManager.reserve();    // The available seats are [2,3,4,5], so return the lowest of them, which is 2.
+seatManager.unreserve(2); // Unreserve seat 2, so now the available seats are [2,3,4,5].
+seatManager.reserve();    // The available seats are [2,3,4,5], so return the lowest of them, which is 2.
+seatManager.reserve();    // The available seats are [3,4,5], so return the lowest of them, which is 3.
+seatManager.reserve();    // The available seats are [4,5], so return the lowest of them, which is 4.
+seatManager.reserve();    // The only available seat is seat 5, so return 5.
+seatManager.unreserve(5); // Unreserve seat 5, so now the available seats are [5].
+
+
+Constraints:
+
+1 <= n <= 105
+1 <= seatNumber <= n
+For each call to reserve, it is guaranteed that there will be at least one unreserved seat.
+For each call to unreserve, it is guaranteed that seatNumber will be reserved.
+At most 105 calls in total will be made to reserve and unreserve.
+*/
+
+/*
+Solution 1:
+use arr to store current unreserved number
+
+Time Complexity:
+- reserve: O(1)
+- unreserve: O(logn)
+Space Complexity:
+- reserve: O(1)
+- unreserve: O(1)
+*/
+class SeatManager {
+    var arr: [Int]
+
+    init(_ n: Int) {
+        arr = Array(1...n)
+    }
+
+    func reserve() -> Int {
+        return arr.removeFirst()
+    }
+
+    func unreserve(_ seatNumber: Int) {
+        if arr.isEmpty {
+            arr.append(seatNumber)
+            return
+        }
+        if seatNumber < arr[0] {
+            arr.insert(seatNumber, at: 0)
+            return
+        }
+
+        // binary search to insert it back
+        var l = 0
+        var r = arr.count-1
+        while l < r {
+            let mid = l + (r-l)/2
+            if arr[mid] < seatNumber {
+                l = mid + 1
+            } else {
+                r = mid
+            }
+        }
+        if arr[l] < seatNumber {
+            if l+1 < arr.count, arr[l+1] > seatNumber {
+                arr.insert(seatNumber, at: l+1)
+            }
+        } else {
+            if arr[l] > seatNumber {
+                arr.insert(seatNumber, at: l)
+            }
+        }
+    }
+}
+
+/**
+ * Your SeatManager object will be instantiated and called as such:
+ * let obj = SeatManager(n)
+ * let ret_1: Int = obj.reserve()
+ * obj.unreserve(seatNumber)
+ */
