@@ -74,3 +74,23 @@ class Solution {
         return false
     }
 }
+
+class Solution {
+    func makeGood(_ s: String) -> String {
+        var s = Array(s)
+        var good = [Character]()
+        for c in s {
+            if !good.isEmpty, isInvalid(c, good.last!) {
+                good.removeLast()
+            } else {
+                good.append(c)
+            }
+        }
+        return String(good)
+    }
+
+    func isInvalid(_ c1: Character, _ c2: Character) -> Bool {
+        return (c1.isLowercase && c1.uppercased() == String(c2))
+        || (c2.isLowercase && c2.uppercased() == String(c1))
+    }
+}
