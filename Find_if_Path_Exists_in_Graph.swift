@@ -72,3 +72,38 @@ class Solution {
         return false
     }
 }
+
+/*
+Solution 2:
+BFS
+
+Time Complexity: O(n^2)
+Space Complexity: O(n^2)
+*/
+class Solution {
+    func validPath(_ n: Int, _ edges: [[Int]], _ source: Int, _ destination: Int) -> Bool {
+        if source == destination { return true }
+        var graph = Array(repeating: [Int](), count: n)
+        for e in edges {
+            graph[e[0]].append(e[1])
+            graph[e[1]].append(e[0])
+        }
+
+        var visited = Array(repeating: false, count: n)
+        var queue = [source]
+        visited[source] = true
+        while !queue.isEmpty {
+            let cur = queue.removeFirst()
+            for next in graph[cur] {
+                if !visited[next] {
+                    if next == destination {
+                        return true
+                    }
+                    visited[next] = true
+                    queue.append(next)
+                }
+            }
+        }
+        return false
+    }
+}
