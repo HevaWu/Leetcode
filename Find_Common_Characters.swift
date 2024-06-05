@@ -24,6 +24,47 @@ words[i] consists of lowercase English letters.
 */
 
 /*
+Solution 2:
+keep record the lowercase character frequency in charArr
+for each word, compare the charArr and current word char frequency
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+class Solution {
+    func commonChars(_ words: [String]) -> [String] {
+        let a = Character("a").asciiValue!
+        // record the frequency of lowercase char array of common characters
+        var charArr = Array(repeating: 0, count: 26)
+        let n = words.count
+        for i in 0..<n {
+            var cur = Array(repeating: 0, count: 26)
+            for c in words[i] {
+                let index = Int(c.asciiValue! - a)
+                cur[index] += 1
+            }
+
+            if i > 0 {
+                for j in 0..<26 {
+                    charArr[j] = min(charArr[j], cur[j])
+                }
+            } else {
+                charArr = cur
+            }
+        }
+
+        var res = [String]()
+        for i in 0..<26 {
+            if charArr[i] > 0 {
+                let str = String(UnicodeScalar(Int(a)+i)!)
+                res.append(contentsOf: Array(repeating: str, count: charArr[i]))
+            }
+        }
+        return res
+    }
+}
+
+/*
 Solution 1:
 map
 
