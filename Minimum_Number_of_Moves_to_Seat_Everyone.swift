@@ -51,6 +51,7 @@ n == seats.length == students.length
 
 /*
 Solution 1:
+To make sure the minimum move
 sort each array, then sum the abs for each element
 
 Time Complexity: O(n)
