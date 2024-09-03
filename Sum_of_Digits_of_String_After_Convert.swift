@@ -44,6 +44,33 @@ s consists of lowercase English letters.
 
 class Solution {
     func getLucky(_ s: String, _ k: Int) -> Int {
+        let a = Character("a").asciiValue!
+
+        var num = 0
+        for c in s {
+            var index = Int(c.asciiValue! - a) + 1 // +1 to get proper index
+            while index > 0 {
+                num += (index % 10)
+                index /= 10
+            }
+        }
+
+        var k = k - 1
+        while k > 0 {
+            k -= 1
+            var tmp = num
+            num = 0
+            while tmp > 0 {
+                num += (tmp % 10)
+                tmp /= 10
+            }
+        }
+        return num
+    }
+}
+
+class Solution {
+    func getLucky(_ s: String, _ k: Int) -> Int {
         var s = Array(s).reduce(into: "") { res, next in
             res += getChar(next)
         }
