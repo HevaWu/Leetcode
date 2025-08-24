@@ -3,7 +3,7 @@ Given a binary array nums, you should delete one element from it.
 
 Return the size of the longest non-empty subarray containing only 1's in the resulting array. Return 0 if there is no such subarray.
 
- 
+
 
 Example 1:
 
@@ -20,13 +20,51 @@ Example 3:
 Input: nums = [1,1,1]
 Output: 2
 Explanation: You must delete one element.
- 
+
 
 Constraints:
 
 1 <= nums.length <= 105
 nums[i] is either 0 or 1.
 */
+
+/*
+Solution 2:
+use prev, space, cur to record previous continuos 1 subarray, the space between prev and cur, and current continuos 1 subarray
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+class Solution {
+    func longestSubarray(_ nums: [Int]) -> Int {
+        // record the previous continuous 1 subarry
+        var prev = 0
+        // record 0 between prev and cur
+        var space = 0
+        // record the current continuous 1 subarray
+        var cur = 0
+
+        var longest = 0
+        for num in nums {
+            if num == 1 {
+                cur += 1
+            } else {
+                if space == 1 {
+                    longest = max(longest, prev + cur)
+                }
+                longest = max(longest, cur - 1)
+                prev = cur
+                cur = 0
+                space = 1
+            }
+        }
+        if space == 1 {
+            longest = max(longest, prev + cur)
+        }
+        longest = max(longest, cur - 1)
+        return longest
+    }
+}
 
 /*
 Solution 1:
